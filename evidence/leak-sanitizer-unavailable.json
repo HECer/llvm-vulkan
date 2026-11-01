@@ -1,0 +1,24 @@
+{
+  "asan_options": "detect_leaks=1:halt_on_error=1",
+  "ubsan_options": "halt_on_error=1:print_stacktrace=1",
+  "results": [
+    {
+      "backend": "cpu",
+      "command": [
+        "/tmp/lv-core-validation/lv-core-tests-sanitized",
+        "--backend",
+        "cpu",
+        "--device",
+        "cpu",
+        "--seed",
+        "5090",
+        "--cases",
+        "64"
+      ],
+      "returncode": 1,
+      "wall_seconds": 0.129168135998043,
+      "stdout": "",
+      "stderr": "==6==LeakSanitizer has encountered a fatal error.\n==6==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1\n==6==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)\n"
+    }
+  ]
+}

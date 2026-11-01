@@ -1,0 +1,10 @@
+{
+  "test": "upstream-llvm-instcombine-constant-oracle",
+  "cases": 8192,
+  "seed": 5090,
+  "backend": "vulkan",
+  "device_request": "any",
+  "passed": true,
+  "mismatches": [],
+  "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=8192 changed=8192 total_ms=7.427579e+01 vulkan_calls=2 cpu_calls=0 dispatches=2 uploaded=151224 downloaded=85688 verification=disabled\n"
+}

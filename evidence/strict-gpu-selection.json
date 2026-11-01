@@ -1,0 +1,6 @@
+{
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "FAIL: no Vulkan 1.1 compute device matches requested type/name; no CPU fallback performed\n",
+  "passed": true
+}

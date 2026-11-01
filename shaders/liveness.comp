@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Off { uint offsets[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Edge { uint edges[]; };
+layout(set = 0, binding = 2, std430) readonly buffer Before { uint before[]; };
+layout(set = 0, binding = 3, std430) writeonly buffer After { uint after[]; };
+layout(set = 0, binding = 4, std430) readonly buffer Gen { uint gen[]; };
+layout(set = 0, binding = 5, std430) readonly buffer Kill { uint kill[]; };
+layout(set = 0, binding = 6, std430) buffer Changed { uint changed; };
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.n)
+    return;
+  uint v = i / p.a, w = i % p.a, bits = 0u;
+  for (uint j = offsets[v]; j < offsets[v + 1u]; ++j)
+    bits |= before[edges[j] * p.a + w];
+  bits = gen[i] | (bits & ~kill[i]);
+  after[i] = bits;
+  if (bits != before[i])
+    atomicOr(changed, 1u);
+}

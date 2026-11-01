@@ -1,0 +1,135 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Input { uvec4 tasks[]; };
+layout(set = 0, binding = 1, std430) writeonly buffer Output {
+  uvec2 results[];
+};
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+int sx(uint x, uint w) { return int(x << (32u - w)) >> int(32u - w); }
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.n)
+    return;
+  uvec4 t = tasks[i];
+  uint op = t.x, w = t.y;
+  if (w < 1u || w > 32u || op > 22u) {
+    results[i] = uvec2(0);
+    return;
+  }
+  uint mask = w == 32u ? 0xffffffffu : ((1u << w) - 1u);
+  uint a = t.z & mask, b = t.w & mask, v = 0u;
+  int sa = sx(a, w), sb = sx(b, w);
+  bool ok = true;
+  switch (op) {
+  case 0u:
+    v = a + b;
+    break;
+  case 1u:
+    v = a - b;
+    break;
+  case 2u:
+    v = a * b;
+    break;
+  case 3u:
+    v = a & b;
+    break;
+  case 4u:
+    v = a | b;
+    break;
+  case 5u:
+    v = a ^ b;
+    break;
+  case 6u:
+    if (b >= w)
+      ok = false;
+    else
+      v = a << b;
+    break;
+  case 7u:
+    if (b >= w)
+      ok = false;
+    else
+      v = a >> b;
+    break;
+  case 8u:
+    if (b >= w)
+      ok = false;
+    else
+      v = uint(sa >> int(b));
+    break;
+  case 9u:
+    if (b == 0u)
+      ok = false;
+    else
+      v = a / b;
+    break;
+  case 10u:
+    if (sb == 0 || (a == (1u << (w - 1u)) && sb == -1))
+      ok = false;
+    else {
+      uint ua = sa < 0 ? 0u - uint(sa) : uint(sa),
+           ub = sb < 0 ? 0u - uint(sb) : uint(sb);
+      uint q = ua / ub;
+      v = (sa < 0) != (sb < 0) ? 0u - q : q;
+    }
+    break;
+  case 11u:
+    if (b == 0u)
+      ok = false;
+    else
+      v = a % b;
+    break;
+  case 12u:
+    if (sb == 0 || (a == (1u << (w - 1u)) && sb == -1))
+      ok = false;
+    else {
+      uint ua = sa < 0 ? 0u - uint(sa) : uint(sa),
+           ub = sb < 0 ? 0u - uint(sb) : uint(sb);
+      uint r = ua % ub;
+      v = sa < 0 ? 0u - r : r;
+    }
+    break;
+  case 13u:
+    v = uint(a == b);
+    break;
+  case 14u:
+    v = uint(a != b);
+    break;
+  case 15u:
+    v = uint(a < b);
+    break;
+  case 16u:
+    v = uint(a <= b);
+    break;
+  case 17u:
+    v = uint(a > b);
+    break;
+  case 18u:
+    v = uint(a >= b);
+    break;
+  case 19u:
+    v = uint(sa < sb);
+    break;
+  case 20u:
+    v = uint(sa <= sb);
+    break;
+  case 21u:
+    v = uint(sa > sb);
+    break;
+  case 22u:
+    v = uint(sa >= sb);
+    break;
+  }
+  results[i] = ok ? uvec2(v & mask, 1u) : uvec2(0);
+}

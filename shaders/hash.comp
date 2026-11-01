@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Words { uint words[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Off { uint offsets[]; };
+layout(set = 0, binding = 2, std430) writeonly buffer Hashes { uint hashes[]; };
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.n)
+    return;
+  uint h = 2166136261u;
+  for (uint j = offsets[i]; j < offsets[i + 1u]; ++j)
+    for (uint b = 0u; b < 4u; ++b)
+      h = (h ^ ((words[j] >> (b * 8u)) & 255u)) * 16777619u;
+  hashes[i] = h;
+}

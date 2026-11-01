@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-11-01",
+  "repository": "https://github.com/llvm/llvm-project.git",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "default_channel": "main",
+  "main": {
+    "version": "24.0.0git",
+    "commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+    "commit_time_utc": "2026-11-01T17:09:48Z",
+    "tree": "99dfdb43f16536d75cd6ccd0add4925ceafd5f64",
+    "archive_url": "https://codeload.github.com/llvm/llvm-project/tar.gz/b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+    "archive_filename": "llvm-project-b8ef6b0ed582fb5a235e7989685f5b188c620dc1.tar.gz",
+    "archive_sha256": "f90c720319b2b4cb834a86b9c6f8817b1a831313ab0ed70614921d446a59cd57",
+    "archive_bytes": 323324596,
+    "archive_digest_provenance": "Locally computed from the complete downloaded GitHub codeload archive; immutable commit verified through GitHub REST API.",
+    "version_file_sha256": "b5ea015164d3e4093be2444c1d5b535f343a7c4ec83dfd365abecb2d8188aa39",
+    "evidence": [
+      "https://api.github.com/repos/llvm/llvm-project/commits/b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+      "https://github.com/llvm/llvm-project/blob/b8ef6b0ed582fb5a235e7989685f5b188c620dc1/cmake/Modules/LLVMVersion.cmake"
+    ]
+  },
+  "release": {
+    "version": "23.1.4",
+    "tag": "llvmorg-23.1.4",
+    "commit": "7a941dfb2877a0b8cf30323fefa85ad019e0b0f5",
+    "tag_object": "f2c432f21b5e6f96157b1720857b472dc487fa49",
+    "published_utc": "2026-10-20T13:03:13Z",
+    "archive_url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.4/llvm-project-23.1.4.src.tar.xz",
+    "archive_filename": "llvm-project-23.1.4.src.tar.xz",
+    "archive_sha256": "819ecf7351f1a66f76b2d701d8942faaf5faeb324cb90c9d5b090de142434bb2",
+    "archive_bytes": 179272572,
+    "archive_digest_provenance": "Published SHA256 digest from GitHub release asset API, not a local release-source download.",
+    "version_file_sha256": "f453685d075a58d1f16453b04bf681588d27d6c3517023c5a2b685ef56f33688",
+    "evidence": [
+      "https://github.com/llvm/llvm-project/releases/tag/llvmorg-23.1.4",
+      "https://api.github.com/repos/llvm/llvm-project/git/tags/f2c432f21b5e6f96157b1720857b472dc487fa49",
+      "https://github.com/llvm/llvm-project/blob/llvmorg-23.1.4/cmake/Modules/LLVMVersion.cmake"
+    ]
+  }
+}

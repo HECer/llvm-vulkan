@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-01T17:52:02.855040+00:00",
+  "scope": "Build and executable version checks for pinned upstream LLVM source only; plugin/primitive/corpus validation is recorded separately.",
+  "llvm_source_commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+  "llvm_version": "24.0.0git",
+  "source_archive_sha256": "f90c720319b2b4cb834a86b9c6f8817b1a831313ab0ed70614921d446a59cd57",
+  "source_version_file_sha256": "b5ea015164d3e4093be2444c1d5b535f343a7c4ec83dfd365abecb2d8188aa39",
+  "configuration": {
+    "CMAKE_BUILD_TYPE": "Release",
+    "LLVM_TARGETS_TO_BUILD": "X86",
+    "LLVM_ENABLE_PROJECTS": "",
+    "LLVM_BUILD_LLVM_DYLIB": "ON",
+    "LLVM_LINK_LLVM_DYLIB": "ON",
+    "LLVM_INCLUDE_TESTS": "OFF",
+    "LLVM_INCLUDE_BENCHMARKS": "OFF",
+    "LLVM_ENABLE_ASSERTIONS": "ON",
+    "LLVM_ENABLE_RTTI": "OFF",
+    "LLVM_ENABLE_ZSTD": "OFF",
+    "LLVM_ENABLE_ZLIB": "OFF",
+    "LLVM_ENABLE_LIBXML2": "OFF",
+    "LLVM_ENABLE_CURL": "OFF",
+    "LLVM_ENABLE_LIBEDIT": "OFF",
+    "LLVM_ENABLE_Z3_SOLVER": "OFF",
+    "LLVM_ENABLE_BINDINGS": "OFF",
+    "LLVM_PARALLEL_LINK_JOBS": "1"
+  },
+  "compile_parallelism": 4,
+  "bootstrap_compiler": {
+    "exit_code": 0,
+    "stdout": "Ubuntu clang version 20.1.2 (0ubuntu1~24.04.3)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /workspace/scratch/79a5fcee7ac8/tooling/sysroot/usr/lib/llvm-20/bin",
+    "stderr": ""
+  },
+  "bootstrap_linker": {
+    "exit_code": 0,
+    "stdout": "Ubuntu LLD 20.1.2 (compatible with GNU linkers)",
+    "stderr": ""
+  },
+  "configure_exit_code": 0,
+  "primary_build": {
+    "targets": [
+      "opt",
+      "lli",
+      "llvm-config"
+    ],
+    "exit_code": 0,
+    "ninja_steps": 2290,
+    "configure_and_build_elapsed_seconds": 1366.8004121780396
+  },
+  "llc_followup_build": {
+    "targets": [
+      "llc"
+    ],
+    "exit_code": 0,
+    "ninja_steps": 5,
+    "elapsed_seconds": 4.6565868854522705
+  },
+  "tool_version_checks": {
+    "opt": {
+      "exit_code": 0,
+      "stdout": "LLVM (http://llvm.org/):\n  LLVM version 24.0.0git\n  Optimized build with assertions.\n  Default target: x86_64-unknown-linux-gnu\n  Host CPU: znver4",
+      "stderr": ""
+    },
+    "lli": {
+      "exit_code": 0,
+      "stdout": "LLVM (http://llvm.org/):\n  LLVM version 24.0.0git\n  Optimized build with assertions.",
+      "stderr": ""
+    },
+    "llc": {
+      "exit_code": 0,
+      "stdout": "LLVM (http://llvm.org/):\n  LLVM version 24.0.0git\n  Optimized build with assertions.\n  Default target: x86_64-unknown-linux-gnu\n  Host CPU: znver4\n\n  Registered Targets:\n    x86    - 32-bit X86: Pentium-Pro and above\n    x86-64 - 64-bit X86: EM64T and AMD64",
+      "stderr": ""
+    },
+    "llvm-config": {
+      "exit_code": 0,
+      "stdout": "24.0.0git",
+      "stderr": ""
+    }
+  },
+  "llvm_config_properties": {
+    "--assertion-mode": {
+      "exit_code": 0,
+      "stdout": "ON",
+      "stderr": ""
+    },
+    "--shared-mode": {
+      "exit_code": 0,
+      "stdout": "static",
+      "stderr": ""
+    },
+    "--has-rtti": {
+      "exit_code": 0,
+      "stdout": "NO",
+      "stderr": ""
+    },
+    "--targets-built": {
+      "exit_code": 0,
+      "stdout": "X86",
+      "stderr": ""
+    },
+    "--build-mode": {
+      "exit_code": 0,
+      "stdout": "Release",
+      "stderr": ""
+    },
+    "--link-shared --shared-mode core": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "llvm-config: error: libLLVM-24git.so is missing"
+    }
+  },
+  "built_files": {
+    "bin/opt": {
+      "bytes": 312536,
+      "sha256": "2fce2929bf91d1ea6e9a7540d2f0ca07f99d751996f7757b3d1d3e238fa63959"
+    },
+    "bin/lli": {
+      "bytes": 257696,
+      "sha256": "b418a4637f9071014e67be72725534f9abd40e4afeddfcdc8be9b029df5a30bd"
+    },
+    "bin/llc": {
+      "bytes": 223288,
+      "sha256": "46f8060f2aad687967c46a9c677457ed8b7cb0302939eb79af91db08f9f2de4b"
+    },
+    "bin/llvm-config": {
+      "bytes": 413856,
+      "sha256": "965167d709de66f322abdecbf5776890d430f2202d30ca6fa7614ccf27d3b87a"
+    },
+    "lib/libLLVM.so.24.0git": {
+      "bytes": 105391624,
+      "sha256": "7ccbe41c66f8ffb0a0fa54333a2ce2683dcf0da998d6599166acdeaacb8713cc"
+    }
+  },
+  "logs_retained_in_workspace": {
+    "llvm-configure.log": {
+      "bytes": 9177,
+      "sha256": "bb335670fa378738f2bbf8c83f0472a9c4dd982c4f2234e6db48cc77070c5646"
+    },
+    "llvm-build.log": {
+      "bytes": 220796,
+      "sha256": "4a37cdc9cde0abbbd2b8fb5f81489b8f0da36968e594984b6401a472752f18ad"
+    },
+    "llvm-llc-build.log": {
+      "bytes": 510,
+      "sha256": "56ae8beeeb5ae138df9ca02d398942e5bd41f0f951f9ad2d14d4cda1d699207d"
+    },
+    "llvm-configure-command.json": {
+      "bytes": 1134,
+      "sha256": "9961c285e33f53c823e8a8c715df55c4c80dd4930d0f258405cd00c5bee8fd87"
+    },
+    "llvm-build-command.json": {
+      "bytes": 184,
+      "sha256": "fd18f608ad08d99ef083f291b1eff8e629ae2a883922e9b2da111b934c1242a9"
+    },
+    "llvm-llc-command.json": {
+      "bytes": 158,
+      "sha256": "cb40b93f39fb1aad337b7998de9e03c6e6d655eacf40ea66c28ecb59bc5103d0"
+    }
+  },
+  "nonfatal_notes": [
+    "LLVM_ENABLE_TERMINFO was unused by this main-source CMake configuration.",
+    "clang20 warned that an absolute -fuse-ld= path is deprecated; all links succeeded.",
+    "In the uninstalled build tree, llvm-config --shared-mode reports static and explicit shared flags fail looking for libLLVM-24git.so. Upstream llvm-shlib CMake installs that compatibility symlink at installation time; the build itself produced libLLVM.so.24.0git. opt dynamically loads the latter successfully. Downstream CMake integration through the imported LLVM target succeeded and was validated separately. No manual alias or LLVM source patch was introduced."
+  ],
+  "upstream_test_suite_run": false,
+  "physical_gpu_test_run": false,
+  "all_monorepo_projects_built": false,
+  "whole_compiler_port_claim": false,
+  "opt_dynamic_llvm_dependencies": [
+    {
+      "soname": "libLLVM.so.24.0git",
+      "resolved_build_relative_path": "lib/libLLVM.so.24.0git"
+    }
+  ],
+  "shared_link_query_issue": {
+    "status": "uninstalled-build-tree compatibility filename absent",
+    "query": [
+      "llvm-config",
+      "--link-shared",
+      "--shared-mode",
+      "core"
+    ],
+    "exit_code": 1,
+    "missing_name": "libLLVM-24git.so",
+    "actual_library": "libLLVM.so.24.0git",
+    "upstream_source": "llvm/tools/llvm-shlib/CMakeLists.txt",
+    "upstream_generated_install_script": "tools/llvm-shlib/cmake_install.cmake",
+    "installed_compatibility_symlink": "libLLVM-24git.so -> libLLVM.so.24.0git",
+    "manual_alias_created": false,
+    "llvm_source_modified": false,
+    "integration_route": "CMake imported LLVM target; downstream validation recorded separately"
+  }
+}

@@ -1,0 +1,150 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+#extension GL_EXT_shader_explicit_arithmetic_types_int64 : require
+layout(local_size_x = 128) in;
+struct Request {
+  uint op;
+  uint width;
+  uint64_t lhs;
+  uint64_t rhs;
+};
+struct Result {
+  uint64_t value;
+  uint valid;
+  uint reserved;
+};
+layout(set = 0, binding = 0, std430) readonly buffer Input { Request tasks[]; };
+layout(set = 0, binding = 1, std430) writeonly buffer Output {
+  Result results[];
+};
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.n)
+    return;
+  Request t = tasks[i];
+  uint w = t.width, op = t.op;
+  if (w < 1u || w > 64u || op > 22u) {
+    results[i] = Result(uint64_t(0), 0u, 0u);
+    return;
+  }
+  uint64_t mask = w == 64u ? ~uint64_t(0) : (uint64_t(1) << w) - uint64_t(1);
+  uint64_t sign = uint64_t(1) << (w - 1u), a = t.lhs & mask, b = t.rhs & mask,
+           v = uint64_t(0);
+  bool an = (a & sign) != uint64_t(0), bn = (b & sign) != uint64_t(0);
+  uint64_t ma = an ? (uint64_t(0) - a) & mask : a,
+           mb = bn ? (uint64_t(0) - b) & mask : b;
+  bool slt = an != bn ? an : a < b, ok = true;
+  switch (op) {
+  case 0u:
+    v = a + b;
+    break;
+  case 1u:
+    v = a - b;
+    break;
+  case 2u:
+    v = a * b;
+    break;
+  case 3u:
+    v = a & b;
+    break;
+  case 4u:
+    v = a | b;
+    break;
+  case 5u:
+    v = a ^ b;
+    break;
+  case 6u:
+    if (b >= uint64_t(w))
+      ok = false;
+    else
+      v = a << uint(b);
+    break;
+  case 7u:
+    if (b >= uint64_t(w))
+      ok = false;
+    else
+      v = a >> uint(b);
+    break;
+  case 8u:
+    if (b >= uint64_t(w))
+      ok = false;
+    else {
+      v = a >> uint(b);
+      if (an && b != uint64_t(0))
+        v |= mask ^ (mask >> uint(b));
+    }
+    break;
+  case 9u:
+    if (b == uint64_t(0))
+      ok = false;
+    else
+      v = a / b;
+    break;
+  case 10u:
+    if (b == uint64_t(0) || (a == sign && b == mask))
+      ok = false;
+    else {
+      v = ma / mb;
+      if (an != bn)
+        v = uint64_t(0) - v;
+    }
+    break;
+  case 11u:
+    if (b == uint64_t(0))
+      ok = false;
+    else
+      v = a % b;
+    break;
+  case 12u:
+    if (b == uint64_t(0) || (a == sign && b == mask))
+      ok = false;
+    else {
+      v = ma % mb;
+      if (an)
+        v = uint64_t(0) - v;
+    }
+    break;
+  case 13u:
+    v = uint64_t(a == b);
+    break;
+  case 14u:
+    v = uint64_t(a != b);
+    break;
+  case 15u:
+    v = uint64_t(a < b);
+    break;
+  case 16u:
+    v = uint64_t(a <= b);
+    break;
+  case 17u:
+    v = uint64_t(a > b);
+    break;
+  case 18u:
+    v = uint64_t(a >= b);
+    break;
+  case 19u:
+    v = uint64_t(slt);
+    break;
+  case 20u:
+    v = uint64_t(slt || a == b);
+    break;
+  case 21u:
+    v = uint64_t(!slt && a != b);
+    break;
+  case 22u:
+    v = uint64_t(!slt);
+    break;
+  }
+  results[i] = ok ? Result(v & mask, 1u, 0u) : Result(uint64_t(0), 0u, 0u);
+}

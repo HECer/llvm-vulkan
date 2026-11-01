@@ -1,0 +1,4864 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+  "version": "24.0.0git",
+  "source_provenance": {
+    "commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+    "version": "24.0.0git",
+    "archive_sha256": "f90c720319b2b4cb834a86b9c6f8817b1a831313ab0ed70614921d446a59cd57",
+    "files_in_archive": 206321,
+    "uncompressed_bytes": 2414584714
+  },
+  "version_file_sha256": "b5ea015164d3e4093be2444c1d5b535f343a7c4ec83dfd365abecb2d8188aa39",
+  "scope": "Complete non-hidden regular-file inventory; core textual pass registrations; syntactic TableGen pass declaration inventory.",
+  "limitations": [
+    "Directory/file enumeration is not a line-by-line semantic code review.",
+    "PassRegistry.def is not every legacy, generated, target-specific, MLIR or downstream pass.",
+    "The Vulkan plugin implements scoped alternative transformations, not copies of the full upstream passes.",
+    "No entry is marked ported merely because a similarly named GPU primitive exists."
+  ],
+  "totals": {
+    "bytes": 2413618309,
+    "files": 187974
+  },
+  "components": {
+    "(root files)": {
+      "files": 6,
+      "bytes": 19501,
+      "extensions": {
+        ".TXT": 1,
+        ".md": 4,
+        ".toml": 1
+      },
+      "implementation_files": 0,
+      "test_files": 0
+    },
+    "bolt": {
+      "files": 1328,
+      "bytes": 10089038,
+      "extensions": {
+        "(none)": 3,
+        ".S": 8,
+        ".TXT": 1,
+        ".c": 54,
+        ".cfg": 10,
+        ".cmake": 1,
+        ".cpp": 160,
+        ".css": 1,
+        ".dox": 1,
+        ".fdata": 5,
+        ".gdb-index": 7,
+        ".h": 114,
+        ".html": 3,
+        ".ico": 1,
+        ".in": 6,
+        ".ld": 3,
+        ".lds": 1,
+        ".ldscript": 1,
+        ".ll": 1,
+        ".lld_script": 1,
+        ".md": 15,
+        ".png": 2,
+        ".py": 11,
+        ".s": 546,
+        ".script": 1,
+        ".sh": 2,
+        ".test": 287,
+        ".txt": 45,
+        ".yaml": 37
+      },
+      "implementation_files": 232,
+      "test_files": 1035
+    },
+    "clang": {
+      "files": 35300,
+      "bytes": 412625781,
+      "extensions": {
+        "(none)": 175,
+        ".1": 1,
+        ".2": 1,
+        ".3": 2,
+        ".F90": 1,
+        ".S": 13,
+        ".TXT": 1,
+        ".a": 122,
+        ".apinotes": 55,
+        ".applescript": 1,
+        ".args": 2,
+        ".bat": 6,
+        ".bc": 172,
+        ".bfd": 18,
+        ".bin": 1,
+        ".c": 11171,
+        ".cc": 2,
+        ".cfg": 66,
+        ".cir": 393,
+        ".cl": 475,
+        ".clcpp": 53,
+        ".cmake": 41,
+        ".cmd": 20,
+        ".co": 1,
+        ".common": 1,
+        ".cpp": 11452,
+        ".cppm": 316,
+        ".css": 8,
+        ".cu": 359,
+        ".cuh": 1,
+        ".cxx": 1,
+        ".darwinold": 1,
+        ".dat": 2,
+        ".def": 61,
+        ".dia": 2,
+        ".dot": 15,
+        ".dox": 1,
+        ".dylib": 31,
+        ".el": 2,
+        ".example": 1,
+        ".exe": 1,
+        ".expected": 26,
+        ".exports": 5,
+        ".f90": 9,
+        ".f95": 1,
+        ".fixed": 1,
+        ".funcnames": 1,
+        ".gch": 2,
+        ".gif": 4,
+        ".gold": 16,
+        ".graffle": 1,
+        ".h": 3161,
+        ".h-0": 2,
+        ".h-1": 2,
+        ".hh": 1,
+        ".hip": 211,
+        ".hlsl": 1039,
+        ".hpp": 17,
+        ".html": 34,
+        ".i": 4,
+        ".ico": 2,
+        ".idx": 1,
+        ".ifs": 3,
+        ".ii": 1,
+        ".in": 17,
+        ".inc": 25,
+        ".incl": 2,
+        ".js": 7,
+        ".json": 366,
+        ".layout": 6,
+        ".lib": 4,
+        ".ll": 66,
+        ".lld": 5,
+        ".lld-23": 1,
+        ".lld-link2": 1,
+        ".m": 1829,
+        ".map": 26,
+        ".md": 138,
+        ".mm": 494,
+        ".model": 2,
+        ".modulemap": 361,
+        ".natvis": 1,
+        ".o": 1243,
+        ".pch": 4,
+        ".pl": 3,
+        ".plist": 38,
+        ".png": 20,
+        ".prof": 5,
+        ".proftext": 39,
+        ".proto": 2,
+        ".py": 117,
+        ".rc": 2,
+        ".remap": 1,
+        ".rng": 1,
+        ".rsp": 1,
+        ".s": 68,
+        ".samples": 1,
+        ".sarif": 5,
+        ".sh": 29,
+        ".so": 81,
+        ".supp": 1,
+        ".svg": 7,
+        ".syms": 8,
+        ".tbd": 3,
+        ".tcc": 1,
+        ".td": 120,
+        ".template": 7,
+        ".test": 190,
+        ".timestamp": 1,
+        ".toml": 1,
+        ".txt": 246,
+        ".utf16le": 1,
+        ".v1": 1,
+        ".v12": 1,
+        ".v3": 1,
+        ".v5": 2,
+        ".wav": 1,
+        ".x": 2,
+        ".xml": 44,
+        ".yaml": 59
+      },
+      "implementation_files": 2841,
+      "test_files": 31780
+    },
+    "clang-tools-extra": {
+      "files": 4061,
+      "bytes": 44865918,
+      "extensions": {
+        "(none)": 44,
+        ".CL": 1,
+        ".TXT": 2,
+        ".bat": 1,
+        ".c": 89,
+        ".cc": 1,
+        ".cfg": 1,
+        ".cl": 12,
+        ".cmake": 4,
+        ".cpp": 1982,
+        ".cppm": 1,
+        ".css": 4,
+        ".cu": 1,
+        ".cxx": 1,
+        ".dox": 1,
+        ".el": 2,
+        ".expected": 2,
+        ".h": 874,
+        ".hpp": 27,
+        ".html": 2,
+        ".idx": 1,
+        ".in": 10,
+        ".inc": 5,
+        ".ini": 1,
+        ".js": 3,
+        ".json": 11,
+        ".m": 23,
+        ".md": 502,
+        ".mm": 10,
+        ".modularize": 19,
+        ".modulemap": 10,
+        ".mustache": 15,
+        ".proto": 3,
+        ".py": 21,
+        ".rst": 121,
+        ".script": 4,
+        ".test": 111,
+        ".tmpl": 2,
+        ".txt": 103,
+        ".yaml": 26,
+        ".yml": 8
+      },
+      "implementation_files": 1276,
+      "test_files": 2029
+    },
+    "cmake": {
+      "files": 18,
+      "bytes": 35867,
+      "extensions": {
+        ".cmake": 17,
+        ".rst": 1
+      },
+      "implementation_files": 0,
+      "test_files": 0
+    },
+    "compiler-rt": {
+      "files": 4985,
+      "bytes": 41796499,
+      "extensions": {
+        "(none)": 14,
+        ".C": 3,
+        ".S": 300,
+        ".TXT": 3,
+        ".awk": 2,
+        ".bash": 1,
+        ".bat": 1,
+        ".c": 1140,
+        ".cfg": 1,
+        ".cmake": 24,
+        ".cpp": 2311,
+        ".css": 2,
+        ".cxx": 1,
+        ".def": 3,
+        ".disabled": 1,
+        ".exp": 1,
+        ".extra": 11,
+        ".gcov": 7,
+        ".h": 493,
+        ".hip": 25,
+        ".html": 1,
+        ".ignore": 1,
+        ".in": 43,
+        ".inc": 86,
+        ".incl": 1,
+        ".json": 2,
+        ".list": 1,
+        ".ll": 13,
+        ".m": 5,
+        ".md": 4,
+        ".mm": 36,
+        ".py": 98,
+        ".rc": 1,
+        ".s": 1,
+        ".sh": 11,
+        ".supp": 13,
+        ".test": 188,
+        ".txt": 136
+      },
+      "implementation_files": 1221,
+      "test_files": 3364
+    },
+    "cross-project-tests": {
+      "files": 398,
+      "bytes": 1202373,
+      "extensions": {
+        ".c": 31,
+        ".cfg": 19,
+        ".cl": 6,
+        ".cpp": 160,
+        ".dex": 7,
+        ".gdb": 2,
+        ".h": 2,
+        ".in": 1,
+        ".m": 3,
+        ".md": 7,
+        ".pl": 1,
+        ".py": 115,
+        ".test": 37,
+        ".txt": 7
+      },
+      "implementation_files": 174,
+      "test_files": 22
+    },
+    "flang": {
+      "files": 6379,
+      "bytes": 40238096,
+      "extensions": {
+        "(none)": 15,
+        ".CUF": 2,
+        ".F": 60,
+        ".F90": 109,
+        ".TXT": 1,
+        ".a": 1,
+        ".bc": 45,
+        ".bfd": 4,
+        ".c": 1,
+        ".cfg": 13,
+        ".cmake": 8,
+        ".cpp": 420,
+        ".css": 1,
+        ".cuf": 137,
+        ".def": 4,
+        ".dox": 1,
+        ".el": 1,
+        ".f": 39,
+        ".f03": 3,
+        ".f08": 1,
+        ".f90": 4022,
+        ".f95": 5,
+        ".fir": 620,
+        ".gold": 4,
+        ".h": 407,
+        ".in": 8,
+        ".inc": 6,
+        ".ll": 9,
+        ".lld": 1,
+        ".md": 97,
+        ".mlir": 182,
+        ".mod": 14,
+        ".o": 15,
+        ".png": 2,
+        ".prof": 2,
+        ".proftext": 2,
+        ".py": 13,
+        ".s": 1,
+        ".sh": 1,
+        ".td": 25,
+        ".txt": 77
+      },
+      "implementation_files": 785,
+      "test_files": 5408
+    },
+    "flang-rt": {
+      "files": 316,
+      "bytes": 2369689,
+      "extensions": {
+        ".TXT": 2,
+        ".c": 3,
+        ".cmake": 4,
+        ".cpp": 191,
+        ".f90": 39,
+        ".h": 55,
+        ".in": 5,
+        ".md": 1,
+        ".py": 3,
+        ".txt": 13
+      },
+      "implementation_files": 202,
+      "test_files": 79
+    },
+    "libc": {
+      "files": 9124,
+      "bytes": 98469948,
+      "extensions": {
+        "(none)": 1,
+        ".TXT": 1,
+        ".bin": 2,
+        ".c": 14,
+        ".cmake": 27,
+        ".cpp": 3914,
+        ".css": 1,
+        ".csv": 37,
+        ".def": 9,
+        ".h": 4350,
+        ".in": 1,
+        ".inc": 2,
+        ".json": 11,
+        ".ld": 1,
+        ".md": 67,
+        ".py": 31,
+        ".py3": 1,
+        ".sh": 1,
+        ".sollya": 2,
+        ".svg": 2,
+        ".txt": 472,
+        ".wc": 2,
+        ".yaml": 175
+      },
+      "implementation_files": 6149,
+      "test_files": 2322
+    },
+    "libclc": {
+      "files": 1039,
+      "bytes": 1357161,
+      "extensions": {
+        ".TXT": 2,
+        ".cfg": 2,
+        ".cl": 520,
+        ".cmake": 9,
+        ".h": 240,
+        ".html": 1,
+        ".in": 2,
+        ".inc": 244,
+        ".md": 2,
+        ".py": 2,
+        ".sh": 1,
+        ".test": 1,
+        ".txt": 13
+      },
+      "implementation_files": 483,
+      "test_files": 19
+    },
+    "libcxx": {
+      "files": 12655,
+      "bytes": 63467020,
+      "extensions": {
+        "(none)": 244,
+        ".TXT": 6,
+        ".abilist": 9,
+        ".cfg": 41,
+        ".cmake": 60,
+        ".cpp": 10045,
+        ".csv": 19,
+        ".dat": 13,
+        ".dockerfile": 2,
+        ".emulator": 1,
+        ".exp": 2,
+        ".h": 1793,
+        ".hpp": 33,
+        ".in": 30,
+        ".inc": 132,
+        ".ipp": 18,
+        ".json": 4,
+        ".md": 34,
+        ".mm": 22,
+        ".modulemap": 3,
+        ".plist": 1,
+        ".py": 85,
+        ".rst": 11,
+        ".sh": 15,
+        ".test": 3,
+        ".txt": 27,
+        ".yml": 2
+      },
+      "implementation_files": 1755,
+      "test_files": 10427
+    },
+    "libcxxabi": {
+      "files": 159,
+      "bytes": 6417118,
+      "extensions": {
+        ".S": 2,
+        ".TXT": 2,
+        ".cfg": 1,
+        ".cmake": 3,
+        ".cpp": 94,
+        ".css": 2,
+        ".def": 1,
+        ".exp": 10,
+        ".h": 13,
+        ".html": 2,
+        ".in": 13,
+        ".inc": 2,
+        ".py": 1,
+        ".s": 5,
+        ".sh": 1,
+        ".test": 1,
+        ".txt": 6
+      },
+      "implementation_files": 34,
+      "test_files": 99
+    },
+    "libsycl": {
+      "files": 165,
+      "bytes": 629776,
+      "extensions": {
+        ".cmake": 1,
+        ".cpp": 77,
+        ".hpp": 58,
+        ".in": 3,
+        ".md": 5,
+        ".py": 2,
+        ".test": 1,
+        ".txt": 18
+      },
+      "implementation_files": 74,
+      "test_files": 79
+    },
+    "libunwind": {
+      "files": 88,
+      "bytes": 936760,
+      "extensions": {
+        ".S": 3,
+        ".TXT": 1,
+        ".c": 4,
+        ".cmake": 2,
+        ".cpp": 34,
+        ".h": 14,
+        ".hpp": 9,
+        ".in": 9,
+        ".md": 2,
+        ".modulemap": 1,
+        ".py": 2,
+        ".s": 1,
+        ".txt": 6
+      },
+      "implementation_files": 30,
+      "test_files": 44
+    },
+    "lld": {
+      "files": 4182,
+      "bytes": 13355866,
+      "extensions": {
+        "(none)": 5,
+        ".1": 1,
+        ".TXT": 1,
+        ".asm": 1,
+        ".bat": 2,
+        ".bc": 1,
+        ".bmp": 2,
+        ".cfg": 4,
+        ".cmake": 2,
+        ".conf": 1,
+        ".cpp": 124,
+        ".css": 1,
+        ".def": 7,
+        ".elf": 1,
+        ".h": 107,
+        ".html": 3,
+        ".ico": 1,
+        ".in": 5,
+        ".inc": 1,
+        ".lib": 10,
+        ".ll": 445,
+        ".md": 18,
+        ".natvis": 3,
+        ".nix": 1,
+        ".o": 16,
+        ".obj": 20,
+        ".pdb": 2,
+        ".png": 7,
+        ".prof": 2,
+        ".py": 11,
+        ".rc": 2,
+        ".res": 7,
+        ".s": 2663,
+        ".script": 5,
+        ".sh": 1,
+        ".so": 9,
+        ".tbd": 13,
+        ".td": 5,
+        ".test": 532,
+        ".txt": 17,
+        ".ver": 1,
+        ".yaml": 122
+      },
+      "implementation_files": 232,
+      "test_files": 3892
+    },
+    "lldb": {
+      "files": 9841,
+      "bytes": 88213718,
+      "extensions": {
+        "(none)": 1209,
+        ".2": 1,
+        ".3": 3,
+        ".5pre": 1,
+        ".FileCheck": 1,
+        ".TXT": 2,
+        ".aarch64": 3,
+        ".amd64": 3,
+        ".bin": 1,
+        ".bz2": 4,
+        ".c": 595,
+        ".cc": 1,
+        ".cfg": 20,
+        ".check": 4,
+        ".cmake": 18,
+        ".core": 49,
+        ".cpp": 2479,
+        ".crash": 4,
+        ".css": 1,
+        ".d": 1,
+        ".dat": 160,
+        ".def": 3,
+        ".defs": 2,
+        ".dict": 2,
+        ".disasm": 3,
+        ".dmp": 9,
+        ".dox": 1,
+        ".ebnf": 1,
+        ".elf": 1,
+        ".exe": 3,
+        ".exports": 2,
+        ".h": 1456,
+        ".html": 1,
+        ".i": 136,
+        ".in": 34,
+        ".intelpt_trace": 2,
+        ".ips": 4,
+        ".js": 2,
+        ".json": 33,
+        ".list": 2,
+        ".ll": 10,
+        ".lldb": 2,
+        ".lldbinit": 38,
+        ".lua": 7,
+        ".m": 124,
+        ".md": 59,
+        ".mk": 7,
+        ".mm": 28,
+        ".modulemap": 22,
+        ".mte": 1,
+        ".nomte": 1,
+        ".notags": 1,
+        ".ord": 1,
+        ".order": 1,
+        ".out": 24,
+        ".pbxproj": 1,
+        ".pdb": 3,
+        ".perf_context_switch_trace": 2,
+        ".pl": 1,
+        ".plist": 15,
+        ".png": 1,
+        ".py": 1898,
+        ".rs": 2,
+        ".rst": 2,
+        ".rules": 3,
+        ".s": 121,
+        ".scm": 2,
+        ".script": 8,
+        ".sh": 10,
+        ".so": 7,
+        ".split": 2,
+        ".swift": 2,
+        ".swig": 12,
+        ".sym": 1,
+        ".syms": 26,
+        ".td": 30,
+        ".template": 3,
+        ".test": 480,
+        ".trace": 2,
+        ".ts": 23,
+        ".txt": 331,
+        ".txy": 1,
+        ".tyx": 1,
+        ".xcscheme": 1,
+        ".xcworkspacedata": 1,
+        ".yaml": 264,
+        ".zip": 2
+      },
+      "implementation_files": 2574,
+      "test_files": 6576
+    },
+    "llvm": {
+      "files": 83851,
+      "bytes": 1451073259,
+      "extensions": {
+        "(none)": 324,
+        ".1": 3,
+        ".2": 1,
+        ".3": 1,
+        ".7": 1,
+        ".IRobj-x86_64": 1,
+        ".S": 8,
+        ".TXT": 6,
+        ".a": 28,
+        ".a-coff-i386": 1,
+        ".a-corrupt-symbol-table": 1,
+        ".a-empty": 1,
+        ".a-gnu-minimal": 1,
+        ".a-gnu-no-symtab": 1,
+        ".a-irix6-mips64el": 1,
+        ".afdo": 19,
+        ".afdotext": 2,
+        ".aggperfscript": 3,
+        ".arm": 1,
+        ".arm64": 8,
+        ".armv7m": 2,
+        ".asm": 78,
+        ".ast": 1,
+        ".att": 1,
+        ".bak": 1,
+        ".bat": 2,
+        ".bc": 241,
+        ".bin": 15,
+        ".binprof": 1,
+        ".bitstream": 9,
+        ".blah": 1,
+        ".bmp": 7,
+        ".build": 1,
+        ".c": 113,
+        ".cc": 31,
+        ".cfg": 647,
+        ".cl": 1,
+        ".cmake": 49,
+        ".coff": 6,
+        ".coff-2012-i368": 2,
+        ".coff-2012-i386": 1,
+        ".coff-2012-x86_64": 2,
+        ".coff-2013-i368": 2,
+        ".coff-2013-i386": 1,
+        ".coff-2013-x86_64": 2,
+        ".coff-am64": 1,
+        ".coff-arm": 3,
+        ".coff-arm64": 1,
+        ".coff-armnt": 1,
+        ".coff-i386": 16,
+        ".coff-importlib": 1,
+        ".coff-x86-64": 5,
+        ".coff-x86_64": 3,
+        ".conf": 1,
+        ".covmapping": 33,
+        ".cpp": 4546,
+        ".crlf": 2,
+        ".css": 6,
+        ".csv": 2,
+        ".cur": 3,
+        ".dSYM": 1,
+        ".data-00000-of-00001": 1,
+        ".debuglink": 1,
+        ".def": 114,
+        ".dia": 1,
+        ".dll": 6,
+        ".dos": 1,
+        ".dot": 2,
+        ".dox": 1,
+        ".dwarf": 2,
+        ".dwo": 30,
+        ".dwp": 10,
+        ".dylib": 17,
+        ".dylib-x86_64": 1,
+        ".el": 4,
+        ".elf": 7,
+        ".elf-aarch64": 1,
+        ".elf-arm": 1,
+        ".elf-avr": 1,
+        ".elf-hexagon": 1,
+        ".elf-i386": 11,
+        ".elf-mips": 1,
+        ".elf-mips64el": 1,
+        ".elf-mips64r2": 1,
+        ".elf-mipsel": 3,
+        ".elf-x86-64": 30,
+        ".elf-x86-64-space": 1,
+        ".elf-x86_64": 6,
+        ".exe": 38,
+        ".expected": 158,
+        ".expected2": 1,
+        ".export": 1,
+        ".exports": 4,
+        ".gcda": 11,
+        ".gcno": 10,
+        ".gcov": 5,
+        ".gif": 1,
+        ".gn": 765,
+        ".gni": 58,
+        ".grm": 1,
+        ".gsym": 1,
+        ".guess": 1,
+        ".gz": 3,
+        ".h": 3557,
+        ".hex": 1,
+        ".html": 20,
+        ".i386": 15,
+        ".ico": 4,
+        ".ics": 1,
+        ".ifs": 21,
+        ".ii": 3,
+        ".in": 46,
+        ".inc": 55,
+        ".incomplete": 2,
+        ".index": 1,
+        ".ini": 15,
+        ".inp": 2,
+        ".input": 2,
+        ".ipynb": 3,
+        ".json": 63,
+        ".lib": 10,
+        ".linux32l": 1,
+        ".linux64l": 3,
+        ".ll": 47566,
+        ".lld": 2,
+        ".m": 6,
+        ".mach0-armv7": 1,
+        ".macho": 7,
+        ".macho-aarch64": 12,
+        ".macho-arm": 7,
+        ".macho-arm64": 3,
+        ".macho-arm64_32": 5,
+        ".macho-arm64e-kernel-ptrauth-abi": 1,
+        ".macho-arm64e-ptrauth-abi": 1,
+        ".macho-armv7": 2,
+        ".macho-armv7m": 1,
+        ".macho-armv7s": 1,
+        ".macho-armv7s-arm64": 1,
+        ".macho-i386": 13,
+        ".macho-ppc": 1,
+        ".macho-ppc64": 1,
+        ".macho-thumbv7": 1,
+        ".macho-x86": 1,
+        ".macho-x86-64": 6,
+        ".macho-x86_64": 47,
+        ".macho32b": 1,
+        ".macho32l": 1,
+        ".macho64l": 2,
+        ".makefile": 1,
+        ".manifest": 11,
+        ".manual": 4,
+        ".map": 16,
+        ".md": 325,
+        ".memprofexe": 9,
+        ".memprofraw": 9,
+        ".mir": 5618,
+        ".ml": 26,
+        ".mli": 12,
+        ".modulemap": 3,
+        ".mri": 1,
+        ".natvis": 1,
+        ".not-txt": 1,
+        ".o": 219,
+        ".o32l": 5,
+        ".obj": 16,
+        ".obj-i386": 1,
+        ".out": 26,
+        ".pbtxt": 1,
+        ".pcm": 8,
+        ".pdb": 33,
+        ".perfbin": 21,
+        ".perfscript": 28,
+        ".pl": 3,
+        ".plist": 10,
+        ".png": 111,
+        ".prof": 119,
+        ".profdata": 34,
+        ".profraw": 2,
+        ".proftext": 193,
+        ".py": 420,
+        ".raw": 1,
+        ".rc": 112,
+        ".regex": 1,
+        ".remap": 2,
+        ".res": 6,
+        ".reset": 1,
+        ".rst": 3,
+        ".s": 9939,
+        ".sancov": 3,
+        ".script": 3,
+        ".sh": 16,
+        ".so": 8,
+        ".spvasm": 1,
+        ".supp": 2,
+        ".svg": 8,
+        ".swift": 2,
+        ".swiftmodule": 3,
+        ".sym": 4,
+        ".symcov": 2,
+        ".tbd": 16,
+        ".td": 1188,
+        ".test": 3081,
+        ".text": 4,
+        ".tflite": 1,
+        ".thumb": 1,
+        ".tmLanguage": 2,
+        ".toml": 4,
+        ".ts": 2,
+        ".txt": 2101,
+        ".unix": 1,
+        ".utf16": 1,
+        ".utf8": 1,
+        ".v1": 1,
+        ".v10": 1,
+        ".v2": 1,
+        ".v4": 1,
+        ".vim": 12,
+        ".wasm": 10,
+        ".wasm32": 1,
+        ".x": 2,
+        ".x64": 1,
+        ".x86": 1,
+        ".x86-64": 3,
+        ".x86_64": 18,
+        ".xml": 4,
+        ".xray": 8,
+        ".yaml": 892,
+        ".yml": 5
+      },
+      "implementation_files": 7942,
+      "test_files": 73769
+    },
+    "llvm-libgcc": {
+      "files": 4,
+      "bytes": 24504,
+      "extensions": {
+        ".in": 1,
+        ".md": 1,
+        ".py": 1,
+        ".txt": 1
+      },
+      "implementation_files": 0,
+      "test_files": 0
+    },
+    "mlir": {
+      "files": 7981,
+      "bytes": 81380901,
+      "extensions": {
+        "(none)": 2,
+        ".TXT": 1,
+        ".c": 18,
+        ".cfg": 60,
+        ".cmake": 9,
+        ".cpp": 1597,
+        ".def": 4,
+        ".dox": 1,
+        ".el": 3,
+        ".h": 1088,
+        ".in": 8,
+        ".inc": 2,
+        ".ini": 1,
+        ".js": 15,
+        ".json": 13,
+        ".ll": 74,
+        ".md": 100,
+        ".mlir": 3288,
+        ".mlirbc": 37,
+        ".mtx": 6,
+        ".natvis": 1,
+        ".pdll": 25,
+        ".py": 241,
+        ".pyi": 4,
+        ".scm": 2,
+        ".sh": 12,
+        ".spvasm": 5,
+        ".svg": 8,
+        ".td": 510,
+        ".test": 46,
+        ".tns": 8,
+        ".toml": 1,
+        ".toy": 42,
+        ".ts": 9,
+        ".txt": 672,
+        ".typed": 2,
+        ".vim": 4,
+        ".wasm": 55,
+        ".yaml": 7
+      },
+      "implementation_files": 2828,
+      "test_files": 4280
+    },
+    "offload": {
+      "files": 985,
+      "bytes": 3399110,
+      "extensions": {
+        "(none)": 3,
+        ".c": 264,
+        ".cc": 3,
+        ".cfg": 1,
+        ".cmake": 6,
+        ".cpp": 319,
+        ".cu": 13,
+        ".f90": 176,
+        ".h": 82,
+        ".hip": 13,
+        ".hpp": 30,
+        ".in": 3,
+        ".inc": 7,
+        ".md": 8,
+        ".py": 8,
+        ".td": 21,
+        ".txt": 28
+      },
+      "implementation_files": 150,
+      "test_files": 791
+    },
+    "openmp": {
+      "files": 898,
+      "bytes": 7825919,
+      "extensions": {
+        "(none)": 2,
+        ".F90": 1,
+        ".S": 2,
+        ".TXT": 1,
+        ".asm": 1,
+        ".bash": 1,
+        ".c": 468,
+        ".cfg": 6,
+        ".cmake": 13,
+        ".cmd": 39,
+        ".cmd2": 3,
+        ".conf": 2,
+        ".cpp": 136,
+        ".css": 1,
+        ".css_t": 1,
+        ".dox": 1,
+        ".f90": 7,
+        ".gen": 1,
+        ".gif": 1,
+        ".h": 95,
+        ".html": 4,
+        ".in": 8,
+        ".inc": 1,
+        ".inl": 1,
+        ".md": 40,
+        ".pdf": 1,
+        ".png": 5,
+        ".py": 15,
+        ".rst": 1,
+        ".tex": 1,
+        ".txt": 33,
+        ".var": 6
+      },
+      "implementation_files": 155,
+      "test_files": 620
+    },
+    "orc-rt": {
+      "files": 302,
+      "bytes": 1168029,
+      "extensions": {
+        ".TXT": 1,
+        ".c": 18,
+        ".cfg": 8,
+        ".cmake": 1,
+        ".cpp": 129,
+        ".h": 97,
+        ".in": 3,
+        ".md": 7,
+        ".py": 3,
+        ".s": 1,
+        ".test": 19,
+        ".txt": 15
+      },
+      "implementation_files": 142,
+      "test_files": 138
+    },
+    "polly": {
+      "files": 2929,
+      "bytes": 28176923,
+      "extensions": {
+        "(none)": 22,
+        ".TXT": 1,
+        ".ac": 1,
+        ".ai": 35,
+        ".bc": 1,
+        ".bib": 1,
+        ".bot": 4,
+        ".c": 619,
+        ".cc": 15,
+        ".cfg": 3,
+        ".cmake": 6,
+        ".core": 1,
+        ".cpp": 55,
+        ".css": 2,
+        ".def": 1,
+        ".dot": 6,
+        ".flow": 35,
+        ".h": 208,
+        ".html": 15,
+        ".ico": 1,
+        ".in": 187,
+        ".incl": 1,
+        ".interchanged": 2,
+        ".interchanged+tiled": 2,
+        ".interchanged+tiled+vector": 2,
+        ".jscop": 91,
+        ".ll": 1121,
+        ".md": 10,
+        ".msvc": 1,
+        ".omega": 3,
+        ".pdf": 10,
+        ".pip": 31,
+        ".png": 24,
+        ".pod": 1,
+        ".polylib": 19,
+        ".pow2": 1,
+        ".pwqp": 24,
+        ".py": 24,
+        ".s": 5,
+        ".sc": 21,
+        ".scm": 1,
+        ".sh": 7,
+        ".st": 198,
+        ".tc": 32,
+        ".tex": 3,
+        ".top": 5,
+        ".transformed": 49,
+        ".transformed+withconst": 1,
+        ".transformed+withoutconst": 1,
+        ".txt": 17,
+        ".xml": 3
+      },
+      "implementation_files": 886,
+      "test_files": 1330
+    },
+    "runtimes": {
+      "files": 13,
+      "bytes": 51174,
+      "extensions": {
+        ".cmake": 11,
+        ".in": 1,
+        ".txt": 1
+      },
+      "implementation_files": 0,
+      "test_files": 0
+    },
+    "third-party": {
+      "files": 749,
+      "bytes": 11879334,
+      "extensions": {
+        "(none)": 4,
+        ".LLVM": 2,
+        ".TXT": 1,
+        ".bazel": 2,
+        ".bzl": 1,
+        ".bzlmod": 1,
+        ".cc": 93,
+        ".cmake": 11,
+        ".cpp": 7,
+        ".h": 64,
+        ".hpp": 503,
+        ".html": 1,
+        ".in": 4,
+        ".ipp": 2,
+        ".jam": 1,
+        ".json": 10,
+        ".md": 17,
+        ".png": 2,
+        ".py": 8,
+        ".sh": 2,
+        ".toml": 1,
+        ".txt": 7,
+        ".xcf": 2,
+        ".yml": 3
+      },
+      "implementation_files": 612,
+      "test_files": 57
+    },
+    "utils": {
+      "files": 218,
+      "bytes": 2549027,
+      "extensions": {
+        "(none)": 2,
+        ".bazel": 152,
+        ".bzl": 27,
+        ".cmake": 3,
+        ".css": 1,
+        ".h": 4,
+        ".html": 1,
+        ".inc": 1,
+        ".js": 1,
+        ".lock": 1,
+        ".md": 5,
+        ".patch": 2,
+        ".png": 1,
+        ".py": 13,
+        ".rst": 4
+      },
+      "implementation_files": 5,
+      "test_files": 65
+    }
+  },
+  "llvm_libraries": {
+    "ABI": {
+      "bytes": 120439,
+      "files": 10,
+      "implementation_files": 9
+    },
+    "Analysis": {
+      "bytes": 5804124,
+      "files": 137,
+      "implementation_files": 128
+    },
+    "AsmParser": {
+      "bytes": 455980,
+      "files": 5,
+      "implementation_files": 4
+    },
+    "BinaryFormat": {
+      "bytes": 132433,
+      "files": 15,
+      "implementation_files": 14
+    },
+    "Bitcode": {
+      "bytes": 800542,
+      "files": 15,
+      "implementation_files": 12
+    },
+    "Bitstream": {
+      "bytes": 17359,
+      "files": 3,
+      "implementation_files": 1
+    },
+    "CAS": {
+      "bytes": 301660,
+      "files": 26,
+      "implementation_files": 24
+    },
+    "CGData": {
+      "bytes": 58905,
+      "files": 11,
+      "implementation_files": 10
+    },
+    "CodeGen": {
+      "bytes": 15094838,
+      "files": 373,
+      "implementation_files": 366
+    },
+    "CodeGenTypes": {
+      "bytes": 4936,
+      "files": 3,
+      "implementation_files": 2
+    },
+    "DTLTO": {
+      "bytes": 25173,
+      "files": 4,
+      "implementation_files": 3
+    },
+    "DWARFCFIChecker": {
+      "bytes": 26361,
+      "files": 6,
+      "implementation_files": 5
+    },
+    "DWARFLinker": {
+      "bytes": 693810,
+      "files": 38,
+      "implementation_files": 35
+    },
+    "DWP": {
+      "bytes": 49847,
+      "files": 4,
+      "implementation_files": 3
+    },
+    "DebugInfo": {
+      "bytes": 2356831,
+      "files": 246,
+      "implementation_files": 236
+    },
+    "Debuginfod": {
+      "bytes": 21296,
+      "files": 3,
+      "implementation_files": 2
+    },
+    "Demangle": {
+      "bytes": 176281,
+      "files": 7,
+      "implementation_files": 6
+    },
+    "ExecutionEngine": {
+      "bytes": 2374889,
+      "files": 203,
+      "implementation_files": 190
+    },
+    "Extensions": {
+      "bytes": 1041,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "FileCheck": {
+      "bytes": 146033,
+      "files": 3,
+      "implementation_files": 2
+    },
+    "Frontend": {
+      "bytes": 1169929,
+      "files": 29,
+      "implementation_files": 21
+    },
+    "FuzzMutate": {
+      "bytes": 69742,
+      "files": 6,
+      "implementation_files": 5
+    },
+    "Fuzzer": {
+      "bytes": 72,
+      "files": 1,
+      "implementation_files": 0
+    },
+    "HTTP": {
+      "bytes": 25842,
+      "files": 4,
+      "implementation_files": 3
+    },
+    "IR": {
+      "bytes": 3126691,
+      "files": 94,
+      "implementation_files": 93
+    },
+    "IRPrinter": {
+      "bytes": 3122,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "IRReader": {
+      "bytes": 5791,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "InterfaceStub": {
+      "bytes": 41965,
+      "files": 4,
+      "implementation_files": 3
+    },
+    "LTO": {
+      "bytes": 238932,
+      "files": 7,
+      "implementation_files": 6
+    },
+    "LineEditor": {
+      "bytes": 10141,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "Linker": {
+      "bytes": 89450,
+      "files": 4,
+      "implementation_files": 3
+    },
+    "MC": {
+      "bytes": 1897295,
+      "files": 99,
+      "implementation_files": 96
+    },
+    "MCA": {
+      "bytes": 168768,
+      "files": 25,
+      "implementation_files": 24
+    },
+    "ObjCopy": {
+      "bytes": 428274,
+      "files": 45,
+      "implementation_files": 44
+    },
+    "Object": {
+      "bytes": 986809,
+      "files": 40,
+      "implementation_files": 39
+    },
+    "ObjectYAML": {
+      "bytes": 646900,
+      "files": 32,
+      "implementation_files": 31
+    },
+    "Option": {
+      "bytes": 57623,
+      "files": 6,
+      "implementation_files": 5
+    },
+    "Passes": {
+      "bytes": 422934,
+      "files": 12,
+      "implementation_files": 10
+    },
+    "Plugins": {
+      "bytes": 3545,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "ProfileData": {
+      "bytes": 668932,
+      "files": 27,
+      "implementation_files": 25
+    },
+    "Remarks": {
+      "bytes": 84678,
+      "files": 14,
+      "implementation_files": 13
+    },
+    "SandboxIR": {
+      "bytes": 158155,
+      "files": 16,
+      "implementation_files": 15
+    },
+    "Support": {
+      "bytes": 5796501,
+      "files": 243,
+      "implementation_files": 222
+    },
+    "TableGen": {
+      "bytes": 378459,
+      "files": 17,
+      "implementation_files": 16
+    },
+    "Target": {
+      "bytes": 78417923,
+      "files": 2814,
+      "implementation_files": 2640
+    },
+    "TargetParser": {
+      "bytes": 417307,
+      "files": 22,
+      "implementation_files": 21
+    },
+    "Telemetry": {
+      "bytes": 1548,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "Testing": {
+      "bytes": 11216,
+      "files": 6,
+      "implementation_files": 3
+    },
+    "TextAPI": {
+      "bytes": 172105,
+      "files": 20,
+      "implementation_files": 18
+    },
+    "ToolDrivers": {
+      "bytes": 36203,
+      "files": 7,
+      "implementation_files": 4
+    },
+    "Transforms": {
+      "bytes": 18445855,
+      "files": 396,
+      "implementation_files": 383
+    },
+    "WindowsDriver": {
+      "bytes": 27309,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "WindowsManifest": {
+      "bytes": 28828,
+      "files": 2,
+      "implementation_files": 1
+    },
+    "XRay": {
+      "bytes": 97561,
+      "files": 15,
+      "implementation_files": 14
+    }
+  },
+  "llvm_targets": [
+    "AArch64",
+    "AMDGPU",
+    "ARC",
+    "ARM",
+    "AVR",
+    "BPF",
+    "CSKY",
+    "DirectX",
+    "Hexagon",
+    "Lanai",
+    "LoongArch",
+    "M68k",
+    "MSP430",
+    "Mips",
+    "NVPTX",
+    "PowerPC",
+    "RISCV",
+    "SPIRV",
+    "Sparc",
+    "SystemZ",
+    "VE",
+    "WebAssembly",
+    "X86",
+    "XCore",
+    "Xtensa"
+  ],
+  "core_registry": {
+    "path": "llvm/lib/Passes/PassRegistry.def",
+    "sha256": "88d17d8e120f4d650c7bf5b1c45191dc753552f31358b110f14a1c23ecc2da7b",
+    "registrations": 449,
+    "macro_counts": {
+      "CGSCC_ANALYSIS": 3,
+      "CGSCC_PASS": 8,
+      "CGSCC_PASS_WITH_PARAMS": 3,
+      "FUNCTION_ALIAS_ANALYSIS": 5,
+      "FUNCTION_ANALYSIS": 36,
+      "FUNCTION_PASS": 168,
+      "FUNCTION_PASS_WITH_PARAMS": 29,
+      "LOOPNEST_PASS": 4,
+      "LOOP_ANALYSIS": 5,
+      "LOOP_PASS": 24,
+      "LOOP_PASS_WITH_PARAMS": 4,
+      "MODULE_ALIAS_ANALYSIS": 1,
+      "MODULE_ANALYSIS": 22,
+      "MODULE_PASS": 118,
+      "MODULE_PASS_WITH_PARAMS": 19
+    },
+    "entries": [
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "callgraph",
+        "source_line": 21,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "collector-metadata",
+        "source_line": 22,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "ctx-prof-analysis",
+        "source_line": 23,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "dxil-metadata",
+        "source_line": 24,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "dxil-resources",
+        "source_line": 25,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "dxil-resource-type",
+        "source_line": 26,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "dxil-resource-bindings",
+        "source_line": 27,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "inline-advisor",
+        "source_line": 28,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "ir2vec-vocab",
+        "source_line": 29,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "last-run-tracking",
+        "source_line": 30,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "lcg",
+        "source_line": 31,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "libcall-lowering-info",
+        "source_line": 32,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "immutable-module-summary",
+        "source_line": 33,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "module-summary",
+        "source_line": 35,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "no-op-module",
+        "source_line": 36,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "pass-instrumentation",
+        "source_line": 37,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "profile-summary",
+        "source_line": 38,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "reg-usage",
+        "source_line": 39,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "runtime-libcall-info",
+        "source_line": 40,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "stack-safety",
+        "source_line": 41,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "static-data-profile-info",
+        "source_line": 42,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ANALYSIS",
+        "name": "verify",
+        "source_line": 43,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_ALIAS_ANALYSIS",
+        "name": "globals-aa",
+        "source_line": 49,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "always-inline",
+        "source_line": 56,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "annotation2metadata",
+        "source_line": 57,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "assign-guid",
+        "source_line": 58,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "attributor",
+        "source_line": 59,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "attributor-light",
+        "source_line": 60,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "called-value-propagation",
+        "source_line": 61,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "canonicalize-aliases",
+        "source_line": 62,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "check-debugify",
+        "source_line": 63,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "constmerge",
+        "source_line": 64,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "copyprof-module",
+        "source_line": 65,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "coro-cleanup",
+        "source_line": 66,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "coro-early",
+        "source_line": 67,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "lower-comment-string",
+        "source_line": 68,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "cross-dso-cfi",
+        "source_line": 69,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "ctx-instr-gen",
+        "source_line": 70,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "ctx-prof-flatten",
+        "source_line": 72,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "ctx-prof-flatten-prethinlink",
+        "source_line": 74,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "noinline-nonprevailing",
+        "source_line": 76,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "deadargelim",
+        "source_line": 77,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "debugify",
+        "source_line": 78,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "declare-runtime-libcalls",
+        "source_line": 79,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "dfsan",
+        "source_line": 80,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "dot-callgraph",
+        "source_line": 81,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "dxil-upgrade",
+        "source_line": 82,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "elim-avail-extern",
+        "source_line": 83,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "extract-blocks",
+        "source_line": 84,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "expand-variadics",
+        "source_line": 85,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "forceattrs",
+        "source_line": 87,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "function-import",
+        "source_line": 88,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "global-merge-func",
+        "source_line": 89,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "globalopt",
+        "source_line": 90,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "globalsplit",
+        "source_line": 91,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "hipstdpar-interpose-alloc",
+        "source_line": 92,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "hipstdpar-math-fixup",
+        "source_line": 93,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "hipstdpar-select-accelerator-code",
+        "source_line": 94,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "hotcoldsplit",
+        "source_line": 96,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "inferattrs",
+        "source_line": 97,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "inliner-ml-advisor-release",
+        "source_line": 98,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "inliner-wrapper",
+        "source_line": 101,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "inliner-wrapper-no-mandatory-first",
+        "source_line": 102,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "insert-gcov-profiling",
+        "source_line": 104,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "instrprof",
+        "source_line": 105,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "ctx-instr-lower",
+        "source_line": 106,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<ctx-prof-analysis>",
+        "source_line": 107,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "invalidate<all>",
+        "source_line": 108,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "instrumentor",
+        "source_line": 109,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "jmc-instrumenter",
+        "source_line": 110,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "lower-emutls",
+        "source_line": 111,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "lower-global-dtors",
+        "source_line": 112,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "lower-ifunc",
+        "source_line": 113,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "simplify-type-tests",
+        "source_line": 114,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "lowertypetests",
+        "source_line": 115,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "fatlto-cleanup",
+        "source_line": 116,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pgo-force-function-attrs",
+        "source_line": 117,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "memprof-context-disambiguation",
+        "source_line": 121,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "memprof-remove-attributes",
+        "source_line": 122,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "memprof-module",
+        "source_line": 123,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "mergefunc",
+        "source_line": 124,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "metarenamer",
+        "source_line": 125,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "mir-debugify",
+        "source_line": 126,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "mir-check-debugify",
+        "source_line": 127,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "mir-strip-debug",
+        "source_line": 128,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "module-inline",
+        "source_line": 129,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "name-anon-globals",
+        "source_line": 130,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "no-op-module",
+        "source_line": 131,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "norecurse-lto-inference",
+        "source_line": 132,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "nsan",
+        "source_line": 133,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "openmp-opt",
+        "source_line": 134,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "openmp-opt-postlink",
+        "source_line": 135,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "partial-inliner",
+        "source_line": 137,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pgo-icall-prom",
+        "source_line": 138,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pgo-instr-gen",
+        "source_line": 139,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pgo-instr-use",
+        "source_line": 140,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pre-isel-intrinsic-lowering",
+        "source_line": 141,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print",
+        "source_line": 142,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-callgraph",
+        "source_line": 143,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-callgraph-sccs",
+        "source_line": 144,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-lcg",
+        "source_line": 145,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-lcg-dot",
+        "source_line": 146,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-must-be-executed-contexts",
+        "source_line": 147,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-profile-summary",
+        "source_line": 149,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print-stack-safety",
+        "source_line": 150,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<dxil-metadata>",
+        "source_line": 151,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<dxil-resources>",
+        "source_line": 152,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<inline-advisor>",
+        "source_line": 153,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<ir2vec>",
+        "source_line": 154,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<ir2vec-vocab>",
+        "source_line": 155,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<module-debuginfo>",
+        "source_line": 156,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "print<reg-usage>",
+        "source_line": 157,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "prof-verify",
+        "source_line": 158,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pseudo-probe",
+        "source_line": 159,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "pseudo-probe-update",
+        "source_line": 160,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "recompute-globalsaa",
+        "source_line": 161,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "rel-lookup-table-converter",
+        "source_line": 162,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "rewrite-statepoints-for-gc",
+        "source_line": 163,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "rewrite-symbols",
+        "source_line": 164,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "rpo-function-attrs",
+        "source_line": 165,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "rtsan",
+        "source_line": 166,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "sample-profile",
+        "source_line": 167,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "sancov-module",
+        "source_line": 168,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "sanmd-module",
+        "source_line": 169,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "scc-oz-module-inliner",
+        "source_line": 171,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "shadow-stack-gc-lowering",
+        "source_line": 174,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "static-data-annotator",
+        "source_line": 175,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip",
+        "source_line": 176,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-dead-debug-info",
+        "source_line": 177,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-dead-prototypes",
+        "source_line": 178,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-debug-declare",
+        "source_line": 179,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-nondebug",
+        "source_line": 180,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-nonlinetable-debuginfo",
+        "source_line": 181,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "strip-dead-cg-profile",
+        "source_line": 182,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "trigger-crash-module",
+        "source_line": 183,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "trigger-verifier-error",
+        "source_line": 184,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "tsan-module",
+        "source_line": 185,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "tysan",
+        "source_line": 186,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "verify",
+        "source_line": 187,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "view-callgraph",
+        "source_line": 188,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS",
+        "name": "wholeprogramdevirt",
+        "source_line": 189,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "alloc-token",
+        "source_line": 195,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "asan",
+        "source_line": 199,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "cg-profile",
+        "source_line": 203,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "global-merge",
+        "source_line": 207,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "embed-bitcode",
+        "source_line": 215,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "globaldce",
+        "source_line": 219,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "hwasan",
+        "source_line": 223,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "drop-type-tests",
+        "source_line": 227,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "internalize",
+        "source_line": 232,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "ipsccp",
+        "source_line": 246,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "memprof-use",
+        "source_line": 249,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "msan",
+        "source_line": 253,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "print<structural-hash>",
+        "source_line": 257,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "default",
+        "source_line": 264,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "thinlto-pre-link",
+        "source_line": 270,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "thinlto",
+        "source_line": 276,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "lto-pre-link",
+        "source_line": 282,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "lto",
+        "source_line": 294,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "MODULE_PASS_WITH_PARAMS",
+        "name": "fatlto-pre-link",
+        "source_line": 300,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_ANALYSIS",
+        "name": "no-op-cgscc",
+        "source_line": 313,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_ANALYSIS",
+        "name": "fam-proxy",
+        "source_line": 314,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_ANALYSIS",
+        "name": "pass-instrumentation",
+        "source_line": 315,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "argpromotion",
+        "source_line": 321,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "attributor-cgscc",
+        "source_line": 322,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "attributor-light-cgscc",
+        "source_line": 323,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "invalidate<all>",
+        "source_line": 324,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "no-op-cgscc",
+        "source_line": 325,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "openmp-opt-cgscc",
+        "source_line": 326,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "coro-annotation-elide",
+        "source_line": 327,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS",
+        "name": "trigger-crash-cgscc",
+        "source_line": 328,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS_WITH_PARAMS",
+        "name": "coro-split",
+        "source_line": 334,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS_WITH_PARAMS",
+        "name": "function-attrs",
+        "source_line": 338,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "CGSCC_PASS_WITH_PARAMS",
+        "name": "inline",
+        "source_line": 344,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "aa",
+        "source_line": 353,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "access-info",
+        "source_line": 354,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "assumptions",
+        "source_line": 355,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "bb-sections-profile-reader",
+        "source_line": 356,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "block-freq",
+        "source_line": 358,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "branch-prob",
+        "source_line": 359,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "cycles",
+        "source_line": 360,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "da",
+        "source_line": 361,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "debug-ata",
+        "source_line": 362,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "demanded-bits",
+        "source_line": 363,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "domfrontier",
+        "source_line": 364,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "domtree",
+        "source_line": 365,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "ephemerals",
+        "source_line": 366,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "func-properties",
+        "source_line": 367,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "machine-function-info",
+        "source_line": 368,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "gc-function",
+        "source_line": 369,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "last-run-tracking",
+        "source_line": 370,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "lazy-value-info",
+        "source_line": 371,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "loops",
+        "source_line": 372,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "memdep",
+        "source_line": 373,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "memoryssa",
+        "source_line": 374,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "no-op-function",
+        "source_line": 375,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "opt-remark-emit",
+        "source_line": 376,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "pass-instrumentation",
+        "source_line": 377,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "phi-values",
+        "source_line": 378,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "postdomtree",
+        "source_line": 379,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "regions",
+        "source_line": 380,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "scalar-evolution",
+        "source_line": 381,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "should-not-run-function-passes",
+        "source_line": 382,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "should-run-extra-vector-passes",
+        "source_line": 384,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "ssp-layout",
+        "source_line": 386,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "stack-safety-local",
+        "source_line": 387,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "target-ir",
+        "source_line": 388,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "target-lib-info",
+        "source_line": 390,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "uniformity",
+        "source_line": 391,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ANALYSIS",
+        "name": "verify",
+        "source_line": 392,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ALIAS_ANALYSIS",
+        "name": "basic-aa",
+        "source_line": 398,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ALIAS_ANALYSIS",
+        "name": "objc-arc-aa",
+        "source_line": 399,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ALIAS_ANALYSIS",
+        "name": "scev-aa",
+        "source_line": 400,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ALIAS_ANALYSIS",
+        "name": "scoped-noalias-aa",
+        "source_line": 401,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_ALIAS_ANALYSIS",
+        "name": "tbaa",
+        "source_line": 402,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "aa-eval",
+        "source_line": 409,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "adce",
+        "source_line": 410,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "add-discriminators",
+        "source_line": 411,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "aggressive-instcombine",
+        "source_line": 412,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "alignment-from-assumptions",
+        "source_line": 413,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "annotation-remarks",
+        "source_line": 414,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "assume-builder",
+        "source_line": 415,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "assume-simplify",
+        "source_line": 416,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "atomic-expand",
+        "source_line": 417,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "bdce",
+        "source_line": 418,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "break-crit-edges",
+        "source_line": 419,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "callsite-splitting",
+        "source_line": 420,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "cfguard",
+        "source_line": 421,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "chr",
+        "source_line": 422,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "codegenprepare",
+        "source_line": 423,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "complex-deinterleaving",
+        "source_line": 424,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "consthoist",
+        "source_line": 425,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "constraint-elimination",
+        "source_line": 426,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "copyprof",
+        "source_line": 427,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "copyprof-stores",
+        "source_line": 428,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "coro-elide",
+        "source_line": 429,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "correlated-propagation",
+        "source_line": 430,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "count-visits",
+        "source_line": 431,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dce",
+        "source_line": 432,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "declare-to-assign",
+        "source_line": 433,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dfa-jump-threading",
+        "source_line": 434,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "div-rem-pairs",
+        "source_line": 435,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-cfg",
+        "source_line": 436,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-cfg-only",
+        "source_line": 437,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-dom",
+        "source_line": 438,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-dom-only",
+        "source_line": 439,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-post-dom",
+        "source_line": 440,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dot-post-dom-only",
+        "source_line": 441,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dse",
+        "source_line": 442,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "dwarf-eh-prepare",
+        "source_line": 443,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "expand-memcmp",
+        "source_line": 444,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "expand-reductions",
+        "source_line": 445,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "extra-vector-passes",
+        "source_line": 446,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "fix-irreducible",
+        "source_line": 448,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "flatten-cfg",
+        "source_line": 449,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "float2int",
+        "source_line": 450,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "free-machine-function",
+        "source_line": 451,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "gc-lowering",
+        "source_line": 452,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "guard-widening",
+        "source_line": 453,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "gvn-hoist",
+        "source_line": 454,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "gvn-sink",
+        "source_line": 455,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "helloworld",
+        "source_line": 456,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "indirectbr-expand",
+        "source_line": 457,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "infer-alignment",
+        "source_line": 458,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "inject-tli-mappings",
+        "source_line": 459,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "inline-asm-prepare",
+        "source_line": 460,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "instnamer",
+        "source_line": 461,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "instsimplify",
+        "source_line": 462,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "interleaved-access",
+        "source_line": 463,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "interleaved-load-combine",
+        "source_line": 464,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "invalidate<all>",
+        "source_line": 465,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "irce",
+        "source_line": 466,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "jump-threading",
+        "source_line": 467,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "jump-table-to-switch",
+        "source_line": 468,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "kcfi",
+        "source_line": 469,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "kernel-info",
+        "source_line": 470,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lcssa",
+        "source_line": 471,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "libcalls-shrinkwrap",
+        "source_line": 472,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "load-store-vectorizer",
+        "source_line": 473,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "logical-sroa",
+        "source_line": 474,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-data-prefetch",
+        "source_line": 475,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-distribute",
+        "source_line": 476,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-fusion",
+        "source_line": 477,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-load-elim",
+        "source_line": 478,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-simplify",
+        "source_line": 479,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-sink",
+        "source_line": 480,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "loop-versioning",
+        "source_line": 481,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-atomic",
+        "source_line": 482,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-constant-intrinsics",
+        "source_line": 483,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-expect",
+        "source_line": 484,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-guard-intrinsic",
+        "source_line": 485,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-invoke",
+        "source_line": 486,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-switch",
+        "source_line": 487,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "lower-widenable-condition",
+        "source_line": 488,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "make-guards-explicit",
+        "source_line": 489,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "mem2reg",
+        "source_line": 490,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "memcpyopt",
+        "source_line": 491,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "memprof",
+        "source_line": 492,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "mergeicmps",
+        "source_line": 493,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "move-auto-init",
+        "source_line": 494,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "nary-reassociate",
+        "source_line": 495,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "newgvn",
+        "source_line": 496,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "no-op-function",
+        "source_line": 497,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "objc-arc",
+        "source_line": 498,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "objc-arc-contract",
+        "source_line": 499,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "objc-arc-expand",
+        "source_line": 500,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "pa-eval",
+        "source_line": 501,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "partially-inline-libcalls",
+        "source_line": 502,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "pgo-memop-opt",
+        "source_line": 503,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "place-safepoints",
+        "source_line": 504,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print",
+        "source_line": 505,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<alias-sets>",
+        "source_line": 506,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<cfg-sccs>",
+        "source_line": 507,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<mem-derefs>",
+        "source_line": 508,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<must-execute>",
+        "source_line": 509,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<predicate-info>",
+        "source_line": 510,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<assumptions>",
+        "source_line": 511,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<block-freq>",
+        "source_line": 512,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<branch-prob>",
+        "source_line": 513,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<cost-model>",
+        "source_line": 514,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<cycles>",
+        "source_line": 515,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<da>",
+        "source_line": 516,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<debug-ata>",
+        "source_line": 517,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<delinearization>",
+        "source_line": 518,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<demanded-bits>",
+        "source_line": 519,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<domfrontier>",
+        "source_line": 520,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<domtree>",
+        "source_line": 521,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<func-properties>",
+        "source_line": 522,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<inline-cost>",
+        "source_line": 523,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<lazy-value-info>",
+        "source_line": 524,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<loops>",
+        "source_line": 525,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<loop-cache-cost>",
+        "source_line": 526,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<memoryssa-walker>",
+        "source_line": 527,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<phi-values>",
+        "source_line": 528,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<postdomtree>",
+        "source_line": 529,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<regions>",
+        "source_line": 530,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<scalar-evolution>",
+        "source_line": 531,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<scev-division>",
+        "source_line": 532,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<stack-safety-local>",
+        "source_line": 533,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "print<uniformity>",
+        "source_line": 534,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "prof-inject",
+        "source_line": 535,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "reassociate",
+        "source_line": 536,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "redundant-dbg-inst-elim",
+        "source_line": 537,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "replace-with-veclib",
+        "source_line": 538,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "reg2mem",
+        "source_line": 539,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "safe-stack",
+        "source_line": 540,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "sandbox-vectorizer",
+        "source_line": 541,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "scalarize-masked-mem-intrin",
+        "source_line": 542,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "sccp",
+        "source_line": 543,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "select-optimize",
+        "source_line": 544,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "separate-const-offset-from-gep",
+        "source_line": 545,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "sink",
+        "source_line": 547,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "sjlj-eh-prepare",
+        "source_line": 548,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "slp-vectorizer",
+        "source_line": 549,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "slsr",
+        "source_line": 550,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "stack-protector",
+        "source_line": 551,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "strip-convergence-intrinsics",
+        "source_line": 552,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "strip-gc-relocates",
+        "source_line": 553,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "tailcallelim",
+        "source_line": 554,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "transform-warning",
+        "source_line": 555,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "trigger-crash-function",
+        "source_line": 556,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "trigger-verifier-error",
+        "source_line": 557,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "tsan",
+        "source_line": 558,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "typepromotion",
+        "source_line": 559,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "unify-loop-exits",
+        "source_line": 560,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "unreachableblockelim",
+        "source_line": 561,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "vector-combine",
+        "source_line": 562,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify",
+        "source_line": 563,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<cycles>",
+        "source_line": 564,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<domtree>",
+        "source_line": 565,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<loops>",
+        "source_line": 566,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<memoryssa>",
+        "source_line": 567,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<regions>",
+        "source_line": 568,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<safepoint-ir>",
+        "source_line": 569,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "verify<scalar-evolution>",
+        "source_line": 570,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-cfg",
+        "source_line": 571,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-cfg-only",
+        "source_line": 572,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-dom",
+        "source_line": 573,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-dom-only",
+        "source_line": 574,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-post-dom",
+        "source_line": 575,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "view-post-dom-only",
+        "source_line": 576,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "win-eh-prepare",
+        "source_line": 577,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS",
+        "name": "wasm-eh-prepare",
+        "source_line": 578,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "early-cse",
+        "source_line": 584,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "infer-address-spaces",
+        "source_line": 588,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "drop-unnecessary-assumes",
+        "source_line": 594,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "ee-instrument",
+        "source_line": 598,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "func-properties-stats",
+        "source_line": 602,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "function-simplification",
+        "source_line": 608,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "gvn",
+        "source_line": 614,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "hardware-loops",
+        "source_line": 619,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "instcombine",
+        "source_line": 626,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "instcount",
+        "source_line": 631,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "lint",
+        "source_line": 635,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "loop-unroll",
+        "source_line": 639,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "loop-vectorize",
+        "source_line": 646,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "lower-allow-check",
+        "source_line": 652,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "lower-matrix-intrinsics",
+        "source_line": 656,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "normalize",
+        "source_line": 660,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "mldst-motion",
+        "source_line": 666,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "print<access-info>",
+        "source_line": 672,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "print<da>",
+        "source_line": 682,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "print<memoryssa>",
+        "source_line": 688,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "print<stack-lifetime>",
+        "source_line": 694,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "scalarizer",
+        "source_line": 700,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "separate-const-offset-from-gep",
+        "source_line": 706,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "simplifycfg",
+        "source_line": 710,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "speculative-execution",
+        "source_line": 723,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "sroa",
+        "source_line": 729,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "structurizecfg",
+        "source_line": 733,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "bounds-checking",
+        "source_line": 739,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "FUNCTION_PASS_WITH_PARAMS",
+        "name": "expand-ir-insts",
+        "source_line": 746,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOPNEST_PASS",
+        "name": "loop-flatten",
+        "source_line": 758,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOPNEST_PASS",
+        "name": "loop-interchange",
+        "source_line": 759,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOPNEST_PASS",
+        "name": "loop-unroll-and-jam",
+        "source_line": 760,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOPNEST_PASS",
+        "name": "no-op-loopnest",
+        "source_line": 761,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_ANALYSIS",
+        "name": "ddg",
+        "source_line": 767,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_ANALYSIS",
+        "name": "iv-users",
+        "source_line": 768,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_ANALYSIS",
+        "name": "no-op-loop",
+        "source_line": 769,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_ANALYSIS",
+        "name": "pass-instrumentation",
+        "source_line": 770,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_ANALYSIS",
+        "name": "should-run-extra-simple-loop-unswitch",
+        "source_line": 771,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "canon-freeze",
+        "source_line": 779,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "dot-ddg",
+        "source_line": 780,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "guard-widening",
+        "source_line": 781,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "extra-simple-loop-unswitch-passes",
+        "source_line": 782,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "indvars",
+        "source_line": 784,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "invalidate<all>",
+        "source_line": 785,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-bound-split",
+        "source_line": 786,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-deletion",
+        "source_line": 787,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-idiom",
+        "source_line": 788,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-idiom-vectorize",
+        "source_line": 789,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-instsimplify",
+        "source_line": 790,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-predication",
+        "source_line": 791,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-reduce",
+        "source_line": 792,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-term-fold",
+        "source_line": 793,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-simplifycfg",
+        "source_line": 794,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-unroll-full",
+        "source_line": 795,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "loop-versioning-licm",
+        "source_line": 796,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "no-op-loop",
+        "source_line": 797,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "print",
+        "source_line": 798,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "print<ddg>",
+        "source_line": 799,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "print<hash-recognize>",
+        "source_line": 800,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "print<iv-users>",
+        "source_line": 801,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "print<loopnest>",
+        "source_line": 802,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS",
+        "name": "trigger-crash-loop",
+        "source_line": 803,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS_WITH_PARAMS",
+        "name": "licm",
+        "source_line": 809,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS_WITH_PARAMS",
+        "name": "lnicm",
+        "source_line": 812,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS_WITH_PARAMS",
+        "name": "loop-rotate",
+        "source_line": 815,
+        "upstream_pass_ported": false
+      },
+      {
+        "macro": "LOOP_PASS_WITH_PARAMS",
+        "name": "simple-loop-unswitch",
+        "source_line": 825,
+        "upstream_pass_ported": false
+      }
+    ]
+  },
+  "tablegen_declaration_files": [
+    {
+      "path": "clang/include/clang/CIR/Dialect/Passes.td",
+      "declarations": [
+        "CIRCanonicalize",
+        "CIRSimplify",
+        "HoistAllocas",
+        "CIRFlattenCFG",
+        "GotoSolver",
+        "CXXABILowering",
+        "TargetLowering",
+        "CIREHABILowering",
+        "LoweringPrepare",
+        "IdiomRecognizer",
+        "LibOpt",
+        "CallConvLowering"
+      ]
+    },
+    {
+      "path": "flang/include/flang/Optimizer/CodeGen/CGPasses.td",
+      "declarations": [
+        "FIRToLLVMLowering",
+        "CodeGenRewrite",
+        "RematerializeFIRBoxOpsPass",
+        "TargetRewritePass",
+        "BoxedProcedurePass",
+        "LowerRepackArraysPass"
+      ]
+    },
+    {
+      "path": "flang/include/flang/Optimizer/HLFIR/Passes.td",
+      "declarations": [
+        "ConvertHLFIRtoFIR",
+        "BufferizeHLFIR",
+        "OptimizedBufferization",
+        "LowerHLFIRIntrinsics",
+        "LowerHLFIROrderedAssignments",
+        "SimplifyHLFIRIntrinsics",
+        "ExpressionSimplification",
+        "InlineElementals",
+        "SeparateAllocatableAssign",
+        "InlineHLFIRAssign",
+        "InlineHLFIRCopy",
+        "PropagateFortranVariableAttributes"
+      ]
+    },
+    {
+      "path": "flang/include/flang/Optimizer/OpenACC/Passes.td",
+      "declarations": [
+        "ACCEmitNYIFlang",
+        "ACCInitializeFIRAnalyses",
+        "ACCRecipeBufferization",
+        "ACCUseDeviceCanonicalizer",
+        "ACCDeclareActionConversion",
+        "ACCEraseUnusedKernelAllocations",
+        "ACCOptimizeFirstprivateMap",
+        "ACCMapInfoPrep",
+        "ACCDevicePtrToCUFKernel"
+      ]
+    },
+    {
+      "path": "flang/include/flang/Optimizer/OpenMP/Passes.td",
+      "declarations": [
+        "MapInfoFinalizationPass",
+        "MapsForPrivatizedSymbolsPass",
+        "DoConcurrentConversionPass",
+        "LowerNontemporalPass",
+        "LowerWorkshare",
+        "LowerWorkdistribute",
+        "GenericLoopConversionPass",
+        "SimdOnlyPass",
+        "AutomapToTargetDataPass",
+        "UnimplementedDeviceCheckPass"
+      ]
+    },
+    {
+      "path": "flang/include/flang/Optimizer/Transforms/Passes.td",
+      "declarations": [
+        "AbstractResultOpt",
+        "AffineDialectPromotion",
+        "AffineDialectDemotion",
+        "SelectOpsConversion",
+        "FIRToSCFPass",
+        "AnnotateConstantOperands",
+        "CharacterConversion",
+        "CFGConversion",
+        "ExternalNameConversion",
+        "CompilerGeneratedNamesConversion",
+        "MemRefDataFlowOpt",
+        "FIRToMemRef",
+        "AddDebugInfo",
+        "SimplifyIntrinsics",
+        "CudaHeapAllocPromotion",
+        "MemoryAllocationOpt",
+        "AllocationPlacement",
+        "ConstantArgumentGlobalisationOpt",
+        "StackArrays",
+        "StackReclaim",
+        "AddAliasTags",
+        "O0CanonicalizerPass",
+        "SimplifyRegionLite",
+        "AlgebraicSimplification",
+        "PolymorphicOpConversion",
+        "LoopVersioning",
+        "LoopTripCountVersioning",
+        "VScaleAttr",
+        "FunctionAttr",
+        "AssumedRankOpConversion",
+        "CUFAllocDelay",
+        "CUFAllocationConversion",
+        "CUFOpConversion",
+        "CUFOpConversionLate",
+        "CUFDeviceGlobal",
+        "CUFSharedTypeInfo",
+        "CUFAddConstructor",
+        "CUFGPUToLLVMConversion",
+        "CUFComputeSharedMemoryOffsetsAndSize",
+        "CUFDuplicateDeviceFunc",
+        "CUFDeviceFuncTransform",
+        "CUFLaunchAttachAttr",
+        "CUFPredefinedVarToGPU",
+        "SetRuntimeCallAttributes",
+        "GenRuntimeCallsForTest",
+        "SimplifyFIROperations",
+        "ConvertComplexPow",
+        "OptimizeArrayRepacking",
+        "MIFOpConversion",
+        "EmitMIFGlobalCtors",
+        "LoopInvariantCodeMotion"
+      ]
+    },
+    {
+      "path": "mlir/examples/standalone/include/Standalone/StandalonePasses.td",
+      "declarations": [
+        "StandaloneSwitchBarFoo"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Conversion/Passes.td",
+      "declarations": [
+        "ConvertToEmitC",
+        "ConvertToLLVMPass",
+        "LowerAffinePass",
+        "ConvertAMDGPUToROCDLPass",
+        "ArithToAMDGPUConversionPass",
+        "ConvertArithToEmitC",
+        "ArithToLLVMConversionPass",
+        "ArithToAPFloatConversionPass",
+        "ConvertArithToSPIRVPass",
+        "ArithToArmSMEConversionPass",
+        "ConvertArmNeon2dToIntrPass",
+        "ConvertAsyncToLLVMPass",
+        "ConvertBufferizationToMemRefPass",
+        "ConvertComplexToLLVMPass",
+        "ConvertComplexToLibm",
+        "ConvertComplexToROCDLLibraryCalls",
+        "ConvertComplexToSPIRVPass",
+        "ConvertComplexToStandardPass",
+        "ConvertControlFlowToLLVMPass",
+        "LiftControlFlowToSCFPass",
+        "ConvertControlFlowToSPIRVPass",
+        "ConvertFuncToEmitC",
+        "SetLLVMModuleDataLayoutPass",
+        "ConvertFuncToLLVMPass",
+        "ConvertFuncToSPIRVPass",
+        "GpuToLLVMConversionPass",
+        "LowerHostCodeToLLVMPass",
+        "ConvertGpuOpsToLLVMSPVOps",
+        "ConvertGpuOpsToNVVMOps",
+        "ConvertGpuOpsToROCDLOps",
+        "ConvertGPUToSPIRV",
+        "ConvertIndexToLLVMPass",
+        "ConvertIndexToSPIRVPass",
+        "ConvertLinalgToStandardPass",
+        "ConvertMathToLibmPass",
+        "MathToAPFloatConversionPass",
+        "ConvertMathToLLVMPass",
+        "ConvertMathToROCDL",
+        "ConvertMathToNVVM",
+        "ConvertMathToSPIRVPass",
+        "ConvertMathToXeVM",
+        "ConvertMathToEmitC",
+        "ConvertMathToFuncs",
+        "ConvertMemRefToEmitC",
+        "FinalizeMemRefToLLVMConversionPass",
+        "MapMemRefStorageClass",
+        "ConvertMemRefToSPIRVPass",
+        "ConvertShardToMPIPass",
+        "ConvertNVVMToLLVMPass",
+        "ConvertNVGPUToNVVMPass",
+        "ConvertOpenACCToSCFPass",
+        "ConvertACCToLLVMPass",
+        "ConvertOpenMPToLLVMPass",
+        "ConvertPDLToPDLInterpPass",
+        "ReconcileUnrealizedCastsPass",
+        "RaiseSCFToAffinePass",
+        "SCFToControlFlowPass",
+        "ConvertSCFToOpenMPPass",
+        "SCFToSPIRV",
+        "ConvertAffineForToGPUPass",
+        "ConvertParallelLoopToGpuPass",
+        "SCFToEmitC",
+        "ConvertShapeToStandardPass",
+        "ConvertShapeConstraintsPass",
+        "ConvertSPIRVToLLVMPass",
+        "ConvertTensorToLinalgPass",
+        "ConvertTensorToSPIRVPass",
+        "TosaToArithPass",
+        "TosaToLinalg",
+        "TosaToLinalgNamed",
+        "TosaToMLProgram",
+        "TosaToSCFPass",
+        "TosaToSPIRVTosaMarkGraphConstants",
+        "TosaToSPIRVTosa",
+        "TosaToTensorPass",
+        "UBToLLVMConversionPass",
+        "UBToSPIRVConversionPass",
+        "ConvertVectorToGPU",
+        "ConvertVectorToSCF",
+        "ConvertVectorToArmSMEPass",
+        "ConvertArmSMEToSCFPass",
+        "ConvertArmSMEToLLVM",
+        "ConvertVectorToLLVMPass",
+        "ConvertVectorToSPIRVPass",
+        "ConvertVectorToXeGPU",
+        "ConvertVectorToAMX",
+        "RaiseWasmMLIR",
+        "ConvertXeVMToLLVMPass",
+        "ConvertXeGPUToXeVMPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/AMDGPU/Transforms/Passes.td",
+      "declarations": [
+        "AmdgpuEmulateAtomicsPass",
+        "AmdgpuResolveStridedMetadataPass",
+        "AmdgpuMaskedloadToLoadPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Affine/Transforms/Passes.td",
+      "declarations": [
+        "AffineDataCopyGeneration",
+        "AffineLoopFusion",
+        "AffineLoopInvariantCodeMotion",
+        "AffineLoopTiling",
+        "AffineLoopUnroll",
+        "AffineLoopUnrollAndJam",
+        "AffinePipelineDataTransfer",
+        "AffineScalarReplacement",
+        "AffineVectorize",
+        "AffineParallelize",
+        "AffineLoopNormalize",
+        "LoopCoalescing",
+        "RaiseMemrefDialect",
+        "SimplifyAffineStructures",
+        "SimplifyAffineMinMaxPass",
+        "SimplifyAffineWithBounds",
+        "AffineExpandIndexOps",
+        "AffineExpandIndexOpsAsAffine",
+        "AffineFoldMemRefAliasOps"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Arith/Transforms/Passes.td",
+      "declarations": [
+        "ArithExpandOpsPass",
+        "ArithUnsignedWhenEquivalentPass",
+        "ArithIntRangeOpts",
+        "ArithIntRangeNarrowing",
+        "ArithEmulateUnsupportedFloats",
+        "ArithEmulateWideInt"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/ArmSME/Transforms/Passes.td",
+      "declarations": [
+        "EnableArmStreaming",
+        "TestTileAllocation",
+        "OuterProductFusion",
+        "VectorLegalization"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/ArmSVE/Transforms/Passes.td",
+      "declarations": [
+        "LegalizeVectorStorage"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Async/Passes.td",
+      "declarations": [
+        "AsyncParallelForPass",
+        "AsyncToAsyncRuntimePass",
+        "AsyncFuncToAsyncRuntimePass",
+        "AsyncRuntimeRefCountingPass",
+        "AsyncRuntimeRefCountingOptPass",
+        "AsyncRuntimePolicyBasedRefCountingPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Bufferization/Transforms/Passes.td",
+      "declarations": [
+        "OwnershipBasedBufferDeallocationPass",
+        "BufferDeallocationSimplificationPass",
+        "OptimizeAllocationLivenessPass",
+        "StaticMemoryPlannerAnalysisPass",
+        "LowerDeallocationsPass",
+        "BufferHoistingPass",
+        "BufferLoopHoistingPass",
+        "BufferResultsToOutParamsPass",
+        "DropEquivalentBufferResultsPass",
+        "EmptyTensorToAllocTensorPass",
+        "OneShotBufferizePass",
+        "PromoteBuffersToStackPass",
+        "EmptyTensorEliminationPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/EmitC/Transforms/Passes.td",
+      "declarations": [
+        "FormExpressionsPass",
+        "WrapFuncInClassPass",
+        "MLGOAddReflectionMapPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Func/Transforms/Passes.td",
+      "declarations": [
+        "DuplicateFunctionEliminationPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/GPU/Transforms/NVVM/Passes.td",
+      "declarations": [
+        "GpuNVVMAttachTarget"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/GPU/Transforms/Passes.td",
+      "declarations": [
+        "GpuLaunchSinkIndexComputationsPass",
+        "GpuKernelOutliningPass",
+        "GpuAsyncRegionPass",
+        "GpuMapParallelLoopsPass",
+        "GpuEliminateBarriers",
+        "GpuDecomposeMemrefsPass",
+        "GpuModuleToBinaryPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/GPU/Transforms/ROCDL/Passes.td",
+      "declarations": [
+        "GpuROCDLAttachTarget"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/GPU/Transforms/SPIRV/Passes.td",
+      "declarations": [
+        "GpuSPIRVAttachTarget"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/GPU/Transforms/XeVM/Passes.td",
+      "declarations": [
+        "GpuXeVMAttachTarget"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/LLVMIR/Transforms/Passes.td",
+      "declarations": [
+        "LLVMAddComdats",
+        "LLVMLegalizeForExportPass",
+        "LLVMRequestCWrappersPass",
+        "LLVMUseDefaultVisibilityPass",
+        "DIScopeForLLVMFuncOpPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Linalg/Passes.td",
+      "declarations": [
+        "LinalgMorphOpsPass",
+        "LinalgGeneralizeNamedOpsPass",
+        "LinalgSpecializeGenericOpsPass",
+        "LinalgCategorizeOpsPass",
+        "SimplifyDepthwiseConvPass",
+        "ConvertElementwiseToLinalgPass",
+        "ConvertLinalgToAffineLoopsPass",
+        "ConvertLinalgToLoopsPass",
+        "ConvertLinalgToParallelLoopsPass",
+        "LinalgFoldUnitExtentDimsPass",
+        "LinalgElementwiseOpFusionPass",
+        "LinalgInlineScalarOperandsPass",
+        "LinalgFoldIntoElementwisePass",
+        "LinalgBlockPackMatmul"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/MLProgram/Transforms/Passes.td",
+      "declarations": [
+        "MLProgramPipelineGlobalsPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Math/Transforms/Passes.td",
+      "declarations": [
+        "MathUpliftToFMA",
+        "MathExtendToSupportedTypes",
+        "MathExpandOpsPass",
+        "MathSincosFusionPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/MemRef/Transforms/Passes.td",
+      "declarations": [
+        "ElideReinterpretCastPass",
+        "ExpandOpsPass",
+        "FoldMemRefAliasOpsPass",
+        "MemRefEmulateWideInt",
+        "NormalizeMemRefsPass",
+        "ResolveRankedShapeTypeResultDimsPass",
+        "ResolveShapedTypeResultDimsPass",
+        "ReifyResultShapesPass",
+        "ExpandStridedMetadataPass",
+        "ExpandReallocPass",
+        "FlattenMemrefsPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/NVGPU/Transforms/Passes.td",
+      "declarations": [
+        "OptimizeSharedMemory"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/NVVM/Transforms/Passes.td",
+      "declarations": [
+        "NVVMOptimizeForTargetPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/OpenACC/Transforms/Passes.td",
+      "declarations": [
+        "LegalizeDataValuesInRegion",
+        "ACCImplicitData",
+        "ACCImplicitDeclare",
+        "ACCImplicitRoutine",
+        "ACCDeclareGPUModuleInsertion",
+        "ACCDeclareCtorDtorConversion",
+        "ACCLegalizeSerial",
+        "ACCEmitRemarksLoop",
+        "ACCEmitRemarksPrivate",
+        "ACCEmitRemarksData",
+        "ACCLoopTiling",
+        "ACCSpecializeForDevice",
+        "ACCSpecializeForHost",
+        "ACCIfClauseLowering",
+        "OffloadLiveInValueCanonicalization",
+        "ACCRecipeMaterialization",
+        "OffloadTargetVerifier",
+        "ACCComputeLowering",
+        "ACCRoutineLowering",
+        "ACCRoutineToGPUFunc",
+        "ACCMaterializeRoutineBindTargets",
+        "ACCBindRoutine",
+        "ACCCGToGPU"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/OpenMP/Transforms/Passes.td",
+      "declarations": [
+        "FunctionFilteringPass",
+        "HostOpFilteringPass",
+        "MarkDeclareTargetPass",
+        "PrepareForOMPOffloadPrivatizationPass",
+        "StackToSharedPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Quant/Transforms/Passes.td",
+      "declarations": [
+        "LowerQuantOps",
+        "NormalizeQuantTypes",
+        "StripFuncQuantTypes"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/SCF/Transforms/Passes.td",
+      "declarations": [
+        "SCFForLoopCanonicalization",
+        "SCFForLoopPeeling",
+        "SCFForLoopSpecialization",
+        "SCFParallelLoopFusion",
+        "TestSCFParallelLoopCollapsing",
+        "SCFParallelLoopSpecialization",
+        "SCFParallelLoopTiling",
+        "SCFForLoopRangeFolding",
+        "SCFForallToForLoop",
+        "SCFForallToParallelLoop",
+        "SCFParallelForToNestedFors",
+        "SCFForToWhileLoop"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/SPIRV/Transforms/Passes.td",
+      "declarations": [
+        "SPIRVCanonicalizeGLPass",
+        "SPIRVCompositeTypeLayoutPass",
+        "SPIRVLowerABIAttributesPass",
+        "SPIRVRewriteInsertsPass",
+        "SPIRVUnifyAliasedResourcePass",
+        "SPIRVUpdateVCEPass",
+        "SPIRVWebGPUPreparePass",
+        "SPIRVReplicatedConstantCompositePass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Shape/Transforms/Passes.td",
+      "declarations": [
+        "OutlineShapeComputationPass",
+        "RemoveShapeConstraintsPass",
+        "ShapeToShapeLoweringPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Shard/Transforms/Passes.td",
+      "declarations": [
+        "ShardingPropagation",
+        "ShardSimplify",
+        "Partition"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/SparseTensor/Transforms/Passes.td",
+      "declarations": [
+        "SparseAssembler",
+        "SparseReinterpretMap",
+        "PreSparsificationRewrite",
+        "SparsificationPass",
+        "StageSparseOperations",
+        "LowerSparseOpsToForeach",
+        "LowerForeachToSCF",
+        "SparseTensorConversionPass",
+        "SparseTensorCodegen",
+        "SparseBufferRewrite",
+        "SparseVectorization",
+        "SparseGPUCodegen",
+        "StorageSpecifierToLLVM",
+        "SparsificationAndBufferization",
+        "SparseSpaceCollapse",
+        "LowerSparseIterationToSCF"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Tensor/Transforms/Passes.td",
+      "declarations": [
+        "FoldTensorSubsetOpsPass",
+        "ScalarizeSingleElementTensorReturnPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Tosa/Transforms/Passes.td",
+      "declarations": [
+        "TosaLayerwiseConstantFoldPass",
+        "TosaInferShapesPass",
+        "TosaMakeBroadcastablePass",
+        "TosaOptionalDecompositionsPass",
+        "TosaValidation",
+        "TosaReduceTransposes",
+        "TosaArithConstantToTosaConstPass",
+        "TosaConvertIntegerTypeToSignless",
+        "TosaAttachTarget",
+        "TosaDowngrade1p1To1p0Pass",
+        "TosaGatherScatterHardeningPass",
+        "TosaConvertIntegerTypesBitwidthPass",
+        "TosaNarrowI64ToI32Pass",
+        "TosaNarrowF64ToF32Pass",
+        "TosaNarrowF32ToF16Pass",
+        "TosaInputShape"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Transform/Transforms/Passes.td",
+      "declarations": [
+        "CheckUsesPass",
+        "InferEffectsPass",
+        "PreloadLibraryPass",
+        "InterpreterPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/Vector/Transforms/Passes.td",
+      "declarations": [
+        "EliminateVectorMasks",
+        "LowerVectorMaskPass",
+        "LowerVectorMultiReduction",
+        "LowerVectorToFromElementsToShuffleTree"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Dialect/XeGPU/Transforms/Passes.td",
+      "declarations": [
+        "XeGPUPropagateLayout",
+        "XeGPUWgToSgDistribute",
+        "XeGPUBlocking",
+        "XeGPUVectorLinearize",
+        "XeGPUPeepHoleOptimizer",
+        "XeGPUSgToLaneDistribute"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Reducer/Passes.td",
+      "declarations": [
+        "ReductionTreePass",
+        "OptReductionPass"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Target/LLVMIR/Transforms/Passes.td",
+      "declarations": [
+        "LLVMTargetToDataLayout",
+        "LLVMTargetToTargetFeatures"
+      ]
+    },
+    {
+      "path": "mlir/include/mlir/Transforms/Passes.td",
+      "declarations": [
+        "CanonicalizerPass",
+        "ControlFlowSinkPass",
+        "CSEPass",
+        "TrivialDeadCodeEliminationPass",
+        "RemoveDeadValuesPass",
+        "PrintIRPass",
+        "GenerateRuntimeVerificationPass",
+        "InlinerPass",
+        "LocationSnapshot",
+        "LoopInvariantCodeMotionPass",
+        "LoopInvariantSubsetHoistingPass",
+        "Mem2Reg",
+        "PrintOpStatsPass",
+        "SCCPPass",
+        "SROA",
+        "StripDebugInfoPass",
+        "SymbolDCEPass",
+        "SymbolPrivatizePass",
+        "ViewOpGraphPass",
+        "TopologicalSortPass",
+        "CompositeFixedPointPass",
+        "BubbleDownMemorySpaceCasts"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+name: Pinned latest LLVM source integration
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  llvm-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build clang lld python3 libvulkan-dev mesa-vulkan-drivers vulkan-validationlayers glslang-tools spirv-tools
+      - name: Fetch and build exact source pin
+        env:
+          CC: clang
+          CXX: clang++
+          LV_BUILD_JOBS: '2'
+        run: bash scripts/build_latest.sh
+      - name: Require software Vulkan and validation
+        run: |
+          python3 - <<'PY'
+          import glob, os
+          paths = glob.glob('/usr/share/vulkan/icd.d/lvp*.json')
+          if len(paths) != 1:
+              raise SystemExit('Expected exactly one lavapipe ICD')
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write('VK_ICD_FILENAMES=' + paths[0] + '\n')
+              f.write('LV_VALIDATION=1\n')
+              f.write('VK_LAYER_ENABLES=VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT\n')
+          PY
+      - name: Test source-built integration on lavapipe
+        run: ctest --test-dir build --output-on-failure
+      - name: Preserve test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latest-source-test-evidence
+          path: |
+            build/Testing/Temporary/LastTest.log
+            build/*results.json
+            build/*oracle.json
+            build/*fuzz.json
+          if-no-files-found: warn

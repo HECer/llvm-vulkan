@@ -1,0 +1,48 @@
+{
+  "llvm": "24.0.0git",
+  "upstream_commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan",
+        "-B",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest",
+        "-DLLVM_DIR=/workspace/scratch/79a5fcee7ac8/tooling/llvm-build/lib/cmake/llvm"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.8065962489999947,
+      "stdout": "-- LLVM Vulkan plugin: LLVM 24.0.0git at /workspace/scratch/79a5fcee7ac8/tooling/llvm-build/lib/cmake/llvm\n-- Performing Test LV_LLVM_HAS_OPTIONAL_PASS_MIXIN\n-- Performing Test LV_LLVM_HAS_OPTIONAL_PASS_MIXIN - Success\n-- Configuring done (0.8s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest",
+        "-j",
+        "4"
+      ],
+      "returncode": 0,
+      "wall_seconds": 8.63103442099964,
+      "stdout": "[1/19] Generating shaders/fold.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/fold.comp\n[2/19] Generating shaders/dominators.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/dominators.comp\n[3/19] Generating shaders/hash.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/hash.comp\n[4/19] Generating shaders/fold64.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/fold64.comp\n[5/19] Generating shaders/liveness.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/liveness.comp\n[6/19] Generating shaders/scan_add.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/scan_add.comp\n[7/19] Generating shaders/reachable.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/reachable.comp\n[8/19] Generating shaders/scan.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/scan.comp\n[9/19] Generating shaders/sort.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/sort.comp\n[10/19] Generating generated/lv/embedded_shaders.hpp\n[11/19] Building CXX object CMakeFiles/lv_compute.dir/src/cpu.cpp.o\n[12/19] Building CXX object CMakeFiles/lv-bench.dir/src/bench.cpp.o\n[13/19] Building CXX object CMakeFiles/lv-core-tests.dir/tests/core_tests.cpp.o\n[14/19] Building CXX object CMakeFiles/lv_compute.dir/src/compute.cpp.o\n[15/19] Linking CXX static library liblv_compute.a\n[16/19] Linking CXX executable lv-core-tests\n[17/19] Linking CXX executable lv-bench\n[18/19] Building CXX object llvm/CMakeFiles/LLVMVulkan.dir/LLVMVulkan.cpp.o\n[19/19] Linking CXX shared module llvm/LLVMVulkan.so\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest",
+        "--output-on-failure",
+        "-j",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.400388615002157,
+      "stdout": "Internal ctest changing into directory: /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest\nTest project /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build-latest\n    Start 1: core-cpu\n1/7 Test #1: core-cpu .........................   Passed    0.05 sec\n    Start 2: core-vulkan\n2/7 Test #2: core-vulkan ......................   Passed    1.17 sec\n    Start 3: benchmark-smoke\n3/7 Test #3: benchmark-smoke ..................   Passed    0.27 sec\n    Start 4: source-fetch-safety\n4/7 Test #4: source-fetch-safety ..............   Passed    0.08 sec\n    Start 5: llvm-differential\n5/7 Test #5: llvm-differential ................   Passed    2.95 sec\n    Start 6: llvm-constant-oracle\n6/7 Test #6: llvm-constant-oracle .............   Passed    0.36 sec\n    Start 7: llvm-semantic-differential\n7/7 Test #7: llvm-semantic-differential .......   Passed    0.51 sec\n\n100% tests passed, 0 tests failed out of 7\n\nTotal Test time (real) =   5.38 sec\n",
+      "stderr": ""
+    }
+  ],
+  "purpose": "Final project build against pinned latest-source LLVM and required software Vulkan tests"
+}

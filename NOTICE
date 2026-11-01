@@ -1,0 +1,9 @@
+LLVM Vulkan
+Copyright 2026 Hermann Fischer
+
+Experimental GPU-assisted compiler work. Not an official LLVM project.
+New code in this repository is licensed under Apache-2.0 WITH LLVM-exception.
+The bundled LICENSE text is the upstream LLVM Apache 2.0 license and exceptions.
+LLVM source is fetched separately from its pinned upstream repository and retains
+its original notices and third-party license terms. No ownership of upstream LLVM
+is claimed. Vulkan and SPIR-V specifications and tools retain their own licenses.

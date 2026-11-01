@@ -1,0 +1,45 @@
+{
+  "project": "LLVM Vulkan",
+  "owner": "HECer",
+  "status": "experimental-work-in-progress",
+  "full_llvm_port_complete": false,
+  "physical_gpu_tested": false,
+  "published_to_github": true,
+  "repository_url": "https://github.com/HECer/llvm-vulkan",
+  "upstream_commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
+  "source_build_version": "24.0.0git",
+  "source_built_targets": [
+    "LLVM shared library",
+    "opt",
+    "lli",
+    "llc",
+    "llvm-config"
+  ],
+  "source_built_codegen_targets": [
+    "X86"
+  ],
+  "integrated_passes": [
+    "lv-fold",
+    "lv-cse",
+    "lv-cfg",
+    "lv-dce"
+  ],
+  "cmake_tests_passed": {
+    "LLVM20.1.2": 7,
+    "LLVM24.0.0git": 7
+  },
+  "llvm_ir_fixtures": 17,
+  "independent_constant_oracle_cases": 8192,
+  "upstream_corpus_llvm24": {
+    "passed": 120,
+    "skipped": 0,
+    "failed": 0
+  },
+  "native_windows_tested": false,
+  "remote_ci_run": false,
+  "leak_sanitizer_available": false,
+  "scalar_integer_fold_width_range": {
+    "min": 1,
+    "max": 64
+  }
+}

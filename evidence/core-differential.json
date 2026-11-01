@@ -1,0 +1,101 @@
+{
+  "description": "Final embedded8-algorithm suite, including optional fold64, Vulkan validation+syncval, no external shaders",
+  "results": [
+    {
+      "backend": "cpu",
+      "seed": 5090,
+      "large": false,
+      "command": [
+        "/tmp/lv-core-validation/lv-core-tests-embedded",
+        "--backend",
+        "cpu",
+        "--device",
+        "cpu",
+        "--device-name",
+        "",
+        "--seed",
+        "5090",
+        "--cases",
+        "64",
+        "--large",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.05715120800232398,
+      "stdout": "Device: C++ scalar reference | backend=cpu | seed=5090\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS invalid input rejection\nPASS all 296445 assertions; hardware performance is not inferred from these correctness tests\n",
+      "stderr": ""
+    },
+    {
+      "backend": "vulkan",
+      "seed": 5090,
+      "large": true,
+      "command": [
+        "/tmp/lv-core-validation/lv-core-tests-embedded",
+        "--backend",
+        "vulkan",
+        "--device",
+        "cpu",
+        "--device-name",
+        "llvmpipe",
+        "--seed",
+        "5090",
+        "--cases",
+        "64",
+        "--large",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.888766432999546,
+      "stdout": "Device: llvmpipe (LLVM 20.1.2, 256 bits) | backend=vulkan | seed=5090\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS large dispatch-grid tiling at 8388609 elements/nodes\nPASS invalid input rejection\nPASS all 296450 assertions; hardware performance is not inferred from these correctness tests\n",
+      "stderr": ""
+    },
+    {
+      "backend": "vulkan",
+      "seed": 1,
+      "large": false,
+      "command": [
+        "/tmp/lv-core-validation/lv-core-tests-embedded",
+        "--backend",
+        "vulkan",
+        "--device",
+        "cpu",
+        "--device-name",
+        "llvmpipe",
+        "--seed",
+        "1",
+        "--cases",
+        "64",
+        "--large",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.2317791880013829,
+      "stdout": "Device: llvmpipe (LLVM 20.1.2, 256 bits) | backend=vulkan | seed=1\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS invalid input rejection\nPASS all 296447 assertions; hardware performance is not inferred from these correctness tests\n",
+      "stderr": ""
+    },
+    {
+      "backend": "vulkan",
+      "seed": 12345,
+      "large": false,
+      "command": [
+        "/tmp/lv-core-validation/lv-core-tests-embedded",
+        "--backend",
+        "vulkan",
+        "--device",
+        "cpu",
+        "--device-name",
+        "llvmpipe",
+        "--seed",
+        "12345",
+        "--cases",
+        "64",
+        "--large",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.5083690009996644,
+      "stdout": "Device: llvmpipe (LLVM 20.1.2, 256 bits) | backend=vulkan | seed=12345\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS invalid input rejection\nPASS all 296447 assertions; hardware performance is not inferred from these correctness tests\n",
+      "stderr": ""
+    }
+  ]
+}

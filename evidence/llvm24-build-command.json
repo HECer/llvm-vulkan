@@ -1,0 +1,10 @@
+[
+  "/workspace/scratch/79a5fcee7ac8/tooling/sysroot/usr/bin/ninja",
+  "-C",
+  "/workspace/scratch/79a5fcee7ac8/tooling/llvm-build",
+  "-j",
+  "4",
+  "opt",
+  "lli",
+  "llvm-config"
+]

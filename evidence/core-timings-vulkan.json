@@ -1,0 +1,27 @@
+{
+  "schema_version":1,
+  "project":"llvm-vulkan",
+  "status":"experimental",
+  "timing_scope":"host wall time including upload, dispatch, convergence and readback; input creation and independent verification excluded",
+  "cpu_baseline":"scalar reference, not upstream LLVM optimization passes",
+  "backend":"vulkan",
+  "device":"llvmpipe (LLVM 20.1.2, 256 bits)",
+  "is_cpu_device":true,
+  "supports_int64":true,
+  "vendor_id":65541,
+  "device_id":0,
+  "vulkan_api_version_raw":4211006,
+  "driver_version_raw":104865800,
+  "device_initialization_ms":28.098306,
+  "seed":5090,
+  "workloads":[
+    {"name":"integer-fold","items":65536,"correct":true,"cold_call_ms":6.013011,"warm_median_ms":2.007363,"warm_min_ms":1.503578,"warm_max_ms":2.169571,"dispatches_per_call":1,"iterations_per_call":0,"bytes_uploaded_per_call":1048576,"bytes_downloaded_per_call":524288,"samples_ms":[1.855906,2.169571,2.160713,2.007363,1.503578]},
+    {"name":"integer-fold64","items":65536,"correct":true,"cold_call_ms":4.98066,"warm_median_ms":1.645562,"warm_min_ms":1.492442,"warm_max_ms":1.877587,"dispatches_per_call":1,"iterations_per_call":0,"bytes_uploaded_per_call":1572864,"bytes_downloaded_per_call":1048576,"samples_ms":[1.877587,1.492442,1.645562,1.849116,1.492702]},
+    {"name":"reachability","items":257,"correct":true,"cold_call_ms":6.409728,"warm_median_ms":4.931692,"warm_min_ms":4.549853,"warm_max_ms":5.343142,"dispatches_per_call":64,"iterations_per_call":64,"bytes_uploaded_per_call":4232,"bytes_downloaded_per_call":1060,"samples_ms":[5.343142,4.876802,4.931692,5.264667,4.549853]},
+    {"name":"dominators","items":257,"correct":true,"cold_call_ms":13.374397,"warm_median_ms":11.983589,"warm_min_ms":11.734358,"warm_max_ms":12.878619,"dispatches_per_call":128,"iterations_per_call":128,"bytes_uploaded_per_call":17716,"bytes_downloaded_per_call":10344,"samples_ms":[11.983589,11.734358,12.494505,11.951882,12.878619]},
+    {"name":"liveness","items":257,"correct":true,"cold_call_ms":3.161578,"warm_median_ms":2.435993,"warm_min_ms":2.033987,"warm_max_ms":2.586053,"dispatches_per_call":24,"iterations_per_call":24,"bytes_uploaded_per_call":9372,"bytes_downloaded_per_call":2068,"samples_ms":[2.586053,2.540226,2.394967,2.033987,2.435993]},
+    {"name":"exclusive-scan","items":65536,"correct":true,"cold_call_ms":5.848349,"warm_median_ms":2.423269,"warm_min_ms":2.320814,"warm_max_ms":2.952656,"dispatches_per_call":5,"iterations_per_call":0,"bytes_uploaded_per_call":262144,"bytes_downloaded_per_call":262144,"samples_ms":[2.320814,2.423269,2.952656,2.393815,2.501489]},
+    {"name":"sort-keys","items":65536,"correct":true,"cold_call_ms":19.716036,"warm_median_ms":17.31552,"warm_min_ms":17.00227,"warm_max_ms":18.024441,"dispatches_per_call":136,"iterations_per_call":0,"bytes_uploaded_per_call":262144,"bytes_downloaded_per_call":262144,"samples_ms":[17.00227,17.234922,17.692093,17.31552,18.024441]},
+    {"name":"hash-records","items":65536,"correct":true,"cold_call_ms":1.944235,"warm_median_ms":0.835898,"warm_min_ms":0.794367,"warm_max_ms":0.87814,"dispatches_per_call":1,"iterations_per_call":0,"bytes_uploaded_per_call":524292,"bytes_downloaded_per_call":262144,"samples_ms":[0.835898,0.87814,0.857389,0.800265,0.794367]}
+  ]
+}

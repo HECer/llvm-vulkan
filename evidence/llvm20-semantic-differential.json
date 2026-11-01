@@ -1,0 +1,21 @@
+{
+  "test": "LLVM-pipeline-semantic-differential",
+  "seed": 5090,
+  "functions": 64,
+  "calls": 512,
+  "output_values": 513,
+  "runs": [
+    {
+      "backend": "cpu",
+      "matches_baseline": true,
+      "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=0 changed=0 total_ms=5.070400e-02 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=4544 changed=128 total_ms=2.293150e-01 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=577 changed=64 total_ms=7.225600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=4164 changed=128 total_ms=2.003930e-01 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n"
+    },
+    {
+      "backend": "vulkan",
+      "matches_baseline": true,
+      "trace": "[llvm-vulkan] pass=fold requested=vulkan device=scalar-cpu work=0 changed=0 total_ms=3.858600e-02 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=4544 changed=128 total_ms=1.606842e+01 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=21764 downloaded=3584 verification=disabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=577 changed=64 total_ms=3.055763e+00 vulkan_calls=1 cpu_calls=0 dispatches=16 uploaded=3596 downloaded=1292 verification=disabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=4164 changed=128 total_ms=2.321374e+00 vulkan_calls=1 cpu_calls=0 dispatches=16 uploaded=26144 downloaded=9492 verification=disabled\n"
+    }
+  ],
+  "identical_transformed_ir": true,
+  "passed": true
+}

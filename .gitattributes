@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.spv binary
+*.bundle binary
+evidence/*.log whitespace=-blank-at-eol

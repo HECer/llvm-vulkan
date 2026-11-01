@@ -1,0 +1,7 @@
+ninja: Entering directory `/workspace/scratch/79a5fcee7ac8/tooling/llvm-build'
+[1/5] Building CXX object tools/llc/CMakeFiles/llc.dir/llc.cpp.o
+[2/5] Building CXX object tools/llc/lib/CMakeFiles/LLVMLlcDriver.dir/llcdriver.cpp.o
+[3/5] Building CXX object tools/llc/lib/CMakeFiles/LLVMLlcDriver.dir/NewPMDriver.cpp.o
+[4/5] Linking CXX static library lib/libLLVMLlcDriver.a
+[5/5] Linking CXX executable bin/llc
+clang++: warning: '-fuse-ld=' taking a path is deprecated; use '--ld-path=' instead [-Wfuse-ld-path]

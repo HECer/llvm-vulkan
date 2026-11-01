@@ -1,0 +1,43 @@
+name: CPU and software Vulkan correctness
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  lavapipe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build and software Vulkan dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build g++ python3 libvulkan-dev mesa-vulkan-drivers vulkan-validationlayers glslang-tools spirv-tools llvm-20-dev llvm-20 clang-20
+      - name: Configure and build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=/usr/lib/llvm-20/lib/cmake/llvm
+          cmake --build build --parallel 2
+      - name: Require software Vulkan and validation
+        run: |
+          python3 - <<'PY'
+          import glob, os
+          paths = glob.glob('/usr/share/vulkan/icd.d/lvp*.json')
+          if len(paths) != 1:
+              raise SystemExit('Expected exactly one lavapipe ICD')
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write('VK_ICD_FILENAMES=' + paths[0] + '\n')
+              f.write('LV_VALIDATION=1\n')
+              f.write('VK_LAYER_ENABLES=VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT\n')
+          PY
+      - name: Run differential and semantic tests
+        run: ctest --test-dir build --output-on-failure
+      - name: Preserve test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: software-vulkan-evidence
+          path: |
+            build/Testing/Temporary/LastTest.log
+            build/*results.json
+            build/*oracle.json
+            build/*fuzz.json
+          if-no-files-found: warn

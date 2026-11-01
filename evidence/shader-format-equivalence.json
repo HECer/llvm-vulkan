@@ -1,0 +1,56 @@
+[
+  {
+    "shader": "dominators.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "fold.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "fold64.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "hash.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "liveness.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "reachable.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "scan.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "scan_add.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  },
+  {
+    "shader": "sort.comp",
+    "returncode": 0,
+    "binary_identical_to_tested": true,
+    "stderr": ""
+  }
+]

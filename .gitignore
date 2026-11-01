@@ -1,0 +1,16 @@
+/build*/
+/vendor/
+/third_party/
+/results/
+/reports/
+/dist/
+__pycache__/
+*.pyc
+*.spv
+*.o
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+.cache/

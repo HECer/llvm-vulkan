@@ -1,0 +1,43 @@
+{
+  "llvm": "20.1.2",
+  "commands": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan",
+        "-B",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build"
+      ],
+      "returncode": 0,
+      "stdout": "-- Could NOT find LibEdit (missing: LibEdit_INCLUDE_DIRS LibEdit_LIBRARIES) \n-- Could NOT find zstd (missing: zstd_LIBRARY zstd_INCLUDE_DIR) \n-- Could NOT find LibXml2 (missing: LIBXML2_LIBRARY LIBXML2_INCLUDE_DIR) \n-- Could NOT find LibEdit (missing: LibEdit_INCLUDE_DIRS LibEdit_LIBRARIES) \n-- Could NOT find zstd (missing: zstd_LIBRARY zstd_INCLUDE_DIR) \n-- Could NOT find LibXml2 (missing: LIBXML2_LIBRARY LIBXML2_INCLUDE_DIR) \n-- LLVM Vulkan plugin: LLVM 20.1.2 at /workspace/scratch/79a5fcee7ac8/tooling/sysroot/usr/lib/llvm-20/lib/cmake/llvm\n-- Performing Test LV_LLVM_HAS_OPTIONAL_PASS_MIXIN\n-- Performing Test LV_LLVM_HAS_OPTIONAL_PASS_MIXIN - Failed\n-- Configuring done (0.9s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build",
+        "-j",
+        "2"
+      ],
+      "returncode": 0,
+      "stdout": "[1/19] Generating shaders/fold.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/fold.comp\n[2/19] Generating shaders/dominators.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/dominators.comp\n[3/19] Generating shaders/fold64.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/fold64.comp\n[4/19] Generating shaders/hash.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/hash.comp\n[5/19] Generating shaders/reachable.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/reachable.comp\n[6/19] Generating shaders/liveness.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/liveness.comp\n[7/19] Generating shaders/scan.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/scan.comp\n[8/19] Generating shaders/scan_add.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/scan_add.comp\n[9/19] Generating shaders/sort.spv\n/workspace/scratch/79a5fcee7ac8/llvm-vulkan/shaders/sort.comp\n[10/19] Generating generated/lv/embedded_shaders.hpp\n[11/19] Building CXX object CMakeFiles/lv_compute.dir/src/cpu.cpp.o\n[12/19] Building CXX object CMakeFiles/lv-bench.dir/src/bench.cpp.o\n[13/19] Building CXX object CMakeFiles/lv_compute.dir/src/compute.cpp.o\n[14/19] Linking CXX static library liblv_compute.a\n[15/19] Linking CXX executable lv-bench\n[16/19] Building CXX object CMakeFiles/lv-core-tests.dir/tests/core_tests.cpp.o\n[17/19] Linking CXX executable lv-core-tests\n[18/19] Building CXX object llvm/CMakeFiles/LLVMVulkan.dir/LLVMVulkan.cpp.o\n[19/19] Linking CXX shared module llvm/LLVMVulkan.so\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/workspace/scratch/79a5fcee7ac8/llvm-vulkan/build",
+        "--output-on-failure",
+        "-j",
+        "1"
+      ],
+      "returncode": 0,
+      "stdout": "Internal ctest changing into directory: /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build\nTest project /workspace/scratch/79a5fcee7ac8/llvm-vulkan/build\n    Start 1: core-cpu\n1/7 Test #1: core-cpu .........................   Passed    0.04 sec\n    Start 2: core-vulkan\n2/7 Test #2: core-vulkan ......................   Passed    1.09 sec\n    Start 3: benchmark-smoke\n3/7 Test #3: benchmark-smoke ..................   Passed    0.32 sec\n    Start 4: source-fetch-safety\n4/7 Test #4: source-fetch-safety ..............   Passed    0.09 sec\n    Start 5: llvm-differential\n5/7 Test #5: llvm-differential ................   Passed    3.98 sec\n    Start 6: llvm-constant-oracle\n6/7 Test #6: llvm-constant-oracle .............   Passed    0.43 sec\n    Start 7: llvm-semantic-differential\n7/7 Test #7: llvm-semantic-differential .......   Passed    0.64 sec\n\n100% tests passed, 0 tests failed out of 7\n\nTotal Test time (real) =   6.59 sec\n",
+      "stderr": ""
+    }
+  ],
+  "purpose": "Final integrated project build and required software Vulkan tests"
+}

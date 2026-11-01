@@ -1,0 +1,7 @@
+{
+  "description": "RTX hardware runner must reject the CPU-only test environment",
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "No matching NVIDIA GPU; software Vulkan cannot stand in for an RTX 5090 test.\n",
+  "passed": true
+}

@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) buffer Output { uint output_values[]; };
+layout(set = 0, binding = 1, std430) readonly buffer BlockOffsets {
+  uint block_offsets[];
+};
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i < p.n)
+    output_values[i] += block_offsets[i / 128u];
+}

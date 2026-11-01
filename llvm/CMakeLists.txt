@@ -1,0 +1,45 @@
+# Keep the plugin ABI tied to the exact LLVM package selected by LLVM_DIR.
+find_package(LLVM REQUIRED CONFIG)
+message(STATUS "LLVM Vulkan plugin: LLVM ${LLVM_PACKAGE_VERSION} at ${LLVM_DIR}")
+if(LLVM_PACKAGE_VERSION VERSION_LESS "20.0")
+  message(FATAL_ERROR "LLVM Vulkan's integration requires LLVM 20 or newer")
+endif()
+
+add_library(LLVMVulkan MODULE LLVMVulkan.cpp)
+set_target_properties(LLVMVulkan PROPERTIES PREFIX "" WINDOWS_EXPORT_ALL_SYMBOLS ON)
+target_include_directories(LLVMVulkan SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS})
+separate_arguments(LV_LLVM_DEFINITIONS NATIVE_COMMAND "${LLVM_DEFINITIONS}")
+target_compile_options(LLVMVulkan PRIVATE ${LV_LLVM_DEFINITIONS})
+include(CheckCXXSourceCompiles)
+include(CMakePushCheckState)
+cmake_push_check_state(RESET)
+set(CMAKE_REQUIRED_INCLUDES ${LLVM_INCLUDE_DIRS})
+set(CMAKE_REQUIRED_DEFINITIONS ${LV_LLVM_DEFINITIONS})
+set(LV_PREVIOUS_TRY_COMPILE_TARGET_TYPE "${CMAKE_TRY_COMPILE_TARGET_TYPE}")
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+# Recheck when users switch LLVM_DIR in the same build tree.
+unset(LV_LLVM_HAS_OPTIONAL_PASS_MIXIN CACHE)
+check_cxx_source_compiles(
+  "#include <llvm/IR/PassManager.h>\nstruct Probe : llvm::OptionalPassInfoMixin<Probe> {};\nint main() { return Probe::isRequired(); }"
+  LV_LLVM_HAS_OPTIONAL_PASS_MIXIN)
+if(LV_PREVIOUS_TRY_COMPILE_TARGET_TYPE)
+  set(CMAKE_TRY_COMPILE_TARGET_TYPE "${LV_PREVIOUS_TRY_COMPILE_TARGET_TYPE}")
+else()
+  unset(CMAKE_TRY_COMPILE_TARGET_TYPE)
+endif()
+cmake_pop_check_state()
+if(LV_LLVM_HAS_OPTIONAL_PASS_MIXIN)
+  target_compile_definitions(LLVMVulkan PRIVATE LV_LLVM_HAS_OPTIONAL_PASS_MIXIN=1)
+endif()
+target_link_libraries(LLVMVulkan PRIVATE lv_compute)
+target_compile_features(LLVMVulkan PRIVATE cxx_std_17)
+# A plugin must not bring a second static copy of LLVM into opt/clang.
+# Unix plugins resolve host symbols at load time; LLVM's shared target is used
+# where available. Windows requires an import library from the same LLVM build.
+if(TARGET LLVM)
+  target_link_libraries(LLVMVulkan PRIVATE LLVM)
+elseif(WIN32)
+  message(FATAL_ERROR "Windows plugin builds need LLVM's shared/import library; use Linux/WSL if unavailable")
+elseif(APPLE)
+  target_link_options(LLVMVulkan PRIVATE "LINKER:-undefined,dynamic_lookup")
+endif()

@@ -6,6 +6,8 @@ A C++ implementation of selected compiler calculations as Vulkan compute
 shaders, connected to real LLVM optimization passes. Project owner: **Hermann
 Fischer / HECer**. SPDX license: **Apache-2.0 WITH LLVM-exception**.
 
+Public repository: [HECer/llvm-vulkan](https://github.com/HECer/llvm-vulkan).
+
 This is a functioning research implementation of scoped acceleration paths,
 **not a complete GPU port of LLVM**. It does not yet establish a compilation
 speedup. Software Vulkan correctness tests are distinct from RTX 5090 hardware

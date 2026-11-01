@@ -1,0 +1,27 @@
+{
+  "schema_version":1,
+  "project":"llvm-vulkan",
+  "status":"experimental",
+  "timing_scope":"host wall time including upload, dispatch, convergence and readback; input creation and independent verification excluded",
+  "cpu_baseline":"scalar reference, not upstream LLVM optimization passes",
+  "backend":"cpu",
+  "device":"C++ scalar reference",
+  "is_cpu_device":true,
+  "supports_int64":true,
+  "vendor_id":0,
+  "device_id":0,
+  "vulkan_api_version_raw":0,
+  "driver_version_raw":0,
+  "device_initialization_ms":0.005538,
+  "seed":5090,
+  "workloads":[
+    {"name":"integer-fold","items":65536,"correct":true,"cold_call_ms":1.810399,"warm_median_ms":1.466804,"warm_min_ms":1.323403,"warm_max_ms":1.902534,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[1.466804,1.323403,1.348351,1.472943,1.902534]},
+    {"name":"integer-fold64","items":65536,"correct":true,"cold_call_ms":1.743941,"warm_median_ms":1.236235,"warm_min_ms":1.191941,"warm_max_ms":1.369431,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[1.369431,1.198981,1.191941,1.236235,1.257988]},
+    {"name":"reachability","items":257,"correct":true,"cold_call_ms":0.003445,"warm_median_ms":0.001362,"warm_min_ms":0.001292,"warm_max_ms":0.001752,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[0.001752,0.001552,0.001362,0.001292,0.001292]},
+    {"name":"dominators","items":257,"correct":true,"cold_call_ms":0.682813,"warm_median_ms":0.293701,"warm_min_ms":0.26567,"warm_max_ms":0.818192,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[0.26567,0.729572,0.266662,0.818192,0.293701]},
+    {"name":"liveness","items":257,"correct":true,"cold_call_ms":0.024917,"warm_median_ms":0.024235,"warm_min_ms":0.024186,"warm_max_ms":0.146645,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[0.024235,0.024305,0.024226,0.024186,0.146645]},
+    {"name":"exclusive-scan","items":65536,"correct":true,"cold_call_ms":0.030645,"warm_median_ms":0.021212,"warm_min_ms":0.021181,"warm_max_ms":0.022904,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[0.022904,0.021212,0.021221,0.021181,0.021181]},
+    {"name":"sort-keys","items":65536,"correct":true,"cold_call_ms":3.407745,"warm_median_ms":3.267138,"warm_min_ms":2.99639,"warm_max_ms":3.298554,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[3.267138,3.290412,2.99639,3.04355,3.298554]},
+    {"name":"hash-records","items":65536,"correct":true,"cold_call_ms":0.220584,"warm_median_ms":0.267613,"warm_min_ms":0.214225,"warm_max_ms":0.29964,"dispatches_per_call":0,"iterations_per_call":0,"bytes_uploaded_per_call":0,"bytes_downloaded_per_call":0,"samples_ms":[0.267613,0.29964,0.214225,0.230549,0.267963]}
+  ]
+}

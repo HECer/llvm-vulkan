@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Before { uint before[]; };
+layout(set = 0, binding = 1, std430) writeonly buffer After { uint after[]; };
+layout(set = 0, binding = 2, std430) writeonly buffer Sums { uint sums[]; };
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+shared uint data[128];
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x, t = gl_LocalInvocationID.x;
+  data[t] = i < p.n ? before[i] : 0u;
+  barrier();
+  // Blelloch up-sweep and down-sweep: O(n) total work, modular uint arithmetic.
+  for (uint stride = 1u; stride < 128u; stride *= 2u) {
+    uint j = (t + 1u) * stride * 2u - 1u;
+    if (j < 128u)
+      data[j] += data[j - stride];
+    barrier();
+  }
+  if (t == 0u) {
+    sums[p.base / 128u + gl_WorkGroupID.x] = data[127];
+    data[127] = 0u;
+  }
+  barrier();
+  for (uint stride = 64u; stride > 0u; stride /= 2u) {
+    uint j = (t + 1u) * stride * 2u - 1u;
+    if (j < 128u) {
+      uint left = data[j - stride];
+      data[j - stride] = data[j];
+      data[j] += left;
+    }
+    barrier();
+  }
+  if (i < p.n)
+    after[i] = data[t];
+}

@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) buffer Keys { uint keys[]; };
+layout(push_constant) uniform Params {
+  uint n;
+  uint a;
+  uint b;
+  uint c;
+  uint d;
+  uint e;
+  uint base;
+  uint pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.n)
+    return;
+  uint j = i ^ p.a;
+  if (j <= i || j >= p.n)
+    return;
+  uint x = keys[i], y = keys[j];
+  bool ascending = (i & p.b) == 0u;
+  if ((ascending && x > y) || (!ascending && x < y)) {
+    keys[i] = y;
+    keys[j] = x;
+  }
+}

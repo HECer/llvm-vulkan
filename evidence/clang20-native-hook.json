@@ -1,0 +1,12 @@
+[
+  {
+    "name": "baseline",
+    "output": "3153175647\n",
+    "trace": ""
+  },
+  {
+    "name": "accelerated",
+    "output": "3153175647\n",
+    "trace": "[llvm-vulkan] pass=fold requested=vulkan device=scalar-cpu work=0 changed=0 total_ms=8.462000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=24 changed=0 total_ms=2.618839e+01 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=120 downloaded=20 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=13 changed=0 total_ms=2.532608e+00 vulkan_calls=1 cpu_calls=0 dispatches=16 uploaded=84 downloaded=36 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 20.1.2, 256 bits) work=82 changed=0 total_ms=1.387581e+00 vulkan_calls=1 cpu_calls=0 dispatches=16 uploaded=508 downloaded=184 verification=enabled\n"
+  }
+]
