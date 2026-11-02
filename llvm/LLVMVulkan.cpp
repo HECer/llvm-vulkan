@@ -223,6 +223,36 @@ public:
     return Out;
   }
 
+  std::vector<uint32_t> dominators(const lv::Graph &G, uint32_t Entry) {
+    auto &C = select(G.nodes() * G.nodes());
+    auto Out = C.dominators(G, Entry);
+    record(C);
+    if (Out.size() != G.nodes() * ((G.nodes() + 31) / 32))
+      throw std::runtime_error("dominators result length mismatch");
+    if (Verify && &C != &cpu()) {
+      if (Out != cpu().dominators(G, Entry))
+        throw std::runtime_error(
+            "Vulkan dominators disagrees with CPU before IR mutation");
+    }
+    return Out;
+  }
+
+  std::vector<uint32_t> liveness(const lv::Graph &G, uint32_t Words,
+                                 const std::vector<uint32_t> &Gen,
+                                 const std::vector<uint32_t> &Kill) {
+    auto &C = select(G.nodes() * Words);
+    auto Out = C.liveness(G, Words, Gen, Kill);
+    record(C);
+    if (Out.size() != G.nodes() * Words)
+      throw std::runtime_error("liveness result length mismatch");
+    if (Verify && &C != &cpu()) {
+      if (Out != cpu().liveness(G, Words, Gen, Kill))
+        throw std::runtime_error(
+            "Vulkan liveness disagrees with CPU before IR mutation");
+    }
+    return Out;
+  }
+
   std::vector<uint32_t> hash(const std::vector<uint32_t> &Words,
                              const std::vector<uint32_t> &Offsets) {
     auto &C = select(Words.size());
@@ -547,7 +577,8 @@ public:
 
 // Hashes only nominate candidates. LLVM's exact semantic comparison and
 // same-basic-block ordering are the authority for every replacement.
-class CSEPass : public LVPassInfoMixin<CSEPass> {
+template <bool Global = false>
+class CSEPass : public LVPassInfoMixin<CSEPass<Global>> {
 public:
   PreservedAnalyses run(Module &M, ModuleAnalysisManager &) {
     const auto Start = std::chrono::steady_clock::now();
@@ -583,32 +614,98 @@ public:
           Words.push_back(I.getOpcode());
           Words.push_back(TypeID(I.getType()));
           Words.push_back(I.getNumOperands());
+          SmallVector<uint32_t, 4> OpIDs;
           for (const auto &Op : I.operands())
-            Words.push_back(ValueID(Op.get()));
+            OpIDs.push_back(ValueID(Op.get()));
+          if (I.isCommutative() && OpIDs.size() == 2 && OpIDs[0] > OpIDs[1])
+            std::swap(OpIDs[0], OpIDs[1]);
+          for (auto ID : OpIDs)
+            Words.push_back(ID);
         }
     if (Nodes.empty())
       return PreservedAnalyses::all();
     Offsets.push_back(index32(Words.size()));
     const auto Hashes = S.hash(Words, Offsets);
     const auto BucketLimit = numberSetting("LV_CSE_BUCKET_LIMIT", 64);
-    BasicBlock *Current = nullptr;
+    const Function *CurrentFunction = nullptr;
+    BasicBlock *CurrentBB = nullptr;
+    DenseMap<const BasicBlock *, uint32_t> BlockIndices;
+    std::vector<uint32_t> Dominators;
+    size_t DomWordsPerBlock = 1;
+
     // LLVM DenseMap reserves two uint32_t key values; a hash can equal either.
     std::unordered_map<uint32_t, SmallVector<Instruction *, 4>> Buckets;
     size_t Changed = 0;
     for (size_t J = 0; J < Nodes.size(); ++J) {
       auto *I = Nodes[J];
-      if (Current != I->getParent()) {
-        Current = I->getParent();
+      if (I->getFunction() != CurrentFunction) {
+        CurrentFunction = I->getFunction();
+        CurrentBB = nullptr;
         Buckets.clear();
+        if constexpr (Global) {
+          BlockIndices.clear();
+          size_t Count = 0;
+          for (auto &BB : *CurrentFunction)
+            BlockIndices[&BB] = index32(Count++);
+          if (Count > 1) {
+            lv::Graph CFG;
+            CFG.offsets.reserve(Count + 1);
+            for (auto &BB : *CurrentFunction) {
+              CFG.offsets.push_back(index32(CFG.edges.size()));
+              for (auto *Succ : successors(&BB))
+                CFG.edges.push_back(BlockIndices[Succ]);
+            }
+            CFG.offsets.push_back(index32(CFG.edges.size()));
+            Dominators = S.dominators(CFG, 0);
+            DomWordsPerBlock = (Count + 31) / 32;
+          } else {
+            Dominators = {1};
+            DomWordsPerBlock = 1;
+          }
+        }
+      }
+      if constexpr (!Global) {
+        if (CurrentBB != I->getParent()) {
+          CurrentBB = I->getParent();
+          Buckets.clear();
+        }
       }
       auto &Candidates = Buckets[Hashes[J]];
       Instruction *Replacement = nullptr;
-      for (auto *Previous : Candidates)
-        if (I->isIdenticalTo(Previous)) {
-          Replacement = Previous;
-          break;
+      for (auto *Previous : Candidates) {
+        bool Match = false;
+        if (I->isIdenticalTo(Previous))
+          Match = true;
+        else if (I->isCommutative() && I->getNumOperands() == 2 &&
+                 Previous->getOpcode() == I->getOpcode() &&
+                 Previous->getType() == I->getType() &&
+                 I->getOperand(0) == Previous->getOperand(1) &&
+                 I->getOperand(1) == Previous->getOperand(0))
+          Match = true;
+
+        if (Match) {
+          if constexpr (Global) {
+            auto *BBPrev = Previous->getParent();
+            auto *BBI = I->getParent();
+            if (BBPrev == BBI) {
+              Replacement = Previous;
+              break;
+            }
+            auto PrevIdx = BlockIndices.lookup(BBPrev);
+            auto CurIdx = BlockIndices.lookup(BBI);
+            if ((Dominators[size_t(CurIdx) * DomWordsPerBlock + (PrevIdx / 32)] &
+                 (1u << (PrevIdx % 32))) != 0) {
+              Replacement = Previous;
+              break;
+            }
+          } else {
+            Replacement = Previous;
+            break;
+          }
         }
+      }
       if (Replacement) {
+        salvageDebugInfo(*I);
         I->replaceAllUsesWith(Replacement);
         I->eraseFromParent();
         ++Changed;
@@ -616,10 +713,13 @@ public:
         Candidates.push_back(I);
       }
     }
-    S.report("cse", Changed, Words.size(), Start);
+    S.report(Global ? "gvn" : "cse", Changed, Words.size(), Start);
     return Changed ? PreservedAnalyses::none() : PreservedAnalyses::all();
   }
 };
+
+using LocalCSEPass = CSEPass<false>;
+using GVNPass = CSEPass<true>;
 
 // A boundary around every public pass converts runtime exceptions to clear,
 // fatal compiler diagnostics. Explicit Vulkan requests never silently fall
@@ -638,8 +738,9 @@ public:
 
 void addPipeline(ModulePassManager &MPM) {
   MPM.addPass(CheckedPass<FoldPass>());
-  MPM.addPass(CheckedPass<CSEPass>());
+  MPM.addPass(CheckedPass<LocalCSEPass>());
   MPM.addPass(CheckedPass<CFGPass>());
+  MPM.addPass(CheckedPass<GVNPass>());
   MPM.addPass(CheckedPass<DCEPass>());
 }
 } // namespace
@@ -652,26 +753,39 @@ extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
                    ArrayRef<PassBuilder::PipelineElement> Inner) {
                   if (!Inner.empty())
                     return false;
-                  if (Name == "lv-fold")
+                  if (Name == "lv-fold" || Name == "vulkan-fold")
                     MPM.addPass(CheckedPass<FoldPass>());
-                  else if (Name == "lv-cse")
-                    MPM.addPass(CheckedPass<CSEPass>());
-                  else if (Name == "lv-dce")
+                  else if (Name == "lv-cse" || Name == "vulkan-cse" ||
+                           Name == "early-cse" || Name == "early-cse<memssa>")
+                    MPM.addPass(CheckedPass<LocalCSEPass>());
+                  else if (Name == "lv-gvn" || Name == "vulkan-gvn" ||
+                           Name == "gvn")
+                    MPM.addPass(CheckedPass<GVNPass>());
+                  else if (Name == "lv-dce" || Name == "vulkan-dce" ||
+                           Name == "dce" || Name == "adce")
                     MPM.addPass(CheckedPass<DCEPass>());
-                  else if (Name == "lv-cfg")
+                  else if (Name == "lv-cfg" || Name == "vulkan-cfg" ||
+                           Name == "simplifycfg")
                     MPM.addPass(CheckedPass<CFGPass>());
-                  else if (Name == "lv-pipeline")
+                  else if (Name == "lv-pipeline" || Name == "vulkan-pipeline" ||
+                           Name == "instcombine")
                     addPipeline(MPM);
                   else
                     return false;
                   return true;
                 });
-            // Loading a plugin alone does not alter a normal compilation. This
-            // opt-in hook is useful for -fpass-plugin in clang and other LLVM
-            // frontends.
+            // Hook into Clang and standard optimization pipelines
             if (setting("LV_AUTO_INSERT", "0") == "1") {
               PB.registerPipelineStartEPCallback(
-                  [](ModulePassManager &MPM, OptimizationLevel) {
+                  [](ModulePassManager &MPM, auto...) {
+                    addPipeline(MPM);
+                  });
+              PB.registerPipelineEarlySimplificationEPCallback(
+                  [](ModulePassManager &MPM, auto...) {
+                    addPipeline(MPM);
+                  });
+              PB.registerOptimizerLastEPCallback(
+                  [](ModulePassManager &MPM, auto...) {
                     addPipeline(MPM);
                   });
             }

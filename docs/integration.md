@@ -100,15 +100,27 @@ operation.
 | Pass | Device work | Host work and boundaries |
 |---|---|---|
 | `lv-fold` | Batch evaluation of 23 integer arithmetic/bitwise/comparison operations; widths 1–32 and 33–64 use separate kernels. | Select only constant integer operands with no poison-generating flags/metadata. Apply valid results, then enqueue newly constant users. Preserve unsupported and unsafe requests. |
-| `lv-cse` | Hash serialized instruction candidate records in a module-wide batch. | Prove equality with LLVM `isIdenticalTo`, require an earlier instruction in the same basic block, and update uses. Hashes alone never authorize replacement. |
+| `lv-cse` | Hash serialized instruction candidate records in a module-wide batch. | Prove equality with LLVM `isIdenticalTo` (or commutative operand swap), require an earlier instruction in the same basic block, and update uses. Hashes alone never authorize replacement. |
+| `lv-gvn` | Parallel candidate hashing plus GPU dense dominator matrix computation. | Prove semantic equality with commutative support across basic blocks: replaces redundant expressions whenever the candidate definition basic block dominates the current block according to the Vulkan dominator tree. |
 | `lv-cfg` | Reachability closure over the module's disjoint control-flow graphs. | LLVM folds constant branch/switch terminators first, repairs PHIs, and deletes unreachable blocks. Address-taken blocks are additional roots. |
 | `lv-dce` | Backward liveness closure from required instructions through SSA dependencies. | Conservatively retain memory operations, calls, EH, terminators, and all instructions outside the pure whitelist. Salvage debug information, drop dead cyclic references, and erase dead pure instructions. |
-| `lv-pipeline` | The above kernels. | Run `lv-fold`, `lv-cse`, `lv-cfg`, then `lv-dce`. |
+| `lv-pipeline` | The combined pass pipeline. | Run `lv-fold`, `lv-cse`, `lv-cfg`, `lv-gvn`, then `lv-dce`. |
 
 Every pass skips declarations and `optnone` functions. Mutating passes invalidate
-their analyses through the new pass manager. The passes do not claim to be
-drop-in replacements for InstCombine, GVN, ADCE, or SimplifyCFG: each has a much
-narrower transformation scope.
+their analyses through the new pass manager. Standard pass names (`early-cse`,
+`gvn`, `dce`, `adce`, `simplifycfg`, `instcombine`) are registered as aliases to allow direct
+invocation in standard `-passes=...` pipelines. In addition, setting `LV_AUTO_INSERT=1`
+registers extension point callbacks (`registerPipelineStartEPCallback`,
+`registerPipelineEarlySimplificationEPCallback`, `registerOptimizerLastEPCallback`)
+so that `-fpass-plugin=LLVMVulkan.so` automatically hooks into Clang's `-O2`/`-O3`
+compilation pipeline.
+
+**CSE commutative canonicalization & Dominator GVN.** Operands for commutative instructions
+(`add`, `mul`, `and`, `or`, `xor`, `eq`, `ne`) are canonicalized by value ID before
+hashing and matching. This ensures that expressions with inverted operand order
+(such as `a + b` and `b + a`) produce identical candidate hashes and are successfully
+deduplicated within the same basic block (`lv-cse` / `early-cse`) and across basic blocks
+dominated by the original computation (`lv-gvn` / `gvn`).
 
 **Integer semantics.** Folding includes modular add/subtract/multiply, bitwise
 and/or/xor, three shifts, unsigned/signed division and remainder, and all ten
