@@ -18,12 +18,14 @@ This stable source release covers the [documented API and supported configuratio
 speedup. Software Vulkan correctness tests are distinct from RTX 5090 hardware
 tests. The full source-wide gap inventory is in [coverage.md](docs/coverage.md).
 
-[Project presentation](docs/project-presentation.html) ·
-[Interactive benchmark graphs](docs/graphs/benchmarks.html) ·
+[Project site](https://hecer.github.io/llvm-vulkan/) ·
+[Project presentation](https://hecer.github.io/llvm-vulkan/project-presentation.html) ·
+[Interactive benchmark graphs](https://hecer.github.io/llvm-vulkan/graphs/benchmarks.html) ·
 [Release and installation guide](docs/release.md) · [Changelog](CHANGELOG.md)
 
-Download the HTML files with the repository or release package and open them in
-your browser. The presentation and graphs work offline without a server.
+Open the live interactive pages above, or download the self-contained offline HTML
+files with the repository or release package. The presentation and graphs work
+offline without a server.
 
 ## Measured performance
 
