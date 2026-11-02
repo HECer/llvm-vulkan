@@ -5,7 +5,7 @@
   <img src="docs/assets/logo-light.svg" alt="LLVM Vulkan project logo" width="420">
 </picture>
 
-**Version 1.0 — portable bulk-compute API and scoped LLVM passes.**
+**Version 1.1 — drop-in standard LLVM passes (GVN, CSE, CFG, DCE) & Clang integration.**
 
 A C++ implementation of selected compiler calculations as Vulkan compute
 shaders, connected to real LLVM optimization passes. Project owner: **Hermann
@@ -13,10 +13,10 @@ Fischer / HECer**. SPDX license: **Apache-2.0 WITH LLVM-exception**.
 
 Public repository: [HECer/llvm-vulkan](https://github.com/HECer/llvm-vulkan).
 
-This stable source release covers the [documented API and supported configurations](docs/release.md),
-**not a complete GPU port of LLVM**. It does not establish a compilation
-speedup. Software Vulkan correctness tests are distinct from RTX 5090 hardware
-tests. The full source-wide gap inventory is in [coverage.md](docs/coverage.md).
+This release provides **drop-in pass aliasing** (`early-cse`, `gvn`, `simplifycfg`,
+`dce`, `adce`, `instcombine`) and automatic hook-in for `clang -fpass-plugin=LLVMVulkan.so -O2`
+(via `LV_AUTO_INSERT=1`). It includes GPU dominator-based Global Value Numbering (`gvn`),
+commutative operand canonicalization, and is validated against LLVM 21 and pinned LLVM main.
 
 [Project site](https://hecer.github.io/llvm-vulkan/) ·
 [Project presentation](https://hecer.github.io/llvm-vulkan/project-presentation.html) ·
@@ -26,6 +26,17 @@ tests. The full source-wide gap inventory is in [coverage.md](docs/coverage.md).
 Open the live interactive pages above, or download the self-contained offline HTML
 files with the repository or release package. The presentation and graphs work
 offline without a server.
+
+## Quick drop-in usage with Clang and opt
+
+```bash
+# Direct opt usage with standard pass names
+opt -load-pass-plugin=LLVMVulkan.so -passes='early-cse,gvn,simplifycfg,dce' input.ll -S -o output.ll
+
+# Automatic Clang -O2 integration
+export LV_AUTO_INSERT=1
+clang -fpass-plugin=LLVMVulkan.so -O2 -c main.c -o main.o
+```
 
 ## Measured performance
 
@@ -57,15 +68,15 @@ physical AMD/Intel performance.
 
 | LLVM integration | Device work | Host responsibility |
 | --- | --- | --- |
-| `lv-fold` | Batched scalar integer arithmetic and comparisons | LLVM candidate filtering, overflow/poison guards, dependency frontiers, replacement |
-| `lv-cse` | Instruction record hashing | Exact LLVM equality, same-block dominance, collision-safe replacement |
-| `lv-cfg` | Module-batched CFG reachability | Constant terminator folding, block-address roots, PHI repair and block deletion |
-| `lv-dce` | Backward def-use reachability | Conservative side-effect roots, debug salvage, removal of dead pure SSA cycles |
-| `lv-pipeline` | All four paths | Fold → CSE → CFG → DCE |
+| `lv-fold` / `vulkan-fold` | Batched scalar integer arithmetic and comparisons | LLVM candidate filtering, overflow/poison guards, dependency frontiers, replacement |
+| `lv-cse` / `early-cse` | Instruction record hashing with commutative normalization | Exact LLVM equality, same-block dominance, collision-safe replacement |
+| `lv-gvn` / `gvn` | Parallel record hashing & GPU dense dominator matrix computation | Cross-block semantic equivalence across blocks dominated by candidate definition |
+| `lv-cfg` / `simplifycfg` | Module-batched CFG reachability | Constant terminator folding, block-address roots, PHI repair and block deletion |
+| `lv-dce` / `dce` / `adce` | Backward def-use reachability | Conservative side-effect roots, debug salvage, removal of dead pure SSA cycles |
+| `lv-pipeline` / `instcombine` | All five passes combined | Fold → Local CSE → CFG → GVN → DCE |
 
-Additional **standalone**, tested compute primitives provide dominator bitsets,
-gen/kill liveness, exclusive scans and key sorting. They are not connected to
-LLVM's DominatorTree, register allocator, linker or other consumers yet.
+Additional tested compute primitives provide gen/kill backward liveness data flow,
+exclusive scans and key sorting.
 
 The runtime includes pooled device-local buffers, persistently mapped staging,
 combined upload/compute/readback submissions, optional GPU timestamps, cached
