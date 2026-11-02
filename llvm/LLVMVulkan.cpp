@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // Experimental bulk-compute transforms. LLVM owns IR and all mutation.
 #include "lv/compute.hpp"
+#include "lv/version.hpp"
 
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallPtrSet.h"
@@ -644,7 +645,7 @@ void addPipeline(ModulePassManager &MPM) {
 } // namespace
 
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo llvmGetPassPluginInfo() {
-  return {LLVM_PLUGIN_API_VERSION, "LLVMVulkan", "0.1.0-experimental",
+  return {LLVM_PLUGIN_API_VERSION, "LLVMVulkan", LV_VERSION_STRING,
           [](PassBuilder &PB) {
             PB.registerPipelineParsingCallback(
                 [](StringRef Name, ModulePassManager &MPM,

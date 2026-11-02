@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 #include "lv/compute.hpp"
+#include "lv/version.hpp"
 #ifdef LV_EMBEDDED_SHADERS
 #include "lv/embedded_shaders.hpp"
 #endif
@@ -55,8 +56,9 @@ VkInstance new_instance(bool validation, void *user,
                         PFN_vkDebugUtilsMessengerCallbackEXT callback) {
   VkApplicationInfo app{};
   app.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-  app.pApplicationName = "LLVM Vulkan experimental";
-  app.applicationVersion = VK_MAKE_VERSION(0, 1, 0);
+  app.pApplicationName = "LLVM Vulkan";
+  app.applicationVersion = VK_MAKE_VERSION(LV_VERSION_MAJOR, LV_VERSION_MINOR,
+                                           LV_VERSION_PATCH);
   app.pEngineName = "lv";
   app.apiVersion = VK_API_VERSION_1_1;
   const char *layer = "VK_LAYER_KHRONOS_validation";

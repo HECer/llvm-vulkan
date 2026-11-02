@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(LLVMVulkanInstalledConsumer LANGUAGES CXX)
+find_package(LLVMVulkan 1.0 CONFIG REQUIRED)
+add_executable(lv-installed-smoke main.cpp)
+target_link_libraries(lv-installed-smoke PRIVATE LLVMVulkan::compute)

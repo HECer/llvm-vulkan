@@ -1,0 +1,445 @@
+{
+  "tool": "audit-provenance",
+  "scope": "Read-only publication audit of newly authored release assets",
+  "trust_policy": null,
+  "conforming_verifier_supplied": false,
+  "removed_or_cleaned": false,
+  "disclosure": "Vector assets, HTML presentation and graph styling were prepared with AI-assisted development. Data is taken from the cited repository evidence.",
+  "authorship_inference": "No human-authorship inference is made from absent C2PA or unobserved watermarks.",
+  "reports": [
+    {
+      "asset": "docs/assets/icon.svg",
+      "asset_sha256": "506d75e17dcd3947e7361f9fade250a78386dd9c2a5df4b552c3723fb637b895",
+      "format": "SVG",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "MEDIUM",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "None available. Do not infer authorship from this.",
+          "question": "text_watermark",
+          "why": "Keyed model-level watermarks cannot be checked without the provider's key."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=MEDIUM"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "detect-text-watermark",
+          "summary": "status=NO_SIGNAL_OBSERVED"
+        }
+      ],
+      "text_signals": {
+        "did_not_run": [
+          "anthropic-official",
+          "kgw-research",
+          "synthid-text"
+        ],
+        "scan_complete": true,
+        "status": "NO_SIGNAL_OBSERVED"
+      }
+    },
+    {
+      "asset": "docs/assets/logo-dark.svg",
+      "asset_sha256": "543e474cc9348504ca341699c97bbc836a02052ee8059f02a4353eb9487e4678",
+      "format": "SVG",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "MEDIUM",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "None available. Do not infer authorship from this.",
+          "question": "text_watermark",
+          "why": "Keyed model-level watermarks cannot be checked without the provider's key."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=MEDIUM"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "detect-text-watermark",
+          "summary": "status=NO_SIGNAL_OBSERVED"
+        }
+      ],
+      "text_signals": {
+        "did_not_run": [
+          "anthropic-official",
+          "kgw-research",
+          "synthid-text"
+        ],
+        "scan_complete": true,
+        "status": "NO_SIGNAL_OBSERVED"
+      }
+    },
+    {
+      "asset": "docs/assets/logo-light.svg",
+      "asset_sha256": "4703cd0571872f88af2e54a2b09f87eb03e13e373aa3d0cd404e5477660e6005",
+      "format": "SVG",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "MEDIUM",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "None available. Do not infer authorship from this.",
+          "question": "text_watermark",
+          "why": "Keyed model-level watermarks cannot be checked without the provider's key."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=MEDIUM"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "detect-text-watermark",
+          "summary": "status=NO_SIGNAL_OBSERVED"
+        }
+      ],
+      "text_signals": {
+        "did_not_run": [
+          "anthropic-official",
+          "kgw-research",
+          "synthid-text"
+        ],
+        "scan_complete": true,
+        "status": "NO_SIGNAL_OBSERVED"
+      }
+    },
+    {
+      "asset": "docs/assets/icon.png",
+      "asset_sha256": "dbe3df7ce345681389904a7cd2848d07a15650be29006e496856b53c4d8cf7c9",
+      "format": "PNG",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "MEDIUM",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=MEDIUM"
+        },
+        {
+          "detail": "The asset is not text.",
+          "ran": false,
+          "skill": "detect-text-watermark",
+          "summary": "not applicable"
+        }
+      ],
+      "text_signals": null
+    },
+    {
+      "asset": "docs/assets/favicon.ico",
+      "asset_sha256": "b023321b4fea74b5eac9f124ed3bc138518237675806b54cbce9f5269307a2d0",
+      "format": "UNKNOWN",
+      "answers": {
+        "located": "UNKNOWN",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "UNKNOWN",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Extend carrier support for this format, or inspect it manually.",
+          "question": "located",
+          "why": "Format UNKNOWN is recognised but this build does not check every C2PA carrier the specification defines for it, so absence cannot be asserted."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Presence is inconclusive: Format UNKNOWN is recognised but this build does not check every C2PA carrier the specification defines for it, so absence cannot be asserted.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=UNKNOWN"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": "Format UNKNOWN has no supported metadata parser in this build, so no privacy conclusion can be drawn.",
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=UNKNOWN"
+        },
+        {
+          "detail": "The asset is not text.",
+          "ran": false,
+          "skill": "detect-text-watermark",
+          "summary": "not applicable"
+        }
+      ],
+      "text_signals": null
+    },
+    {
+      "asset": "docs/graphs/benchmarks.html",
+      "asset_sha256": "fa7068ffa131f370ab6eb6f3e414c84efcc1e026f79bb33f6c925bafa7697705",
+      "format": "HTML",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "UNKNOWN",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "None available. Do not infer authorship from this.",
+          "question": "text_watermark",
+          "why": "Keyed model-level watermarks cannot be checked without the provider's key."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": "Format HTML has no supported metadata parser in this build, so no privacy conclusion can be drawn.",
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=UNKNOWN"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "detect-text-watermark",
+          "summary": "status=NO_SIGNAL_OBSERVED"
+        }
+      ],
+      "text_signals": {
+        "did_not_run": [
+          "anthropic-official",
+          "kgw-research",
+          "synthid-text"
+        ],
+        "scan_complete": true,
+        "status": "NO_SIGNAL_OBSERVED"
+      }
+    },
+    {
+      "asset": "docs/project-presentation.html",
+      "asset_sha256": "9684bb7570ff5bb77cc288bafeb1fde3865d86247053b73eb4333e3c90307dc4",
+      "format": "HTML",
+      "answers": {
+        "located": "NO",
+        "scan_complete": "YES",
+        "trusted": "UNKNOWN",
+        "verified": "UNKNOWN"
+      },
+      "privacy_risk": "UNKNOWN",
+      "audit_exit_code": 2,
+      "unknowns": [
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "verified",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "Re-run with --c2patool pointing at c2patool 0.20.0 or newer.",
+          "question": "trusted",
+          "why": "No conforming verifier was supplied."
+        },
+        {
+          "next_step": "None available. Do not infer authorship from this.",
+          "question": "text_watermark",
+          "why": "Keyed model-level watermarks cannot be checked without the provider's key."
+        }
+      ],
+      "components": [
+        {
+          "detail": "Retain ABSENT as a bounded local observation for this fully inspected file.",
+          "ran": true,
+          "skill": "inspect-content-provenance",
+          "summary": "presence=ABSENT"
+        },
+        {
+          "detail": "No verifier was supplied; cryptographic questions cannot be answered.",
+          "ran": false,
+          "skill": "verify-content-credentials",
+          "summary": "not run"
+        },
+        {
+          "detail": "Format HTML has no supported metadata parser in this build, so no privacy conclusion can be drawn.",
+          "ran": true,
+          "skill": "audit-metadata-privacy",
+          "summary": "risk=UNKNOWN"
+        },
+        {
+          "detail": null,
+          "ran": true,
+          "skill": "detect-text-watermark",
+          "summary": "status=NO_SIGNAL_OBSERVED"
+        }
+      ],
+      "text_signals": {
+        "did_not_run": [
+          "anthropic-official",
+          "kgw-research",
+          "synthid-text"
+        ],
+        "scan_complete": true,
+        "status": "NO_SIGNAL_OBSERVED"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "project": "LLVM Vulkan",
   "owner": "HECer",
-  "status": "experimental-work-in-progress",
+  "status": "stable",
   "full_llvm_port_complete": false,
   "physical_gpu_tested": true,
   "published_to_github": true,
@@ -36,7 +36,7 @@
     "failed": 0
   },
   "native_windows_tested": true,
-  "remote_ci_run": false,
+  "remote_ci_run": true,
   "leak_sanitizer_available": false,
   "scalar_integer_fold_width_range": {
     "min": 1,
@@ -62,7 +62,7 @@
     "whole_compiler_gpu_speedup_established": false,
     "evidence": "evidence/vulkan-optimization.json"
   },
-  "latest_evidence": "evidence/vulkan-iteration2.json",
+  "latest_evidence": "evidence/release-1.0.0.json",
   "vulkan_optimization_iteration2": {
     "validated_at": "2026-11-02",
     "gpu": "RTX5090",
@@ -103,5 +103,11 @@
     "whole_compiler_speedup_established": false,
     "report": "docs/cpu-gpu-benchmark.md",
     "evidence": "evidence/cpu-vs-gpu-rtx5090.json"
-  }
+  },
+  "version": "1.0.0",
+  "release_scope": "Documented C++ bulk-compute API and scoped LLVM passes; no full LLVM port or universal acceleration claim",
+  "release_guide": "docs/release.md",
+  "presentation": "docs/project-presentation.html",
+  "benchmark_graphs": "docs/graphs/benchmarks.html",
+  "release_evidence": "evidence/release-1.0.0.json"
 }

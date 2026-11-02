@@ -30,6 +30,14 @@ jobs:
           PY
       - name: Run differential and semantic tests
         run: ctest --test-dir build --output-on-failure
+      - name: Build release package
+        run: cmake --build build --target package
+      - name: Preserve release package
+        uses: actions/upload-artifact@v4
+        with:
+          name: llvm-vulkan-linux
+          path: build/LLVMVulkan-*.tar.gz
+          if-no-files-found: error
       - name: Preserve test evidence
         if: always()
         uses: actions/upload-artifact@v4

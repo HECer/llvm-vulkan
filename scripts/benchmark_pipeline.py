@@ -58,7 +58,7 @@ def main():
     # performance run. These are standard Vulkan layer selectors, not drivers.
     env.pop("VK_INSTANCE_LAYERS", None)
     env.pop("VK_LAYER_ENABLES", None)
-    report = {"schema_version": 1, "status": "experimental", "hardware_device_requested": args.device == "gpu",
+    report = {"schema_version": 1, "status": "complete", "hardware_device_requested": args.device == "gpu",
               "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
               "pipeline": args.pipeline, "device_requested": args.device,
               "device_name_requested": args.device_name,

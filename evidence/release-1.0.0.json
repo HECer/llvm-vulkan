@@ -1,0 +1,1374 @@
+{
+  "schema_version": 1,
+  "version": "1.0.0",
+  "release_stage": "stable",
+  "recorded_at_utc": "2026-11-02T01:26:34.192764+00:00",
+  "scope": "Documented C++17 bulk-compute source API and scoped LLVM integration; no full LLVM port or guaranteed compiler acceleration",
+  "parent_commit": "eb380c3f67931f2bb8bc40ea1a9027b28a482913",
+  "release_changes": [
+    "Unified CMake/header/CLI/plugin/Vulkan application version",
+    "Relocatable exported LLVMVulkan::compute package, headers and static library",
+    "Required SPIR-V validation by default",
+    "Installed-consumer, version and offline evidence-backed graph gates",
+    "Standalone offline 12-slide presentation,109-row benchmark explorer and project vector/raster identity assets"
+  ],
+  "build": {
+    "native": "Clean MSVC19.44.35225 x64 Release, CMake3.31.6, VulkanSDK1.4.357.0",
+    "python": "3.12.9",
+    "shader_target": "Vulkan1.1",
+    "validated_shaders": 18,
+    "linux_compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "hardware_snapshot": "name, driver_version, memory.used [MiB], utilization.gpu [%], pcie.link.gen.current, pcie.link.width.current\nNVIDIA GeForce RTX 5090, 617.42, 5010 MiB, 16 %, 4, 8",
+  "native_validation": {
+    "ctest": {
+      "path": "results/release-1.0.0/windows-ctest.log",
+      "sha256": "8f568f8b19d9ca3792a765850bc2edd525d192bc16c76d6bac6b3d3cad85f224",
+      "text": "Internal ctest changing into directory: Q:/NN-Developed/Tools/llvm-vulkan/build-release-1.0.0\nTest project Q:/NN-Developed/Tools/llvm-vulkan/build-release-1.0.0\n    Start 1: core-cpu\n1/9 Test #1: core-cpu .........................   Passed    0.08 sec\n    Start 2: core-vulkan\n2/9 Test #2: core-vulkan ......................   Passed    1.15 sec\n    Start 3: core-vulkan-fallback\n3/9 Test #3: core-vulkan-fallback .............   Passed    1.40 sec\n    Start 4: readback-allocation-failure\n4/9 Test #4: readback-allocation-failure ......   Passed    0.42 sec\n    Start 5: benchmark-smoke\n5/9 Test #5: benchmark-smoke ..................   Passed    0.41 sec\n    Start 6: source-fetch-safety\n6/9 Test #6: source-fetch-safety ..............   Passed    0.25 sec\n    Start 7: version\n7/9 Test #7: version ..........................   Passed    0.01 sec\n    Start 8: installed-consumer\n8/9 Test #8: installed-consumer ...............   Passed    4.65 sec\n    Start 9: documented-benchmarks\n9/9 Test #9: documented-benchmarks ............   Passed    0.24 sec\n\n100% tests passed, 0 tests failed out of 9\n\nTotal Test time (real) =   8.63 sec\n"
+    },
+    "large_gpu_seeds": [
+      {
+        "seed": 5090,
+        "path": "results/release-1.0.0/gpu-5090.log",
+        "sha256": "c276db151a30d66badae73df52fe2a42277bec9b276c8cd81bcbf1be62ae816b",
+        "text": "Device: NVIDIA GeForce RTX 5090 | backend=vulkan | seed=5090\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS large dispatch-grid tiling at 8388609 elements/nodes\nPASS invalid input rejection\nPASS all 299119 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299119
+      },
+      {
+        "seed": 1,
+        "path": "results/release-1.0.0/gpu-1.log",
+        "sha256": "4570b9a3913344561369f2e41101b3dfff3404b8284c8793854c325520fde2dc",
+        "text": "Device: NVIDIA GeForce RTX 5090 | backend=vulkan | seed=1\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS large dispatch-grid tiling at 8388609 elements/nodes\nPASS invalid input rejection\nPASS all 299119 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299119
+      },
+      {
+        "seed": 12345,
+        "path": "results/release-1.0.0/gpu-12345.log",
+        "sha256": "a184118de74fbe73dca5996500794362222ea881d0fe112840d4336b9701bf31",
+        "text": "Device: NVIDIA GeForce RTX 5090 | backend=vulkan | seed=12345\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS large dispatch-grid tiling at 8388609 elements/nodes\nPASS invalid input rejection\nPASS all 299119 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299119
+      }
+    ],
+    "synchronization_validation": true,
+    "version": "LLVM Vulkan1.0.0",
+    "benchmark_smoke": {
+      "schema_version": 1,
+      "project": "llvm-vulkan",
+      "status": "stable",
+      "project_version": "1.0.0",
+      "timing_scope": "host wall time including upload, dispatch, convergence and readback; input creation and independent verification excluded",
+      "cpu_baseline": "scalar reference, not upstream LLVM optimization passes",
+      "backend": "vulkan",
+      "device": "NVIDIA GeForce RTX 5090",
+      "is_cpu_device": false,
+      "supports_int64": true,
+      "vendor_id": 4318,
+      "device_id": 11141,
+      "vulkan_api_version_raw": 4211039,
+      "driver_version_raw": 2588573696,
+      "device_initialization_ms": 265.0285,
+      "workload_requested": "all",
+      "graph_shape": "branched",
+      "graph_nodes": 257,
+      "graph_components": 0,
+      "seed": 5090,
+      "workloads": [
+        {
+          "name": "integer-fold",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 6.484,
+          "warm_median_ms": 0.37225,
+          "warm_min_ms": 0.3391,
+          "warm_max_ms": 0.4054,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 4,
+          "pooled_allocation_bytes": 24672,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.009248,
+          "fence_wait_ms_last_call": 0.2643,
+          "bytes_uploaded_per_call": 8208,
+          "bytes_downloaded_per_call": 4104,
+          "samples_ms": [
+            0.3391,
+            0.4054
+          ]
+        },
+        {
+          "name": "integer-fold64",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 2.1788,
+          "warm_median_ms": 0.24965,
+          "warm_min_ms": 0.2342,
+          "warm_max_ms": 0.2651,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 4,
+          "pooled_allocation_bytes": 57520,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.011552,
+          "fence_wait_ms_last_call": 0.1167,
+          "bytes_uploaded_per_call": 12312,
+          "bytes_downloaded_per_call": 8208,
+          "samples_ms": [
+            0.2342,
+            0.2651
+          ]
+        },
+        {
+          "name": "reachability",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 2.5022,
+          "warm_median_ms": 0.52015,
+          "warm_min_ms": 0.364,
+          "warm_max_ms": 0.6763,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 8,
+          "pooled_allocation_bytes": 61712,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.038528,
+          "fence_wait_ms_last_call": 0.299,
+          "bytes_uploaded_per_call": 4240,
+          "bytes_downloaded_per_call": 1028,
+          "samples_ms": [
+            0.364,
+            0.6763
+          ]
+        },
+        {
+          "name": "dominators",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 3.8055,
+          "warm_median_ms": 1.01035,
+          "warm_min_ms": 0.8527,
+          "warm_max_ms": 1.168,
+          "dispatches_per_call": 3,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 10,
+          "pooled_allocation_bytes": 80240,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.365472,
+          "fence_wait_ms_last_call": 0.4806,
+          "bytes_uploaded_per_call": 4240,
+          "bytes_downloaded_per_call": 9252,
+          "samples_ms": [
+            1.168,
+            0.8527
+          ]
+        },
+        {
+          "name": "liveness",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 2.9508,
+          "warm_median_ms": 0.45455,
+          "warm_min_ms": 0.4399,
+          "warm_max_ms": 0.4692,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 9,
+          "pooled_allocation_bytes": 88496,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.04208,
+          "fence_wait_ms_last_call": 0.1798,
+          "bytes_uploaded_per_call": 9372,
+          "bytes_downloaded_per_call": 2056,
+          "samples_ms": [
+            0.4399,
+            0.4692
+          ]
+        },
+        {
+          "name": "exclusive-scan",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 5.4586,
+          "warm_median_ms": 0.47005,
+          "warm_min_ms": 0.4072,
+          "warm_max_ms": 0.5329,
+          "dispatches_per_call": 3,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 7,
+          "pooled_allocation_bytes": 90560,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.01344,
+          "fence_wait_ms_last_call": 0.1857,
+          "bytes_uploaded_per_call": 2052,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            0.4072,
+            0.5329
+          ]
+        },
+        {
+          "name": "sort-keys",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 4.4609,
+          "warm_median_ms": 1.0639,
+          "warm_min_ms": 0.897,
+          "warm_max_ms": 1.2308,
+          "dispatches_per_call": 24,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 7,
+          "pooled_allocation_bytes": 90560,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.04016,
+          "fence_wait_ms_last_call": 0.6536,
+          "bytes_uploaded_per_call": 2052,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            0.897,
+            1.2308
+          ]
+        },
+        {
+          "name": "hash-records",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 1.2614,
+          "warm_median_ms": 0.2529,
+          "warm_min_ms": 0.2336,
+          "warm_max_ms": 0.2722,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 5,
+          "pooled_allocation_bytes": 90560,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 0.009472,
+          "fence_wait_ms_last_call": 0.1525,
+          "bytes_uploaded_per_call": 4108,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            0.2336,
+            0.2722
+          ]
+        }
+      ]
+    }
+  },
+  "linux_validation": {
+    "core": {
+      "cpu": {
+        "path": "results/release-1.0.0/linux/core-cpu.log",
+        "sha256": "54e6399b841694dbf3906cc5ddb81b91a9a9a04a20b382e68abf90f024d41980",
+        "text": "Device: C++ scalar reference | backend=cpu | seed=5090\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS invalid input rejection\nPASS all 299054 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299054
+      },
+      "fast": {
+        "path": "results/release-1.0.0/linux/core-fast.log",
+        "sha256": "1787356f0817819512f74623cdf36541c797f950d6e95644fb77f67bfe70ab5b",
+        "text": "Device: llvmpipe (LLVM 21.1.8, 256 bits) | backend=vulkan | seed=5090\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS invalid input rejection\nPASS all 299114 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299114
+      },
+      "fallback": {
+        "path": "results/release-1.0.0/linux/core-fallback.log",
+        "sha256": "3b21c6bccf0c253f268bc2d3ea69d0f4c86b1cba61d47532c6d881d8ce07168b",
+        "text": "Device: llvmpipe (LLVM 21.1.8, 256 bits) | backend=vulkan | seed=1\nPASS integer folding: 124972 differential tasks and semantic edges\nPASS 64-bit integer folding: 167200 differential tasks + 4000 independent narrow comparisons\nPASS CSR reachability, dominators, liveness: 64 randomized graphs and cyclic/disconnected/long-chain cases\nPASS exclusive scan, unsigned sort, ragged record hashing\nPASS pooled reuse, allocation budgets, recovery and shader selection boundaries\nPASS mixed component positions and last-round convergence flags\nPASS invalid input rejection\nPASS all 299102 assertions; hardware performance is not inferred from these correctness tests\n",
+        "assertions": 299102
+      }
+    },
+    "recovery": {
+      "path": "results/release-1.0.0/linux/readback-failure.log",
+      "sha256": "851262205c3a6c38f134aa2d8eb5b9021e2cd3772c09569c0bca9d81ba3344ba",
+      "text": "PASS allocation failure joins submitted work before pooled reuse\n"
+    },
+    "devices": [
+      {
+        "name": "llvmpipe (LLVM 21.1.8, 256 bits)",
+        "is_cpu": true,
+        "vendor_id": 65541,
+        "vulkan_api_version_raw": 4211023,
+        "driver_version_raw": 109051912,
+        "device_id": 0,
+        "supports_int64": true,
+        "subgroup_size": 8,
+        "supports_subgroup_arithmetic": true,
+        "max_storage_buffer_bytes": 134217728
+      }
+    ],
+    "llvm_version": "Ubuntu LLVM version 21.1.8\n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+    "fixtures_by_fast_paths": {
+      "1": {
+        "schema_version": 1,
+        "llvm_version": "Ubuntu LLVM version 21.1.8\n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+        "device_requested": "any",
+        "device_name_requested": "",
+        "vulkan_is_required": true,
+        "fixtures": [
+          {
+            "name": "assume_and_select.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05803831399998671,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=none-no-work work=0 changed=0 total_ms=8.365000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=42 changed=0 total_ms=2.851300e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=2 changed=0 total_ms=1.026000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=25 changed=2 total_ms=9.157000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.372782304999987,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=none-no-work work=0 changed=0 total_ms=9.668000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=42 changed=0 total_ms=2.487850e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=204 downloaded=32 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=2 changed=0 total_ms=5.417999e+01 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=32 downloaded=8 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=25 changed=2 total_ms=1.238074e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=176 downloaded=60 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cfg.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.06010667300000705,
+                "trace": "[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=12 changed=3 total_ms=3.670800e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.24442270800000188,
+                "trace": "[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=12 changed=3 total_ms=1.769739e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=100 downloaded=32 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cfg_blockaddress.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05690066400001115,
+                "trace": "[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=17 changed=4 total_ms=3.460400e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.25396969299998773,
+                "trace": "[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=17 changed=4 total_ms=1.860309e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=120 downloaded=36 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "constant_branch.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.058453715999974065,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=2 changed=2 total_ms=4.395200e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=7 changed=2 total_ms=2.323300e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=3 changed=0 total_ms=2.735000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2744804829999907,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=2 changed=2 total_ms=2.002846e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=32 downloaded=16 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=7 changed=2 total_ms=3.487643e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=56 downloaded=16 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=3 changed=0 total_ms=9.909850e-01 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=36 downloaded=12 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cse.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05494933199997831,
+                "trace": "[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=31 changed=1 total_ms=3.756000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.22324110200003133,
+                "trace": "[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=31 changed=1 total_ms=1.583903e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=152 downloaded=24 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cse_hidden_state.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05767358299999614,
+                "trace": "[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=89 changed=0 total_ms=4.612600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.23776995699995496,
+                "trace": "[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=89 changed=0 total_ms=1.692417e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=432 downloaded=72 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "dce.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.0567833759999985,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=18 changed=4 total_ms=3.333200e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.24042683499999384,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=18 changed=4 total_ms=1.752922e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=144 downloaded=56 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "debug.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05826311099997383,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=1 changed=1 total_ms=2.725100e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=1 changed=0 total_ms=1.389600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=1 changed=0 total_ms=2.494000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 42
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2460449029999836,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=1 total_ms=1.724977e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=16 downloaded=8 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=0 total_ms=3.363868e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=20 downloaded=4 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=0 total_ms=8.600380e-01 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=20 downloaded=4 verification=enabled\n",
+                "exit": 42
+              }
+            },
+            "baseline_exit": 42,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "debug_salvage.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.056271423999987746,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=5 changed=1 total_ms=4.517400e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.24329755700000533,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=1 total_ms=1.763378e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=52 downloaded=16 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "eh.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05700134099998877,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=1 changed=1 total_ms=6.026200e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=5 changed=0 total_ms=2.516600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=5 changed=0 total_ms=4.027000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.24229153400000314,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=1 total_ms=1.671012e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=16 downloaded=8 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=3.893377e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=44 downloaded=12 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=1.584380e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=48 downloaded=16 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "fold.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.056621704999997746,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=7 changed=7 total_ms=3.830100e-02 vulkan_calls=0 cpu_calls=3 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2597280780000233,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=7 changed=7 total_ms=1.906931e+02 vulkan_calls=3 cpu_calls=0 dispatches=3 uploaded=112 downloaded=56 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "fold64.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.07056241899999804,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=12 changed=12 total_ms=4.407200e-02 vulkan_calls=0 cpu_calls=3 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.37608104700001377,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=12 changed=12 total_ms=2.914643e+02 vulkan_calls=3 cpu_calls=0 dispatches=3 uploaded=272 downloaded=176 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "integer_edges.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.07573656699997855,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=13 changed=13 total_ms=5.085500e-02 vulkan_calls=0 cpu_calls=2 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.25075512199998684,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=13 changed=13 total_ms=1.715336e+02 vulkan_calls=2 cpu_calls=0 dispatches=2 uploaded=208 downloaded=104 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "live_phi.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05520248299995956,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=23 changed=3 total_ms=4.266000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.22104192399996236,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=23 changed=3 total_ms=1.571612e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=160 downloaded=52 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "optnone.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05316904100004649,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=none-no-work work=0 changed=0 total_ms=6.331000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.05584324699998433,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=none-no-work work=0 changed=0 total_ms=4.388000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "poison64.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05483574999999519,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=4 changed=0 total_ms=2.348300e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.3179163590000371,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=4 changed=0 total_ms=2.413740e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=96 downloaded=64 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "poison_and_unsupported.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.0914827969999692,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=5 changed=0 total_ms=4.244900e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.38760196700002325,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=2.804932e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=80 downloaded=40 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          }
+        ],
+        "passed": 17,
+        "failed": 0
+      },
+      "0": {
+        "schema_version": 1,
+        "llvm_version": "Ubuntu LLVM version 21.1.8\n  Optimized build.\n  Default target: x86_64-pc-linux-gnu\n  Host CPU: znver3",
+        "device_requested": "any",
+        "device_name_requested": "",
+        "vulkan_is_required": true,
+        "fixtures": [
+          {
+            "name": "assume_and_select.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.054725474999997914,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=none-no-work work=0 changed=0 total_ms=9.378000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=42 changed=0 total_ms=3.217000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=2 changed=0 total_ms=1.040900e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=25 changed=2 total_ms=1.007900e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.28358036400004494,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=none-no-work work=0 changed=0 total_ms=7.023000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=42 changed=0 total_ms=1.906713e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=204 downloaded=32 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=2 changed=0 total_ms=2.628015e+01 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=20 downloaded=12 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=25 changed=2 total_ms=2.387735e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=164 downloaded=64 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cfg.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.0570547219999753,
+                "trace": "[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=12 changed=3 total_ms=3.947400e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2450473610000472,
+                "trace": "[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=12 changed=3 total_ms=1.751485e+02 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=84 downloaded=36 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cfg_blockaddress.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.09679340500002809,
+                "trace": "[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=17 changed=4 total_ms=7.169300e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.38276928800001997,
+                "trace": "[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=17 changed=4 total_ms=2.750424e+02 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=108 downloaded=40 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "constant_branch.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.06431375599999001,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=2 changed=2 total_ms=5.751700e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=7 changed=2 total_ms=2.469600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=3 changed=0 total_ms=4.359000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2720669689999795,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=2 changed=2 total_ms=1.970518e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=32 downloaded=16 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=7 changed=2 total_ms=4.518032e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=48 downloaded=20 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=3 changed=0 total_ms=1.930975e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=28 downloaded=16 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cse.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05500983400003179,
+                "trace": "[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=31 changed=1 total_ms=3.762000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.24359033300004285,
+                "trace": "[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=31 changed=1 total_ms=1.780799e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=152 downloaded=24 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "cse_hidden_state.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.06809409399994593,
+                "trace": "[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=89 changed=0 total_ms=6.984000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.3318095440000093,
+                "trace": "[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=89 changed=0 total_ms=2.474966e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=432 downloaded=72 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "dce.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.06397093799995446,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=18 changed=4 total_ms=3.728000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.26393011600004,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=18 changed=4 total_ms=1.918842e+02 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=132 downloaded=60 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "debug.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.059354772999995475,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=1 changed=1 total_ms=3.915300e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=1 changed=0 total_ms=1.739200e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=1 changed=0 total_ms=2.595000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 42
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2476471649999894,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=1 total_ms=1.718695e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=16 downloaded=8 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=0 total_ms=4.117905e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=12 downloaded=8 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=0 total_ms=2.463677e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=12 downloaded=8 verification=enabled\n",
+                "exit": 42
+              }
+            },
+            "baseline_exit": 42,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "debug_salvage.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05856368500002418,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=5 changed=1 total_ms=4.139700e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.23437639999997373,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=1 total_ms=1.674888e+02 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=40 downloaded=20 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "eh.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.056987998000010975,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=1 changed=1 total_ms=3.445400e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=5 changed=0 total_ms=1.528800e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=5 changed=0 total_ms=2.615000e-03 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2554027740000038,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=1 changed=1 total_ms=1.783288e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=16 downloaded=8 verification=enabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=4.524760e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=36 downloaded=16 verification=enabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=2.402673e+00 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=40 downloaded=20 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "fold.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.0765054990000067,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=7 changed=7 total_ms=3.979500e-02 vulkan_calls=0 cpu_calls=3 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.23604152900003328,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=7 changed=7 total_ms=1.695934e+02 vulkan_calls=3 cpu_calls=0 dispatches=3 uploaded=112 downloaded=56 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "fold64.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.054187909000006584,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=12 changed=12 total_ms=3.683800e-02 vulkan_calls=0 cpu_calls=3 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.27940845599999875,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=12 changed=12 total_ms=2.114157e+02 vulkan_calls=3 cpu_calls=0 dispatches=3 uploaded=272 downloaded=176 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "integer_edges.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05470931899998277,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=13 changed=13 total_ms=4.166700e-02 vulkan_calls=0 cpu_calls=2 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.22025720300001694,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=13 changed=13 total_ms=1.559208e+02 vulkan_calls=2 cpu_calls=0 dispatches=2 uploaded=208 downloaded=104 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "live_phi.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05310941400000502,
+                "trace": "[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=23 changed=3 total_ms=3.471500e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n",
+                "exit": 0
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2636082610000017,
+                "trace": "[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=23 changed=3 total_ms=1.960087e+02 vulkan_calls=1 cpu_calls=0 dispatches=8 uploaded=148 downloaded=56 verification=enabled\n",
+                "exit": 0
+              }
+            },
+            "baseline_exit": 0,
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "optnone.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05302839400002313,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=none-no-work work=0 changed=0 total_ms=5.450000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.053706178999959775,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=none-no-work work=0 changed=0 total_ms=6.282000e-03 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "poison64.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.05590336800003115,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=4 changed=0 total_ms=2.232200e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.22061285400002362,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=4 changed=0 total_ms=1.550992e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=96 downloaded=64 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          },
+          {
+            "name": "poison_and_unsupported.ll",
+            "backends": {
+              "cpu": {
+                "success": true,
+                "seconds": 0.053984174999982315,
+                "trace": "[llvm-vulkan] pass=fold requested=cpu device=scalar-cpu work=5 changed=0 total_ms=2.151000e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=enabled\n"
+              },
+              "vulkan": {
+                "success": true,
+                "seconds": 0.2226955309999994,
+                "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=5 changed=0 total_ms=1.590369e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=80 downloaded=40 verification=enabled\n"
+              }
+            },
+            "ir_equal": true,
+            "passed": true
+          }
+        ],
+        "passed": 17,
+        "failed": 0
+      }
+    },
+    "oracle": {
+      "test": "upstream-llvm-instcombine-constant-oracle",
+      "cases": 8192,
+      "seed": 5090,
+      "backend": "vulkan",
+      "device_request": "cpu",
+      "passed": true,
+      "mismatches": [],
+      "trace": "[llvm-vulkan] pass=fold requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=8192 changed=8192 total_ms=1.616258e+02 vulkan_calls=2 cpu_calls=0 dispatches=2 uploaded=151224 downloaded=85688 verification=disabled\n"
+    },
+    "semantic": {
+      "test": "LLVM-pipeline-semantic-differential",
+      "seed": 5090,
+      "functions": 64,
+      "calls": 512,
+      "output_values": 513,
+      "runs": [
+        {
+          "backend": "cpu",
+          "matches_baseline": true,
+          "trace": "[llvm-vulkan] pass=fold requested=cpu device=none-no-work work=0 changed=0 total_ms=5.856900e-02 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cse requested=cpu device=scalar-cpu work=4544 changed=128 total_ms=1.792940e-01 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cfg requested=cpu device=scalar-cpu work=577 changed=64 total_ms=5.108600e-02 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=dce requested=cpu device=scalar-cpu work=4164 changed=128 total_ms=1.675720e-01 vulkan_calls=0 cpu_calls=1 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n"
+        },
+        {
+          "backend": "vulkan",
+          "matches_baseline": true,
+          "trace": "[llvm-vulkan] pass=fold requested=vulkan device=none-no-work work=0 changed=0 total_ms=4.938200e-02 vulkan_calls=0 cpu_calls=0 dispatches=0 uploaded=0 downloaded=0 verification=disabled\n[llvm-vulkan] pass=cse requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=4544 changed=128 total_ms=1.684666e+02 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=21764 downloaded=3584 verification=disabled\n[llvm-vulkan] pass=cfg requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=577 changed=64 total_ms=3.771502e+00 vulkan_calls=1 cpu_calls=0 dispatches=1 uploaded=3860 downloaded=1284 verification=disabled\n[llvm-vulkan] pass=dce requested=vulkan device=llvmpipe (LLVM 21.1.8, 256 bits) work=4164 changed=128 total_ms=5.355902e+00 vulkan_calls=1 cpu_calls=0 dispatches=9 uploaded=26656 downloaded=9488 verification=disabled\n"
+        }
+      ],
+      "identical_transformed_ir": true,
+      "passed": true
+    },
+    "benchmark_smoke": {
+      "schema_version": 1,
+      "project": "llvm-vulkan",
+      "status": "stable",
+      "project_version": "1.0.0",
+      "timing_scope": "host wall time including upload, dispatch, convergence and readback; input creation and independent verification excluded",
+      "cpu_baseline": "scalar reference, not upstream LLVM optimization passes",
+      "backend": "vulkan",
+      "device": "llvmpipe (LLVM 21.1.8, 256 bits)",
+      "is_cpu_device": true,
+      "supports_int64": true,
+      "vendor_id": 65541,
+      "device_id": 0,
+      "vulkan_api_version_raw": 4211023,
+      "driver_version_raw": 109051912,
+      "device_initialization_ms": 579.034653,
+      "workload_requested": "all",
+      "graph_shape": "branched",
+      "graph_nodes": 257,
+      "graph_components": 0,
+      "seed": 5090,
+      "workloads": [
+        {
+          "name": "integer-fold",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 29.184253,
+          "warm_median_ms": 3.5100755,
+          "warm_min_ms": 3.316084,
+          "warm_max_ms": 3.704067,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 4,
+          "pooled_allocation_bytes": 24632,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 1.674017,
+          "fence_wait_ms_last_call": 2.944191,
+          "bytes_uploaded_per_call": 8208,
+          "bytes_downloaded_per_call": 4104,
+          "samples_ms": [
+            3.704067,
+            3.316084
+          ]
+        },
+        {
+          "name": "integer-fold64",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 7.744444,
+          "warm_median_ms": 3.6689255,
+          "warm_min_ms": 3.183112,
+          "warm_max_ms": 4.154739,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 4,
+          "pooled_allocation_bytes": 57464,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 1.600826,
+          "fence_wait_ms_last_call": 2.826753,
+          "bytes_uploaded_per_call": 12312,
+          "bytes_downloaded_per_call": 8208,
+          "samples_ms": [
+            4.154739,
+            3.183112
+          ]
+        },
+        {
+          "name": "reachability",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 7.12073,
+          "warm_median_ms": 3.642968,
+          "warm_min_ms": 3.584945,
+          "warm_max_ms": 3.700991,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 8,
+          "pooled_allocation_bytes": 61596,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 1.887024,
+          "fence_wait_ms_last_call": 3.424456,
+          "bytes_uploaded_per_call": 4240,
+          "bytes_downloaded_per_call": 1028,
+          "samples_ms": [
+            3.584945,
+            3.700991
+          ]
+        },
+        {
+          "name": "dominators",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 65.430882,
+          "warm_median_ms": 53.6475825,
+          "warm_min_ms": 52.963575,
+          "warm_max_ms": 54.33159,
+          "dispatches_per_call": 58,
+          "iterations_per_call": 56,
+          "submissions_per_call": 8,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 12,
+          "pooled_allocation_bytes": 80132,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 36.912132,
+          "fence_wait_ms_last_call": 48.63791,
+          "bytes_uploaded_per_call": 4240,
+          "bytes_downloaded_per_call": 9280,
+          "samples_ms": [
+            52.963575,
+            54.33159
+          ]
+        },
+        {
+          "name": "liveness",
+          "items": 257,
+          "correct": true,
+          "cold_call_ms": 31.362696,
+          "warm_median_ms": 26.9043345,
+          "warm_min_ms": 26.085211,
+          "warm_max_ms": 27.723458,
+          "dispatches_per_call": 32,
+          "iterations_per_call": 32,
+          "submissions_per_call": 5,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 10,
+          "pooled_allocation_bytes": 88356,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 16.337443,
+          "fence_wait_ms_last_call": 23.772445,
+          "bytes_uploaded_per_call": 9372,
+          "bytes_downloaded_per_call": 2072,
+          "samples_ms": [
+            26.085211,
+            27.723458
+          ]
+        },
+        {
+          "name": "exclusive-scan",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 8.548092,
+          "warm_median_ms": 5.1455105,
+          "warm_min_ms": 4.980182,
+          "warm_max_ms": 5.310839,
+          "dispatches_per_call": 3,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 7,
+          "pooled_allocation_bytes": 90408,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 3.15832,
+          "fence_wait_ms_last_call": 4.889725,
+          "bytes_uploaded_per_call": 2052,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            4.980182,
+            5.310839
+          ]
+        },
+        {
+          "name": "sort-keys",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 17.369687,
+          "warm_median_ms": 9.87397,
+          "warm_min_ms": 8.701095,
+          "warm_max_ms": 11.046845,
+          "dispatches_per_call": 24,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 7,
+          "pooled_allocation_bytes": 90408,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 7.764274,
+          "fence_wait_ms_last_call": 9.545063,
+          "bytes_uploaded_per_call": 2052,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            8.701095,
+            11.046845
+          ]
+        },
+        {
+          "name": "hash-records",
+          "items": 513,
+          "correct": true,
+          "cold_call_ms": 8.42,
+          "warm_median_ms": 3.978442,
+          "warm_min_ms": 3.850338,
+          "warm_max_ms": 4.106546,
+          "dispatches_per_call": 1,
+          "iterations_per_call": 0,
+          "submissions_per_call": 1,
+          "memory_allocations_per_call": 0,
+          "buffer_reuses_per_call": 5,
+          "pooled_allocation_bytes": 90408,
+          "gpu_timestamps": true,
+          "device_ms_last_call": 1.821271,
+          "fence_wait_ms_last_call": 3.419776,
+          "bytes_uploaded_per_call": 4108,
+          "bytes_downloaded_per_call": 2052,
+          "samples_ms": [
+            4.106546,
+            3.850338
+          ]
+        }
+      ]
+    }
+  },
+  "web_validation": {
+    "presentation_slides": 12,
+    "viewports": [
+      {
+        "width": 1280,
+        "height": 900,
+        "graph_selections": 26,
+        "slides_checked": 12
+      },
+      {
+        "width": 390,
+        "height": 950,
+        "graph_selections": 26,
+        "slides_checked": 12
+      }
+    ],
+    "offline": true,
+    "page_errors": [],
+    "csv_export": true
+  },
+  "provenance_audit": {
+    "report": "evidence/release-assets-provenance.json",
+    "sha256": "3ce886226b5a046718ff8e5f34d9733e5cad50f6b1047ec4467ea463b10f122f",
+    "no_removal_performed": true,
+    "cryptographic_verification": "UNKNOWN",
+    "signer_trust": "UNKNOWN",
+    "ai_assisted_design_disclosure_retained": true
+  },
+  "prior_ci": {
+    "commit": "eb380c3f67931f2bb8bc40ea1a9027b28a482913",
+    "conclusion": "success",
+    "platform": "Ubuntu24.04 LLVM20/lavapipe",
+    "url": "https://github.com/HECer/llvm-vulkan/actions/runs/41367958383"
+  },
+  "ci_release_policy": "New release commit runs core,relocated-consumer,graph/LLVM correctness and CPack gates. Release publication records the matching GitHub run separately.",
+  "source_sha256": {
+    ".github/workflows/cpu-vulkan.yml": "8292dd6a9e86c5fa79fae640dc23c7b227fd064b4c81316d3aef94e4ed86c800",
+    ".github/workflows/latest-source.yml": "8cec66320537f3425dcbbeaf44efa0caf4f2e4c9a6c267a787ce09535c498057",
+    "cmake/LLVMVulkanConfig.cmake.in": "c1a97a87d4c2cc38ffc90e52a43ee9560d99c580fd7d3394a10770a3c792f175",
+    "cmake/version.hpp.in": "fb27ac523445e4a564bf632c18fcdf8d803f9741ab5fc3882c3aa57e1e973ac2",
+    "CMakeLists.txt": "f3ff8f26324d6b308865668dfb6257a23adb39da15883dac2e9a5a6269adcfbc",
+    "include/lv/compute.hpp": "26dd67a527f98dc8d1f1357898023d917ee8e8ac681d442df29c4613f3a364a7",
+    "llvm/CMakeLists.txt": "7a703eab401d46e95215d7c4ff1a7ed1eeec815378c74f371b39cc087f0e56ba",
+    "llvm/LLVMVulkan.cpp": "4b078176a9c1513222b381e05008c8b1807c2b3ee965758e9fa4fef3acf9a926",
+    "scripts/benchmark_baseline/CMakeLists.txt": "c9613cd39a893dc903d7bdb363298729eed9524c0ebaec32d4655704da48d7f1",
+    "scripts/benchmark_compare.py": "1bb6c938cab86f43f2683242f669d279b84b2a4ee20fd611b1ab2c9e2116ffa5",
+    "scripts/benchmark_cpu_gpu.py": "9333b8409b2ac79a85e2b52d22162212da4acc5da1e47b4d74bbfbd139a919e5",
+    "scripts/benchmark_pipeline.py": "fc09ee5fa2915851c2ffce15701fb8ed31399d4e07400f1ea02f126872306c03",
+    "scripts/build_benchmark_graphs.py": "4f7cbc309b8896bb9d8e788ed82864aaf149ce0afbd0abc56902adca0a87c2a2",
+    "scripts/build_brand_assets.py": "f46546930b754da841a06aef259c4a337901705c35b9228f2198da7efd42822a",
+    "scripts/build_presentation.py": "c3d0a10e1bea586335f275e1919ee200bd68f9586b34230dccdf5746e107f598",
+    "scripts/embed_shaders.py": "4ac4d2a92abfe5033718b6d286a7955d1d53a7deb2c08374312eb3ba4d1ff730",
+    "scripts/export_icon.py": "f5b313fa432941300e1b9d4dca58e6b2ffea20d2b6ee888d076888357ef0168b",
+    "scripts/fetch_llvm.py": "f7825d6a4678650b0196bad4627574fccbe331d6055d0299b376fe51f8885391",
+    "scripts/inventory_llvm.py": "c1bfaa7367104a006177204e188c24c8a657468a6bc17e0646fe5030777cca98",
+    "scripts/templates/benchmarks.html": "028442296b02dc6c56a3ffa1659cb6885d037e5113ccbfeadaaedf535b7354e5",
+    "scripts/templates/project-presentation.html": "b9c35037df7b64931093c626d075195a05ba5fffd3597f58e168b8596e4ac22e",
+    "shaders/dom_init.comp": "b10dadafbc476bdfc6b91ceff297885084eb009da33cfef57a1c209f4eb608f3",
+    "shaders/dominators_local.comp": "69ee2f6f8684c3b95ec7f3c32a9b2f83b996bbfc66bd167a4a917430b6ee8617",
+    "shaders/dominators_local_banked.comp": "033267b7606715385dffc58fea5a01f94e0edb3fee3d0aabf1dff31302dc4c07",
+    "shaders/dominators_rounds.comp": "1c394591346959959f480548be8e63ece98657b02fbd1b217e7219847622ae4d",
+    "shaders/fold.comp": "1055a95e93f2f31cc30de9f9d87c9819f4ff49491fdd631de2a52a0078060968",
+    "shaders/fold64.comp": "5e997c48d33649c45e8ea0163bf9e179cabda84c7bfb804b07659ed949c28ead",
+    "shaders/hash.comp": "9ce1c637ab969a2b3250be4a18d479392a485f28605797682449b2f7edf37e3a",
+    "shaders/liveness_local.comp": "2af11d828fe908d0f9919266d23621254d23baf230653ef7537fbe2308e8abf1",
+    "shaders/liveness_rounds.comp": "8dbfc9b9ea9065d65b03f6733aac0163a45407bd5c0865e68482a4d7108fdd62",
+    "shaders/radix_histogram.comp": "9bcb594468f2bd1295a1138f0174baa490eae902b998a2701ae7ce4c62c824d6",
+    "shaders/radix_scatter.comp": "d4a27db55fc68897c49079a24739df5e49be6753b52851067a30919d33f4c44d",
+    "shaders/reachable_components.comp": "ada1dc4ed353ab191cf284c1803021fa93ad4d4420ee44a1f6c8e99692e30312",
+    "shaders/reachable_rounds.comp": "0c1c1d092894a32a85e491c4626fa959e14009cd1c2f39d74868a24f044be422",
+    "shaders/scan.comp": "df237cb8d96794f9694897b6a3e89d61c90b186b5bcbaa26cd3321ea6cb9b8ca",
+    "shaders/scan_add.comp": "0bb56734c6f11efe0f3d12a3f6e08aa7030b6a7c4498063472238d4cb3536076",
+    "shaders/scan_subgroup.comp": "9922a0aba836268858ad2b838ad1d6b1660c07b416477c2cf9495fb48223a4b0",
+    "shaders/sort.comp": "58dcd38fdda32fb264aded37ea6d8c3768c38203338de771eb3b25698f5bb8cf",
+    "shaders/sort_local.comp": "d85b0f36c339f5bdc26c5e426aa67a9bca10ad49fb2031b6ba34dbb30ef047fb",
+    "src/bench.cpp": "5e84837436d7021755b0e2a87f5dbc1d1d80b356f5c5dde924ad3f59b6b1838a",
+    "src/compute.cpp": "55887b95bd412c0f8bb2f45ae5a88a299e18057f61ed054a875bc1568dd86ea0",
+    "src/cpu.cpp": "ebb8e4d04246e5060d878742ca39a040cf183d6414cedb0fcffbe4ace42771c6",
+    "tests/core_tests.cpp": "4ed8a9ab28b8cdbbd1ae8f6b6daad8caf0fd77ef768309d9b2e524ceaf8d7ee9",
+    "tests/fuzz_llvm.py": "8d19b70851bac23f00c63fd76429113e1bfb50313f489c020784f04224e2cfd7",
+    "tests/install_consumer/CMakeLists.txt": "23a3ad9e4a2b05be7e1273f508c129b2ba639ffaf6cb3634efb5216d3ba2458c",
+    "tests/install_consumer/main.cpp": "4615b99295d77eecc60a2f6ca203e483b58c277b4e70588c4df8319006205d61",
+    "tests/llvm/assume_and_select.ll": "61a9e79ac35b00a3f527b8883f9c6ad58ab63f9f398ffd897a61be9e587ed703",
+    "tests/llvm/cfg.ll": "21e04401d6adf328d1583237b0d14b96a6e6646c7098f9830c2c8d366d3809df",
+    "tests/llvm/cfg_blockaddress.ll": "ac18b62e9bdca55381b9c084960cd6589c6b6696d2ee052180210b365ae50a5d",
+    "tests/llvm/constant_branch.ll": "ee4b096f76080602f64720aabc374ccbcdf95659820211b8b03150c5ceb65b73",
+    "tests/llvm/cse.ll": "096c9fa62afeebd605ea43c9c3edf791af776cbd604f2bd1bf63b6bc225d508e",
+    "tests/llvm/cse_hidden_state.ll": "6257091523f51389c93e569d3120002248cc3cee9dbbd91c8f67166dbdc1610e",
+    "tests/llvm/dce.ll": "3525dc62ff5c92ad5ca74ac6dde6826ab6489b4ea51203a05ab66749722d2c40",
+    "tests/llvm/debug.ll": "831b7649e5230dba3584ce084fa1b2f9b4ba764cd7d5747bda72e4945f5284cd",
+    "tests/llvm/debug_salvage.ll": "36778a737fe3f8f8896cf4e9c777ae4c9db591531b15c3b3fa5dbffacc1ff913",
+    "tests/llvm/eh.ll": "b8816c877b103e414d3b67eaf66a92a2cde3972b7e8f99be6bfcc2d73013e756",
+    "tests/llvm/fold.ll": "aa98ec32b2ee4508730c7276f1575181897b7124daeea29ade1fc0a489ad7352",
+    "tests/llvm/fold64.ll": "851096d803e98173c40eebb82b943084d50bf04a9e80c4d3b47358cd87ed14ea",
+    "tests/llvm/integer_edges.ll": "397f3f4f57c12cd36245223d6c941892fb619cacedc02746cf756d5dfc0d05bd",
+    "tests/llvm/live_phi.ll": "0a768baf56584854f7ecf3d1f2629d625462c334fb9eeb562bb4c6edcc871d4d",
+    "tests/llvm/optnone.ll": "88dc2714a374356712622de717ed2862f48334dc79e9e6b71116d55c5237360c",
+    "tests/llvm/poison64.ll": "4012bc0f13802334cb11019b41fe9106703170d92f8db395a6bd989e0b1fa7a2",
+    "tests/llvm/poison_and_unsupported.ll": "72db012979d461642e5b9811b81e56239ab2c97afc6fc7fdb4c408ce0a7f97c1",
+    "tests/llvm/verify_constant_oracle.py": "d3873523a76f8f66a49d4b2a99906fe0375286a5ea6521eabcc9defccdd13366",
+    "tests/readback_failure.cpp": "2f6de1477b8ff1395a1ddb454349cda6020b30972c1c2dece1b999743a5e7a26",
+    "tests/run_llvm_tests.py": "c98da51fb3cff9be1ca0e050e493301d2c568c8058b4a807f0ee86c8a73d0996",
+    "tests/test_benchmark_graphs.py": "fb4585a6c85bbf57e35fc7ff924606cd987a0e42901f2b4667b05c067113a8ff",
+    "tests/test_install.py": "05e97be8bffbc2d8f559ea3132ada0a726f3dd4e6b1f4a27feab1e72bea60d70",
+    "tests/test_source_fetch.py": "b9e39f376bb88508f4cbbcf10d6bd25acb1ff9271505f198d728ae5790f37c50",
+    "tests/upstream_corpus.py": "c07328d2c542927d9e45c3394a0c6654869a55e4859528bc968600664683fe8b"
+  },
+  "asset_sha256": {
+    "docs/assets/favicon.ico": "b023321b4fea74b5eac9f124ed3bc138518237675806b54cbce9f5269307a2d0",
+    "docs/assets/icon.png": "dbe3df7ce345681389904a7cd2848d07a15650be29006e496856b53c4d8cf7c9",
+    "docs/assets/icon.svg": "506d75e17dcd3947e7361f9fade250a78386dd9c2a5df4b552c3723fb637b895",
+    "docs/assets/logo-dark.svg": "543e474cc9348504ca341699c97bbc836a02052ee8059f02a4353eb9487e4678",
+    "docs/assets/logo-light.svg": "4703cd0571872f88af2e54a2b09f87eb03e13e373aa3d0cd404e5477660e6005",
+    "docs/graphs/benchmarks.html": "fa7068ffa131f370ab6eb6f3e414c84efcc1e026f79bb33f6c925bafa7697705",
+    "docs/project-presentation.html": "9684bb7570ff5bb77cc288bafeb1fde3865d86247053b73eb4333e3c90307dc4"
+  },
+  "historical_evidence_sha256": {
+    "evidence/vulkan-optimization.json": "1a39ea8257c86ea30d175de8f583c5f2e3de4f1de16a4bc8353726af2c896508",
+    "evidence/vulkan-iteration2.json": "1d174f40cd6376e940b333535b9d550d04c55f7acc28483b3a3990399f494af2",
+    "evidence/cpu-vs-gpu-rtx5090.json": "f724330fed8e12a18ed3e8f4e436931dcb9971cf500ac3ab3b2d73ad642881d0",
+    "evidence/vulkan-iteration1-source.zip": "fa8836feafa2d31f6cd9c2100c01c492604450cb85f240c0856fe8df4f58c436"
+  },
+  "binary_sha256": {
+    "build-release-1.0.0/Release/lv-bench.exe": "37ed9355a2e6de8d21da8a41056ec32a83ddcb5a4750e02cc4f859c20676f4f7",
+    "build-release-1.0.0/Release/lv-core-tests.exe": "27e3c4f25a328fd147758e71ef1b246313a6b5dacf460f0c4a1246a34e1f1733",
+    "build-release-1.0.0/Release/lv_compute.lib": "3a62d256ee5112e01d145bc20e87794b448f4bf05f924dfb1bb00a488d12015d",
+    "build-linux-release/LLVMVulkan.so": "7473fda7f554ece7f792866ddfbccc4657edb1a921672df28ab6e0c82f563f10",
+    "build-linux-release/core_tests": "2cf265bf30de47a381e487313c9935b241e324f0d5671080918db463e742c9c9",
+    "build-linux-release/lv-bench": "a8eda2e3c3d88ecf2baa15522e625ecc0aa229f35a77d67011c9203234d26d12"
+  },
+  "limitations": [
+    "Physical AMD/Intel not tested",
+    "Native Windows LLVM plugin ABI not tested",
+    "Fresh LLVM24 build not rerun for1.0",
+    "No end-to-end physical-GPU compiler speedup established",
+    "No cross-toolchain C++ or cross-build LLVM binary ABI promise",
+    "Automatic offload remains opt-in and uncalibrated",
+    "Cryptographic asset trust and proprietary watermark verification remain unknown"
+  ],
+  "benchmark_interpretation": "Previously published performance artifacts remain historical and unchanged. Packaging/version changes do not establish new1.0 performance measurements. All algorithm shader sources and cpu.cpp remain unchanged from the published benchmark snapshot."
+}

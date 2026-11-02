@@ -1,6 +1,6 @@
 # LLVM GPU coverage and remaining work
 
-**Experimental work in progress. This repository is an acceleration layer for
+**Version 1.0 covers a defined subset. This repository is an acceleration layer for
 selected LLVM operations. It is not a complete LLVM port, a Rust rewrite of
 LLVM, or a validated faster compiler. RTX 5090 core execution is validated;
 physical AMD/Intel testing and whole-compiler GPU measurements remain outstanding.**
@@ -48,7 +48,7 @@ not a port of every pass that uses graphs.
 
 | Area | Implemented work | Integration boundary and omissions |
 | --- | --- | --- |
-| Vulkan runtime | Native compute dispatch, storage buffers, SPIR-V shader pipelines, explicit CPU/GPU device selection, limits and failures | This is an experimental runtime; driver validation and physical GPU performance must be tested. A required Vulkan backend must not silently claim success through scalar execution. |
+| Vulkan runtime | Native compute dispatch, storage buffers, SPIR-V shader pipelines, explicit CPU/GPU device selection, limits and failures | The 1.0 runtime has a defined support matrix; other drivers and physical GPU performance require their own validation. A required Vulkan backend must not silently claim success through scalar execution. |
 | Integer evaluation | Batched scalar integer arithmetic and comparisons for widths 1 through 64, plus independent CPU references | `lv-fold` uses the original 32-bit kernel for i1–i32 and a separate `shaderInt64` kernel for i33–i64. Devices without that optional feature can still run the 32-bit kernel; an explicit nonempty Vulkan 64-bit request fails visibly if unsupported. APInt wider than 64 bits, vectors, floating point, pointers, constrained operations and poison-generating flags remain outside the accepted subset. Invalid shifts/division cases are retained. |
 | Dependency closure | CSR graph reachability with seed flags | `lv-dce` marks dependencies of conservative live roots, then LLVM removes only eligible dead pure SSA instructions. Calls, memory operations, control flow and EH are retained. This is not full ADCE or dead-store elimination. |
 | CFG reachability | Reachability of basic blocks | `lv-cfg` first uses LLVM's host `ConstantFoldTerminator` for constant branch/switch and PHI repair, then offloads reachability and removes unreachable blocks while preserving address-taken roots. It is not a replacement for all of SimplifyCFG, jump threading, loop restructuring or branch-probability analysis. |

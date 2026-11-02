@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 #include "lv/compute.hpp"
+#include "lv/version.hpp"
 #include <algorithm>
 #include <chrono>
 #include <fstream>
@@ -184,13 +185,16 @@ int main(int argc, char **argv) {
         json_path = value();
       else if (arg == "--list-devices")
         list = true;
-      else if (arg == "--help") {
+      else if (arg == "--version") {
+        std::cout << "LLVM Vulkan " << LV_VERSION_STRING << '\n';
+        return 0;
+      } else if (arg == "--help") {
         std::cout
             << "lv-bench [--backend cpu|vulkan] [--device any|cpu|gpu] "
                "[--device-name substring]\n"
             << "  [--size N] [--graph-nodes N] [--repeat N] [--seed N] [--json "
                "path]\n"
-            << "  [--list-devices] [--shader-dir path]\n"
+            << "  [--version] [--list-devices] [--shader-dir path]\n"
             << "  [--fast-paths 0|1] [--timestamps 0|1]\n"
             << "  [--workload "
                "all|integer-fold|integer-fold64|reachability|dominators|"
@@ -365,7 +369,8 @@ int main(int argc, char **argv) {
     std::ostringstream out;
     out << std::setprecision(10)
         << "{\n  \"schema_version\":1,\n  \"project\":\"llvm-vulkan\",\n  "
-           "\"status\":\"experimental\",\n"
+           "\"status\":\"stable\",\n"
+        << "  \"project_version\":" << quote(LV_VERSION_STRING) << ",\n"
         << "  \"timing_scope\":\"host wall time including upload, dispatch, "
            "convergence and readback; input creation and independent "
            "verification excluded\",\n"

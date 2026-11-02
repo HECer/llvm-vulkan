@@ -1,10 +1,26 @@
 # Validation record
 
-Latest validation: **2026-11-02**. Status: **experimental; RTX 5090 core validated**.
+Latest validation: **2026-11-02**. Status: **1.0 release validation; RTX 5090 core validated**.
 
 This document separates real execution evidence from unsupported claims.
 The implementation is a scoped acceleration library and LLVM pass plugin;
 neither successful tests nor the source inventory constitute a full LLVM port.
+
+## Version 1.0 release
+
+The release adds unified version metadata, installable public headers and a
+relocatable CMake package, required build-time SPIR-V validation, and offline
+presentation/benchmark assets. Its supported scope is defined in
+[release.md](release.md). The installed-consumer gate moves the installation
+before building and running CPU/Vulkan code against it.
+
+The current code is rebuilt for Windows/RTX and Linux/lavapipe, including the
+matching LLVM 21 fixture/oracle/semantic gates. The original optimization
+snapshot also has a successful
+[GitHub LLVM 20/lavapipe run](https://github.com/HECer/llvm-vulkan/actions/runs/41367958383).
+Exact release tests, source/binary hashes and artifact checks are recorded in
+[release-1.0.0.json](../evidence/release-1.0.0.json). Earlier performance records
+retain their original pre-release identities and labels.
 
 ## Vulkan optimization update
 

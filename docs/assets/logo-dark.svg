@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 192" role="img" aria-labelledby="title desc">
+<title id="title">LLVM Vulkan</title><desc id="desc">Geometric LV monogram for LLVM Vulkan. AI-assisted vector design; not an official LLVM or Khronos mark.</desc>
+<g transform="scale(.75)"><rect x="1" y="1" width="254" height="254" rx="46" fill="#0b1020" stroke="#25304b" stroke-width="2"/>
+<path d="M32 64h32v98h48l12 32H32z" fill="#6484ff"/>
+<path d="M96 64h36l28 79 28-79h36l-48 130h-32z" fill="#20d3b0"/></g>
+<g font-family="Segoe UI,Arial,sans-serif"><text x="224" y="91" font-size="76" font-weight="700" letter-spacing="-3" fill="#eef3ff">LLVM</text>
+<text x="228" y="143" font-size="35" font-weight="600" letter-spacing="7" fill="#a5b3d2">VULKAN</text></g>
+</svg>

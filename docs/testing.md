@@ -1,6 +1,6 @@
 # Validation and RTX 5090 testing
 
-The repository is experimental. Software Vulkan correctness checks are useful
+The release covers a defined API subset. Software Vulkan correctness checks are useful
 evidence for dispatch, synchronization, serialization, and transformations;
 they do not establish real-GPU correctness or a hardware performance benefit.
 The hardware validation plan is to repeat these tests on the selected NVIDIA
@@ -168,11 +168,13 @@ shaders. CTest includes `core-vulkan-fallback` with optional shaders and device
 timestamps disabled. Keep Khronos synchronization validation enabled for both
 correctness paths. Shader compilation also runs `spirv-val` when available.
 
-The core-only build has six CTest gates. `readback-allocation-failure` injects
+The core-only release build has nine CTest gates. `readback-allocation-failure` injects
 an allocation failure after queue submission, then checks completed work and
 correct pooled-buffer reuse. Graph checks cover mixed component positions,
 unrooted/cyclic components, per-round flags and adaptive batching. `--large 1`
 also crosses the dispatch limit for both contiguous and paired component ranges.
+The release also checks version reporting, relocated package consumption and
+all 109 documented benchmark rows against their source evidence.
 
 To isolate a benchmark, use `--workload reachability` (or one of the workload
 names in the JSON). `--graph-shape independent --components 64 --graph-nodes 128`

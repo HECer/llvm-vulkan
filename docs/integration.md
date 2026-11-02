@@ -1,6 +1,6 @@
 # LLVM integration
 
-This project supplies an experimental C++ bulk-compute library and real LLVM
+This project supplies a versioned C++ bulk-compute library and real LLVM
 optimization passes. LLVM retains ownership of the IR, pass manager, target
 semantics, and machine-code generators. The plugin transfers compact arrays to
 Vulkan and applies checked results through LLVM's normal mutation APIs.
@@ -88,7 +88,7 @@ LV_BACKEND=vulkan LV_DEVICE=gpu LV_VERIFY=1 LV_TRACE=1 \
 `LV_DEVICE=cpu` and select the lavapipe ICD as described in [testing](testing.md).
 
 The plugin defaults to the scalar CPU reference. Select `LV_BACKEND=vulkan`
-explicitly for experiments. A requested Vulkan operation never silently uses
+explicitly when offload is desired. A requested Vulkan operation never silently uses
 the scalar algorithm. Initialization, capability, allocation, shader, and
 dispatch failures cause a compiler diagnostic and a failing compilation.
 Unsupported LLVM instructions remain in the IR for upstream LLVM to handle.

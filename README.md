@@ -1,6 +1,11 @@
 # LLVM Vulkan
 
-**Experimental GPU-assisted LLVM compilation — RTX 5090 core validated; compiler acceleration remains experimental.**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg">
+  <img src="docs/assets/logo-light.svg" alt="LLVM Vulkan project logo" width="420">
+</picture>
+
+**Version 1.0 — portable bulk-compute API and scoped LLVM passes.**
 
 A C++ implementation of selected compiler calculations as Vulkan compute
 shaders, connected to real LLVM optimization passes. Project owner: **Hermann
@@ -8,10 +13,17 @@ Fischer / HECer**. SPDX license: **Apache-2.0 WITH LLVM-exception**.
 
 Public repository: [HECer/llvm-vulkan](https://github.com/HECer/llvm-vulkan).
 
-This is a functioning research implementation of scoped acceleration paths,
-**not a complete GPU port of LLVM**. It does not yet establish a compilation
+This stable source release covers the [documented API and supported configurations](docs/release.md),
+**not a complete GPU port of LLVM**. It does not establish a compilation
 speedup. Software Vulkan correctness tests are distinct from RTX 5090 hardware
 tests. The full source-wide gap inventory is in [coverage.md](docs/coverage.md).
+
+[Project presentation](docs/project-presentation.html) ·
+[Interactive benchmark graphs](docs/graphs/benchmarks.html) ·
+[Release and installation guide](docs/release.md) · [Changelog](CHANGELOG.md)
+
+Download the HTML files with the repository or release package and open them in
+your browser. The presentation and graphs work offline without a server.
 
 ## Measured performance
 
@@ -71,7 +83,8 @@ types, feature requirements and environment options.
 
 The source pin observed on **2026-11-01** is LLVM main
 [`b8ef6b0ed582fb5a235e7989685f5b188c620dc1`](https://github.com/llvm/llvm-project/commit/b8ef6b0ed582fb5a235e7989685f5b188c620dc1),
-which reports **24.0.0git**. The latest stable alternative is **23.1.4**.
+which reports **24.0.0git**. The stable LLVM alternative recorded in that
+snapshot is **23.1.4**; these pins are separate from this project's 1.0 release.
 
 [upstream-lock.json](upstream-lock.json) records exact revisions, archive
 checksums and provenance. The complete latest source was acquired and
@@ -212,6 +225,11 @@ the cost model and profiling requirements.
 
 ## Validation and project status
 
+The [1.0 release guide](docs/release.md) defines source compatibility, supported
+platforms, packaging and release gates. The library installs a relocatable
+`LLVMVulkan::compute` CMake target and embedded SPIR-V. `lv-bench --version`
+reports the version generated from CMake; the plugin uses the same version.
+
 [validation.md](docs/validation.md) and [evidence](evidence/) record the actual
 local build/test results, versions, limitations and machine-readable reports.
 The earlier implementation passed seven CMake gates against LLVM 20.1.2 and
@@ -221,8 +239,9 @@ and Linux/lavapipe, with matching LLVM 21 plugin differential, constant-oracle
 and semantic tests. Physical AMD/Intel validation and a fresh pinned LLVM 24
 run remain outstanding.
 The GitHub workflows provide software Vulkan regression checks and an explicit
-manual source-build gate. Their presence does not mean that GitHub-hosted CI
-or hardware tests have run.
+manual source-build gate. The [published optimization snapshot passed CI](https://github.com/HECer/llvm-vulkan/actions/runs/41367958383).
+Each release records its own validation; a workflow file alone is not evidence
+that a particular platform or revision passed.
 
 CPU is the plugin's conservative default. Select `LV_BACKEND=vulkan` explicitly
 for testing. Automatic offload requires an additional opt-in and an uncalibrated
@@ -243,7 +262,9 @@ each client. This project does not replace `rustc` or rewrite LLVM in Rust.
 - `scripts/`: pinned source fetch, inventory, source build and hardware benchmark runners.
 - `docs/coverage.md`: complete opportunity and omission ledger.
 - `docs/integration.md`, `docs/testing.md`: integration and test instructions.
-- `evidence/`: captured experimental validation records; no hardware speedup claim.
+- `docs/project-presentation.html`, `docs/graphs/`: offline presentation and benchmark explorer.
+- `docs/assets/`: editable wordmarks and repository icon.
+- `evidence/`: captured validation and timing records with source/binary identities and scope.
 
 Contributions should include a defined semantic subset, differential tests,
 actual end-to-end measurements and a clear statement of unimplemented cases.
