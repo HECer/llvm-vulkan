@@ -61,8 +61,8 @@ uint64_t numberSetting(const char *Name, uint64_t Default) {
   return Result;
 }
 
-bool enabled(const char *Name) {
-  const auto V = setting(Name, "0");
+bool enabled(const char *Name, bool Default = false) {
+  const auto V = setting(Name, Default ? "1" : "0");
   if (V == "1")
     return true;
   if (V == "0")
@@ -93,7 +93,9 @@ lv::Compute &cachedCompute(const lv::Options &O) {
   const auto &Old = Cache.Configuration;
   if (!Cache.Instance || O.backend != Old.backend || O.device != Old.device ||
       O.shader_dir != Old.shader_dir || O.device_name != Old.device_name ||
-      O.memory_limit_bytes != Old.memory_limit_bytes) {
+      O.memory_limit_bytes != Old.memory_limit_bytes ||
+      O.enable_fast_paths != Old.enable_fast_paths ||
+      O.enable_timestamps != Old.enable_timestamps) {
     auto New = std::make_unique<lv::Compute>(O);
     Cache.Configuration = O;
     Cache.Instance = std::move(New);
@@ -145,6 +147,8 @@ public:
     Options.device_name = setting("LV_DEVICE_NAME", "");
     Options.memory_limit_bytes =
         numberSetting("LV_MEMORY_LIMIT_BYTES", 512ull * 1024 * 1024);
+    Options.enable_fast_paths = enabled("LV_FAST_PATHS", true);
+    Options.enable_timestamps = enabled("LV_TIMESTAMPS");
   }
 
   lv::Compute &cpu() {
@@ -452,7 +456,12 @@ public:
     lv::Graph G;
     std::vector<uint32_t> Roots;
     G.offsets.reserve(Nodes.size() + 1);
+    const Function *CurrentFunction = nullptr;
     for (auto *I : Nodes) {
+      if (I->getFunction() != CurrentFunction) {
+        G.components.push_back(index32(Roots.size()));
+        CurrentFunction = I->getFunction();
+      }
       G.offsets.push_back(index32(G.edges.size()));
       Roots.push_back(removablePure(*I) ? 0u : 1u);
       for (const auto &Op : I->operands())
@@ -463,6 +472,7 @@ public:
         }
     }
     G.offsets.push_back(index32(G.edges.size()));
+    G.components.push_back(index32(Nodes.size()));
     const auto Live = S.reachable(G, Roots);
     std::vector<Instruction *> Dead;
     for (size_t I = 0; I < Nodes.size(); ++I)
@@ -503,7 +513,12 @@ public:
       return PreservedAnalyses::all();
     lv::Graph G;
     std::vector<uint32_t> Roots;
+    const Function *CurrentFunction = nullptr;
     for (auto *BB : Nodes) {
+      if (BB->getParent() != CurrentFunction) {
+        G.components.push_back(index32(Roots.size()));
+        CurrentFunction = BB->getParent();
+      }
       G.offsets.push_back(index32(G.edges.size()));
       // Block addresses can escape the local CFG. Keeping them and their
       // successors is a conservative rule for indirectbr and callbr.
@@ -512,6 +527,7 @@ public:
         G.edges.push_back(Index.lookup(Succ));
     }
     G.offsets.push_back(index32(G.edges.size()));
+    G.components.push_back(index32(Nodes.size()));
     const auto Live = S.reachable(G, Roots);
     SmallVector<BasicBlock *, 32> Dead;
     for (size_t I = 0; I < Nodes.size(); ++I)

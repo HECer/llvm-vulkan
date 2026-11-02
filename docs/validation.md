@@ -1,12 +1,65 @@
 # Validation record
 
-Development date: **2026-11-01**. Status: **experimental, physical GPU untested**.
+Latest validation: **2026-11-02**. Status: **experimental; RTX 5090 core validated**.
 
 This document separates real execution evidence from unsupported claims.
 The implementation is a scoped acceleration library and LLVM pass plugin;
 neither successful tests nor the source inventory constitute a full LLVM port.
 
-## Environment
+## Vulkan optimization update
+
+The second iteration passes all six native Windows core CTest gates and three
+large seeded RTX 5090 runs, each with 299,119 assertions and synchronization
+validation. Its allocation-failure test checks recovery after host preparation
+throws while a submission is in flight. Mixed component tests include the large
+component at different positions, unrooted/cyclic components and dispatch tiling.
+Optimized and forced-fallback lavapipe runs pass 299,114 and 299,102 assertions.
+Matching LLVM 21.1.8 passes the 17 fixtures in both shader modes, the 8,192-case
+oracle and the 64-function/512-call semantic differential. An initial integrated
+run was interrupted by a WSL VM restart; its incomplete LLVM portion was rerun
+successfully, and the interrupted log is retained.
+
+Six alternating timing rounds (90 warm samples per core row) and five graph
+rounds (55 samples per graph case) compare with the archived first-iteration
+runtime. Large arrays improve 1.18–1.44x; the selected mixed graphs improve
+2.64–10.50x. Small-call regressions and inconclusive controls are also recorded.
+See [the second iteration](performance-iteration2.md) and its
+[full evidence](../evidence/vulkan-iteration2.json). These measurements concern
+inclusive core API calls; physical AMD/Intel and whole-compiler gains are not
+established.
+
+The subsequent [fresh CPU/GPU benchmark](cpu-gpu-benchmark.md) completes 90
+processes and 4,070 checked warm calls with no process retries. Its 37 rows
+include CPU wins on all tested graphs and small inputs. It uses the exact
+second-iteration executable; no additional core runtime changes were made.
+
+### First iteration (historical)
+
+The portable Vulkan update is validated on Windows 11 with an RTX 5090, driver
+617.42, a Ryzen 9 5950X and an MSVC Release build. All five core CTest gates pass,
+including forced baseline shader paths. Three seeded GPU runs with Khronos
+validation and synchronization validation pass 299,084 assertions each,
+including 8,388,609-element dispatch tests and more than 65,535 independent
+graph workgroups.
+
+The same implementation is built with GCC on Ubuntu 26.04 under WSL and tested
+with Mesa lavapipe (LLVM 21.1.8). Optimized and forced-fallback paths pass with
+synchronization validation. Lavapipe reports 8-lane subgroups; the RTX reports
+32 lanes. Matching LLVM 21.1.8 tools and libraries also pass the 17 IR fixtures,
+8,192-case constant oracle and dynamic semantic differential.
+
+The saved baseline and optimized native executables are compared in alternating
+order over three rounds and four sizes, with nine warm calls per round. Timing
+includes host orchestration and current-input upload/readback; validation is
+disabled for measurements. See [performance.md](performance.md) and the
+[machine-readable update evidence](../evidence/vulkan-optimization.json).
+
+Physical AMD/Intel GPUs and a fresh LLVM 24 source build of this update remain
+untested. Core timings do not establish whole-compiler acceleration. The
+remaining sections record the earlier source snapshot and its original Linux
+development environment; its LLVM 20/24 results are historical evidence.
+
+## Original development environment
 
 | Item | Observed environment |
 | --- | --- |
@@ -123,9 +176,9 @@ the shared-query helper fails in this uninstalled snapshot. No manual alias or
 upstream patch was introduced. Install LLVM normally if another integration
 requires those `llvm-config` shared-link flags.
 
-## Performance interpretation
+## Historical software-only performance interpretation
 
-No physical GPU performance was measured. Local benchmark execution is used
+No physical GPU performance was measured in that original environment. Local benchmark execution was used
 to validate reporting and semantic checks. Timings collected while the large
 LLVM source build was active are not treated as a stable performance baseline.
 
@@ -160,8 +213,8 @@ They require the requested device rather than silently switching to a CPU.
 
 ## Outstanding validation
 
-- Physical RTX 5090 execution, driver validation and performance.
-- Native Windows execution of the supplied PowerShell runner.
+- Physical AMD/Intel GPU execution and performance.
+- Fresh LLVM 24 source-build validation of the optimization update.
 - Native Windows LLVM plugin ABI/import-library support.
 - Broad LLVM/client compiler regression suites and realistic application builds.
 - LLVM clients beyond the demonstrated Clang hook and `opt` IR workflow.

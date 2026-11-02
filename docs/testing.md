@@ -152,8 +152,63 @@ limits remain satisfied.
 
 The CPU comparison is this project's scalar reference, **not optimized upstream
 LLVM**. A fast kernel relative to that reference does not prove that a compiler
-build becomes faster. Dense dominators and bitonic sorting have scalability
-limits; read the coverage and research documents before extrapolating timings.
+build becomes faster. Dense dominators retain quadratic storage; the baseline
+sorting fallback is bitonic. Read the coverage and research documents before
+extrapolating timings.
+
+`lv-bench` enables optional device timestamps by default; pass `--timestamps 0`
+to remove query overhead. `device_ms_last_call` measures device-side submission
+execution, including transfers, and is not the median host API time. Reports
+also contain submissions, new Vulkan allocations, buffer reuse and retained
+allocation bytes for the last call. `iterations_per_call` counts host-recorded
+rounds; local solvers perform their convergence loop inside the shader.
+
+Both `lv-core-tests` and `lv-bench` accept `--fast-paths 0` to force baseline
+shaders. CTest includes `core-vulkan-fallback` with optional shaders and device
+timestamps disabled. Keep Khronos synchronization validation enabled for both
+correctness paths. Shader compilation also runs `spirv-val` when available.
+
+The core-only build has six CTest gates. `readback-allocation-failure` injects
+an allocation failure after queue submission, then checks completed work and
+correct pooled-buffer reuse. Graph checks cover mixed component positions,
+unrooted/cyclic components, per-round flags and adaptive batching. `--large 1`
+also crosses the dispatch limit for both contiguous and paired component ranges.
+
+To isolate a benchmark, use `--workload reachability` (or one of the workload
+names in the JSON). `--graph-shape independent --components 64 --graph-nodes 128`
+builds 64 independent chains. `--graph-shape mixed` adds one large component;
+`--large-nodes 2048 --large-shape star --large-components 1` selects its shape.
+Use `chain` for slow propagation. These component modes require the reachability
+workload. The report records the actual graph size separately from array size.
+
+To compare saved pre-change and current executables on any selected GPU:
+
+```sh
+python3 scripts/benchmark_compare.py --baseline /path/to/old/lv-bench \
+  --candidate build/lv-bench --device gpu --device-name YOUR_GPU \
+  --rounds 3 --repeat 9 --output results/vulkan-comparison
+```
+
+This rotates process order, checks outputs and device identity, preserves raw
+reports, and summarizes warm median/p95 times. Unsupported wide folding remains
+an explicit capability skip. It does not measure whole-compiler acceleration.
+Repeat `--benchmark-arg=VALUE` to pass identical workload options to both drivers.
+The [second-iteration record](performance-iteration2.md) includes an archived
+runtime and a builder that links the current input generator against that old
+runtime, so new graph shapes can be compared with matching inputs.
+
+For a fresh CPU-reference versus physical-GPU comparison of one executable:
+
+```sh
+python3 scripts/benchmark_cpu_gpu.py --binary build/lv-bench --device-name YOUR_GPU \
+  --rounds 5 --repeat 11 --include-graphs --output results/cpu-gpu-fresh
+```
+
+The output directory must be new. Both backends receive matching seeds and
+inputs; process order alternates. Initialization and cold calls are separate,
+and every timed output is checked outside the timing interval. The runner
+requires the GPU, stops on failure, and includes slower GPU results. Read the
+[published CPU/GPU report](cpu-gpu-benchmark.md) for interpretation limits.
 
 ## 4. Measure complete compiler processes
 

@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+// Bank switching is selected only for matrices large enough to amortize it.
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Off { uint offsets[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Edge { uint edges[]; };
+layout(set = 0, binding = 2, std430) readonly buffer Input {
+  uint input_values[];
+};
+layout(set = 0, binding = 3, std430) writeonly buffer Output {
+  uint output_values[];
+};
+layout(set = 0, binding = 4, std430) readonly buffer Reach { uint reach[]; };
+layout(push_constant) uniform Params {
+  uint cells, words, entry, n, d, e, base, pad;
+}
+p;
+shared uint values[8192];
+shared uint changed;
+void main() {
+  uint t = gl_LocalInvocationID.x;
+  uint source = 0u, destination = 4096u;
+  for (uint i = t; i < p.cells; i += 128u)
+    values[source + i] = input_values[i];
+  barrier();
+  for (uint round = 0u; round <= p.n; ++round) {
+    if (t == 0u)
+      changed = 0u;
+    barrier();
+    for (uint i = t; i < p.cells; i += 128u) {
+      uint v = i / p.words, w = i % p.words, bits = 0u;
+      if (reach[v] != 0u) {
+        if (v == p.entry)
+          bits = w == v / 32u ? 1u << (v % 32u) : 0u;
+        else {
+          bits = 0xffffffffu;
+          for (uint j = offsets[v]; j < offsets[v + 1u]; ++j)
+            if (reach[edges[j]] != 0u)
+              bits &= values[source + edges[j] * p.words + w];
+          if (w == v / 32u)
+            bits |= 1u << (v % 32u);
+        }
+      }
+      values[destination + i] = bits;
+      if (bits != values[source + i])
+        atomicOr(changed, 1u);
+    }
+    barrier();
+    if (changed == 0u)
+      break;
+    // Retain both banks and switch roles instead of copying every cell.
+    source = destination;
+    destination ^= 4096u;
+    barrier();
+  }
+  for (uint i = t; i < p.cells; i += 128u)
+    output_values[i] = values[source + i];
+}

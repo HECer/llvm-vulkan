@@ -17,6 +17,10 @@ struct Options {
   // Optional case-insensitive substring, in addition to device type.
   std::string device_name;
   uint64_t memory_limit_bytes = 512ull * 1024 * 1024;
+  // Capability-gated shaders can be disabled to exercise the baseline paths.
+  bool enable_fast_paths = true;
+  // Timestamp support is queried; devices without it still execute normally.
+  bool enable_timestamps = false;
 };
 enum class FoldOp : uint32_t {
   Add = 0,
@@ -66,6 +70,9 @@ struct alignas(8) Fold64Result {
 struct Graph {
   std::vector<uint32_t> offsets; // n+1 monotonically increasing; starts at zero
   std::vector<uint32_t> edges; // indices in [0,n); offsets.back()==edges.size()
+  // Optional independent contiguous components: starts at 0, ends at n.
+  // Edges must stay within a component. Enables one GPU workgroup per function.
+  std::vector<uint32_t> components;
   size_t nodes() const { return offsets.empty() ? 0 : offsets.size() - 1; }
 };
 struct Stats {
@@ -75,6 +82,15 @@ struct Stats {
   uint64_t iterations = 0;
   uint64_t bytes_uploaded = 0;
   uint64_t bytes_downloaded = 0;
+  uint64_t submissions = 0;
+  uint64_t memory_allocations = 0;
+  uint64_t buffer_reuses = 0;
+  uint64_t allocated_bytes = 0;
+  // GPU-local solvers converge internally; iterations counts host-recorded
+  // rounds.
+  bool gpu_timestamps = false;
+  double device_ms = 0;
+  double fence_wait_ms = 0;
   double wall_ms = 0;
 };
 struct DeviceInfo {
@@ -86,6 +102,8 @@ struct DeviceInfo {
   uint64_t max_storage_buffer_bytes = 0;
   bool supports_int64 = false;
   uint32_t driver_version = 0; // Raw Vulkan vendor-specific encoding.
+  uint32_t subgroup_size = 0;
+  bool supports_subgroup_arithmetic = false;
 };
 
 // Independent, deterministic host reference implementations. No Vulkan calls.

@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) buffer Keys { uint keys[]; };
+layout(push_constant) uniform Params { uint n, a, b, c, d, e, base, pad; }
+p;
+shared uint values[128];
+void main() {
+  uint t = gl_LocalInvocationID.x;
+  values[t] = t < p.n ? keys[t] : 0xffffffffu;
+  barrier();
+  for (uint k = 2u; k <= 128u; k *= 2u)
+    for (uint j = k / 2u; j > 0u; j /= 2u) {
+      uint partner = t ^ j;
+      if (partner > t) {
+        uint x = values[t], y = values[partner];
+        if (((t & k) == 0u && x > y) || ((t & k) != 0u && x < y)) {
+          values[t] = y;
+          values[partner] = x;
+        }
+      }
+      barrier();
+    }
+  if (t < p.n)
+    keys[t] = values[t];
+}

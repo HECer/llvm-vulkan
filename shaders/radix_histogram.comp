@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Keys { uint keys[]; };
+layout(set = 0, binding = 1, std430) writeonly buffer Histograms {
+  uint histograms[];
+};
+layout(push_constant) uniform Params {
+  uint n, shift, blocks, c, d, e, base, pad;
+}
+p;
+shared uint histogram[16];
+void main() {
+  uint t = gl_LocalInvocationID.x, i = p.base + gl_GlobalInvocationID.x;
+  if (t < 16u)
+    histogram[t] = 0u;
+  barrier();
+  if (i < p.n)
+    atomicAdd(histogram[(keys[i] >> p.shift) & 15u], 1u);
+  barrier();
+  if (t < 16u)
+    histograms[t * p.blocks + p.base / 128u + gl_WorkGroupID.x] = histogram[t];
+}

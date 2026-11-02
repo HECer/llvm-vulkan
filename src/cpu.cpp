@@ -7,8 +7,8 @@
 namespace lv::cpu {
 void validate_graph(const Graph &g) {
   if (g.offsets.empty()) {
-    if (!g.edges.empty())
-      throw std::invalid_argument("empty graph has edges");
+    if (!g.edges.empty() || !g.components.empty())
+      throw std::invalid_argument("empty graph has edges or components");
     return;
   }
   if (g.nodes() > UINT32_MAX || g.edges.size() > UINT32_MAX)
@@ -21,6 +21,21 @@ void validate_graph(const Graph &g) {
   for (auto v : g.edges)
     if (v >= g.nodes())
       throw std::invalid_argument("CSR edge is out of range");
+  if (!g.components.empty()) {
+    if (g.components.front() != 0 || g.components.back() != g.nodes())
+      throw std::invalid_argument("invalid graph component boundaries");
+    for (size_t c = 1; c < g.components.size(); ++c) {
+      uint32_t first = g.components[c - 1], end = g.components[c];
+      if (first >= end || end > g.nodes())
+        throw std::invalid_argument(
+            "graph components must be nonempty and ordered");
+      for (uint32_t v = first; v < end; ++v)
+        for (uint32_t e = g.offsets[v]; e < g.offsets[v + 1]; ++e)
+          if (g.edges[e] < first || g.edges[e] >= end)
+            throw std::invalid_argument(
+                "edge crosses independent graph components");
+    }
+  }
 }
 static int64_t signed_value(uint32_t x, uint32_t w) {
   return (x & (uint32_t(1) << (w - 1))) ? int64_t(x) - (int64_t(1) << w)

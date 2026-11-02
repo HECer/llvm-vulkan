@@ -2,7 +2,8 @@
 
 **Experimental work in progress. This repository is an acceleration layer for
 selected LLVM operations. It is not a complete LLVM port, a Rust rewrite of
-LLVM, or a validated faster compiler. Physical GPU testing is outstanding.**
+LLVM, or a validated faster compiler. RTX 5090 core execution is validated;
+physical AMD/Intel testing and whole-compiler GPU measurements remain outstanding.**
 
 The implementation retains LLVM's C++ IR ownership, parser, pass manager,
 legality checks and mutation utilities. Vulkan compute performs selected bulk

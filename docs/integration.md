@@ -157,6 +157,8 @@ these remaining integration gaps.
 | `LV_FOLD_MAX_ROUNDS` | `64` | Maximum constant-fold dependency frontiers. Remaining IR is preserved; `0` disables this transform. |
 | `LV_CSE_BUCKET_LIMIT` | `64` | Bound on stored candidates per hash bucket in one block; `0` suppresses CSE replacements. |
 | `LV_MEMORY_LIMIT_BYTES` | `536870912` | Runtime Vulkan buffer allocation budget passed by the plugin. Driver limits can be lower. |
+| `LV_FAST_PATHS` | `1` | Enable capability-gated subgroup scans, local graph solvers and radix/tiny sorting. `0` exercises baseline shader paths; buffer pooling and combined submissions remain enabled. |
+| `LV_TIMESTAMPS` | `0` | Opt-in device timestamps for profiling. Unsupported timestamp queues continue without device timing. |
 | `LV_SHADER_DIR` | empty | Development override directory for compiled `.spv` files; normal builds use embedded shaders. |
 | `LV_VALIDATION` | `0` | Runtime option: `1` requires `VK_LAYER_KHRONOS_validation`; selected Vulkan API validation errors fail execution. Use for correctness runs, not reported performance runs. |
 
@@ -166,6 +168,27 @@ devices and shader pipelines per compiler worker thread across passes/modules;
 it does not provide a cross-process resident compilation service. Trace values
 separate real Vulkan calls from scalar calls. `none-no-work` means a pass found
 no eligible batch, not that an explicit Vulkan request was silently emulated.
+
+The runtime retains device and staging allocations within the configured budget,
+evicts idle buffers under allocation pressure, and queries `VK_EXT_memory_budget`
+when available. Host-visible buffers stay mapped; non-coherent types use whole
+allocation flushes/invalidations. A synchronous fold/hash/scan/sort normally
+records upload, dispatch and readback in one submission. General graph solvers
+retain their intermediate state and read a convergence flag between batches;
+small solvers converge inside one workgroup without host polling.
+Result allocation for larger readbacks overlaps device execution. Mixed modules
+with one oversized function can retain local convergence for their small
+functions; sparse bounded reachability problems use adaptive batch sizes.
+
+`Graph::components` optionally describes independent contiguous node ranges.
+The runtime validates that edges stay within their ranges. CFG and DCE record
+function boundaries so a module of small functions can launch one workgroup per
+function. Oversized components use the general solver. LLVM still owns all IR
+mutation between passes and fold frontiers.
+
+See [performance.md](performance.md) for memory, subgroup and shared-memory
+requirements and fallback testing, and [performance-iteration2.md](performance-iteration2.md)
+for the latest incremental measurements and matched-baseline reproduction.
 
 ## Language adoption
 

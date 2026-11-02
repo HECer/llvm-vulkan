@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Reach { uint reach[]; };
+layout(set = 0, binding = 1, std430) writeonly buffer Initial {
+  uint initial[];
+};
+layout(push_constant) uniform Params {
+  uint cells, words, entry, n, d, e, base, pad;
+}
+p;
+void main() {
+  uint i = p.base + gl_GlobalInvocationID.x;
+  if (i >= p.cells)
+    return;
+  uint v = i / p.words, w = i % p.words, bits = 0u;
+  if (reach[v] != 0u) {
+    if (v == p.entry)
+      bits = w == v / 32u ? 1u << (v % 32u) : 0u;
+    else
+      for (uint b = 0u; b < 32u; ++b) {
+        uint u = w * 32u + b;
+        if (u < p.n && reach[u] != 0u)
+          bits |= 1u << b;
+      }
+  }
+  initial[i] = bits;
+}

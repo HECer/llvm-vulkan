@@ -3,7 +3,7 @@
   "owner": "HECer",
   "status": "experimental-work-in-progress",
   "full_llvm_port_complete": false,
-  "physical_gpu_tested": false,
+  "physical_gpu_tested": true,
   "published_to_github": true,
   "repository_url": "https://github.com/HECer/llvm-vulkan",
   "upstream_commit": "b8ef6b0ed582fb5a235e7989685f5b188c620dc1",
@@ -35,11 +35,73 @@
     "skipped": 0,
     "failed": 0
   },
-  "native_windows_tested": false,
+  "native_windows_tested": true,
   "remote_ci_run": false,
   "leak_sanitizer_available": false,
   "scalar_integer_fold_width_range": {
     "min": 1,
     "max": 64
+  },
+  "cmake_tests_scope": "LLVM20/24 counts and vulkan_optimization describe earlier snapshots; see vulkan_optimization_iteration2 for latest validation",
+  "vulkan_optimization": {
+    "gpu": "RTX 5090",
+    "windows_core_ctest_passed": 5,
+    "hardware_correctness_seeds": [
+      5090,
+      1,
+      12345
+    ],
+    "hardware_assertions_per_seed": 299084,
+    "lavapipe_subgroup_size": 8,
+    "llvm_plugin_tested": "21.1.8",
+    "llvm_fixtures_passed": 17,
+    "constant_oracle_cases": 8192,
+    "semantic_differential_passed": true,
+    "physical_amd_intel_tested": false,
+    "fresh_llvm24_build_tested": false,
+    "whole_compiler_gpu_speedup_established": false,
+    "evidence": "evidence/vulkan-optimization.json"
+  },
+  "latest_evidence": "evidence/vulkan-iteration2.json",
+  "vulkan_optimization_iteration2": {
+    "validated_at": "2026-11-02",
+    "gpu": "RTX5090",
+    "windows_core_ctest_passed": 6,
+    "hardware_correctness_seeds": [
+      5090,
+      1,
+      12345
+    ],
+    "hardware_assertions_per_seed": 299119,
+    "lavapipe_subgroup_size": 8,
+    "lavapipe_fast_assertions": 299114,
+    "lavapipe_fallback_assertions": 299102,
+    "llvm_plugin_tested": "21.1.8",
+    "llvm_fixtures_passed_per_fast_path_mode": 17,
+    "constant_oracle_cases": 8192,
+    "semantic_differential_passed": true,
+    "baseline_source_archive": "evidence/vulkan-iteration1-source.zip",
+    "core_warm_samples_per_side_per_row": 90,
+    "graph_warm_samples_per_side_per_case": 55,
+    "physical_amd_intel_tested": false,
+    "fresh_llvm24_build_tested": false,
+    "whole_compiler_gpu_speedup_established": false,
+    "evidence": "evidence/vulkan-iteration2.json"
+  },
+  "latest_performance_evidence": "evidence/cpu-vs-gpu-rtx5090.json",
+  "cpu_vs_gpu_benchmark": {
+    "recorded_date": "2026-11-02",
+    "cpu": "Ryzen9 5950X, single-threaded project reference",
+    "gpu": "RTX5090",
+    "cases": 9,
+    "rows": 37,
+    "rounds": 5,
+    "warm_samples_per_backend_per_row": 55,
+    "accepted_warm_samples_both_sides": 4070,
+    "all_outputs_checked": true,
+    "gpu_wins_every_workload": false,
+    "whole_compiler_speedup_established": false,
+    "report": "docs/cpu-gpu-benchmark.md",
+    "evidence": "evidence/cpu-vs-gpu-rtx5090.json"
   }
 }

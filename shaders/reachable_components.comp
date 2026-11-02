@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+// Supports contiguous component boundaries and selected begin/end pairs.
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Off { uint offsets[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Edge { uint edges[]; };
+layout(set = 0, binding = 2, std430) readonly buffer Input {
+  uint input_values[];
+};
+layout(set = 0, binding = 3, std430) writeonly buffer Output {
+  uint output_values[];
+};
+layout(set = 0, binding = 4, std430) readonly buffer Components {
+  uint components[];
+};
+layout(push_constant) uniform Params { uint n, a, b, c, d, e, base, pad; }
+p;
+shared uint before[1024];
+shared uint after[1024];
+shared uint changed;
+void main() {
+  uint t = gl_LocalInvocationID.x;
+  uint group = p.base / 128u + gl_WorkGroupID.x;
+  uint range = group * (p.a + 1u);
+  uint start = components[range], n = components[range + 1u] - start;
+  for (uint v = t; v < n; v += 128u)
+    before[v] = input_values[start + v];
+  barrier();
+  for (uint round = 0u; round <= n; ++round) {
+    if (t == 0u)
+      changed = 0u;
+    barrier();
+    for (uint v = t; v < n; v += 128u) {
+      uint r = before[v];
+      for (uint j = offsets[start + v]; j < offsets[start + v + 1u] && r == 0u;
+           ++j)
+        r |= before[edges[j] - start];
+      after[v] = r;
+      if (r != before[v])
+        atomicOr(changed, 1u);
+    }
+    barrier();
+    if (changed == 0u)
+      break;
+    for (uint v = t; v < n; v += 128u)
+      before[v] = after[v];
+    barrier();
+  }
+  for (uint v = t; v < n; v += 128u)
+    output_values[start + v] = before[v];
+}

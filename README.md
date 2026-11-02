@@ -1,6 +1,6 @@
 # LLVM Vulkan
 
-**Experimental GPU-assisted LLVM compilation — work in progress, physical GPU testing pending.**
+**Experimental GPU-assisted LLVM compilation — RTX 5090 core validated; compiler acceleration remains experimental.**
 
 A C++ implementation of selected compiler calculations as Vulkan compute
 shaders, connected to real LLVM optimization passes. Project owner: **Hermann
@@ -12,6 +12,32 @@ This is a functioning research implementation of scoped acceleration paths,
 **not a complete GPU port of LLVM**. It does not yet establish a compilation
 speedup. Software Vulkan correctness tests are distinct from RTX 5090 hardware
 tests. The full source-wide gap inventory is in [coverage.md](docs/coverage.md).
+
+## Measured performance
+
+The [fresh CPU versus GPU benchmark](docs/cpu-gpu-benchmark.md) compares the same
+Release executable on a Ryzen 9 5950X and RTX 5090. At 1,048,576 elements:
+
+| Workload | CPU median | GPU median | CPU / GPU |
+| --- | ---: | ---: | ---: |
+| Integer fold, 32-bit | 12.657 ms | 4.166 ms | 3.04x |
+| Integer fold, 64-bit | 16.178 ms | 7.103 ms | 2.28x |
+| Exclusive scan | 1.281 ms | 1.469 ms | 0.87x |
+| Sort keys | 55.964 ms | 1.666 ms | 33.59x |
+| Hash records | 3.331 ms | 2.646 ms | 1.26x |
+
+Ratios above one favor the GPU. The CPU wins every tested graph case and all
+1,024-element workloads. The comparator is this project's single-threaded C++
+reference (`std::sort` for sorting), not upstream LLVM or a tuned parallel CPU
+library. GPU times include transfers and readback; initialization is separate.
+The report includes all 37 rows, five alternating process pairs, correctness
+checks and [raw evidence](evidence/cpu-vs-gpu-rtx5090.json).
+
+The [first Vulkan iteration](docs/performance.md) and
+[second iteration](docs/performance-iteration2.md) document the implementation,
+matched earlier-Vulkan comparisons, discarded experiments and compatibility
+limits. These improvements do not establish whole-compiler acceleration or
+physical AMD/Intel performance.
 
 ## What actually executes on Vulkan
 
@@ -27,10 +53,12 @@ Additional **standalone**, tested compute primitives provide dominator bitsets,
 gen/kill liveness, exclusive scans and key sorting. They are not connected to
 LLVM's DominatorTree, register allocator, linker or other consumers yet.
 
-The runtime includes device-local storage, staging upload/readback, explicit
-barriers, cached pipelines, per-thread compiler contexts, iterative graph
-buffers retained on the device, memory-budget checks, dispatch-grid tiling,
-and embedded SPIR-V. No CUDA dependency is required. An explicitly requested
+The runtime includes pooled device-local buffers, persistently mapped staging,
+combined upload/compute/readback submissions, optional GPU timestamps, cached
+pipelines, per-thread compiler contexts, device-resident graph solvers,
+memory-budget checks, dispatch-grid tiling, and embedded SPIR-V. Capability-gated
+subgroup scans and shared-memory solvers retain portable fallback paths; large
+key batches use stable unsigned radix sorting. No CUDA dependency is required. An explicitly requested
 Vulkan backend never reports a scalar fallback as GPU execution.
 
 Unsupported LLVM semantics stay in upstream LLVM: integers wider than 64 bits,
@@ -131,8 +159,12 @@ pwsh -File scripts/Test-Rtx5090.ps1
 The script requires an NVIDIA device whose name contains `5090`, runs three
 seeded correctness suites with validation, then collects CPU and GPU timings
 at multiple batch sizes. It refuses to substitute lavapipe for the requested
-GPU. The Windows runner is provided for your hardware tests; it was not run in
-the Linux development environment.
+GPU. The Windows runner has passed on an RTX 5090 with synchronization
+validation, including the large-dispatch cases. See [performance.md](docs/performance.md)
+for the optimization design, measurements and compatibility limits.
+The [second performance iteration](docs/performance-iteration2.md) records
+additional gains against that optimized baseline and the experiments rejected
+for inconsistent timing.
 
 **Native Linux, core and matching LLVM plugin:** after the build above, remove
 any CPU-only ICD override and run:
@@ -182,9 +214,12 @@ the cost model and profiling requirements.
 
 [validation.md](docs/validation.md) and [evidence](evidence/) record the actual
 local build/test results, versions, limitations and machine-readable reports.
-The final seven-gate CMake suite passes against both LLVM 20.1.2 and the pinned
-LLVM 24 source build. The LLVM 24 run also passes 120 upstream corpus fixtures
-with zero skips; physical GPU validation remains outstanding.
+The earlier implementation passed seven CMake gates against LLVM 20.1.2 and
+the pinned LLVM 24 source build, plus 120 LLVM 24 corpus fixtures with zero
+skips. The Vulkan optimization update is validated on native Windows/RTX 5090
+and Linux/lavapipe, with matching LLVM 21 plugin differential, constant-oracle
+and semantic tests. Physical AMD/Intel validation and a fresh pinned LLVM 24
+run remain outstanding.
 The GitHub workflows provide software Vulkan regression checks and an explicit
 manual source-build gate. Their presence does not mean that GitHub-hosted CI
 or hardware tests have run.

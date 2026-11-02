@@ -1,0 +1,48 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Off { uint offsets[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Edge { uint edges[]; };
+layout(set = 0, binding = 2, std430) readonly buffer Input {
+  uint input_values[];
+};
+layout(set = 0, binding = 3, std430) writeonly buffer Output {
+  uint output_values[];
+};
+layout(set = 0, binding = 4, std430) readonly buffer Gen { uint gen[]; };
+layout(set = 0, binding = 5, std430) readonly buffer Kill { uint kill[]; };
+layout(push_constant) uniform Params {
+  uint cells, words, n, c, d, e, base, pad;
+}
+p;
+shared uint before[4096];
+shared uint after[4096];
+shared uint changed;
+void main() {
+  uint t = gl_LocalInvocationID.x;
+  for (uint i = t; i < p.cells; i += 128u)
+    before[i] = input_values[i];
+  barrier();
+  for (uint round = 0u; round <= p.n; ++round) {
+    if (t == 0u)
+      changed = 0u;
+    barrier();
+    for (uint i = t; i < p.cells; i += 128u) {
+      uint v = i / p.words, w = i % p.words, bits = 0u;
+      for (uint j = offsets[v]; j < offsets[v + 1u]; ++j)
+        bits |= before[edges[j] * p.words + w];
+      bits = gen[i] | (bits & ~kill[i]);
+      after[i] = bits;
+      if (bits != before[i])
+        atomicOr(changed, 1u);
+    }
+    barrier();
+    if (changed == 0u)
+      break;
+    for (uint i = t; i < p.cells; i += 128u)
+      before[i] = after[i];
+    barrier();
+  }
+  for (uint i = t; i < p.cells; i += 128u)
+    output_values[i] = before[i];
+}

@@ -240,6 +240,14 @@ void primitive_tests(lv::Compute &c, std::mt19937 &rng) {
                "sort padded sentinels");
   expect_equal(c.exclusive_scan({UINT32_MAX, 1, 2}),
                std::vector<uint32_t>{0, UINT32_MAX, 0}, "scan wraps");
+  expect_equal(c.sort_keys(std::vector<uint32_t>(1025, UINT32_MAX)),
+               std::vector<uint32_t>(1025, UINT32_MAX),
+               "radix single full bucket");
+  std::vector<uint32_t> descending(4097);
+  for (size_t i = 0; i < descending.size(); ++i)
+    descending[i] = uint32_t(descending.size() - i);
+  expect_equal(c.sort_keys(descending), lv::cpu::sort_keys(descending),
+               "radix descending non-power-of-two input");
   std::vector<uint32_t> words, offsets = {0};
   for (uint32_t i = 0; i < 2000; ++i) {
     for (uint32_t j = 0, n = rng() % 27; j < n; ++j)
@@ -279,21 +287,221 @@ void tiled_dispatch_tests(lv::Compute &c) {
           "reachability crosses dispatch tile boundary");
   require(std::count(result.begin(), result.end(), 1u) == 2,
           "tiled reachability exact closure");
+  lv::Graph components;
+  const uint32_t groups = 65536;
+  components.offsets.assign(size_t(groups) + 1, 0);
+  std::vector<uint32_t> flags(groups);
+  for (uint32_t i = 0; i < groups; ++i) {
+    components.components.push_back(i);
+    flags[i] = i % 2;
+  }
+  components.components.push_back(groups);
+  expect_equal(c.reachable(components, flags), flags,
+               "independent components cross dispatch tile boundary");
+  // The mixed solver uses paired component ranges, a different indexing mode
+  // from the contiguous component list. Exercise its second dispatch tile too.
+  components.offsets.pop_back();
+  for (uint32_t v = 0; v < 1025; ++v) {
+    components.offsets.push_back(uint32_t(components.edges.size()));
+    if (v == 0)
+      for (uint32_t u = 1; u < 1025; ++u)
+        components.edges.push_back(groups + u);
+    flags.push_back(v == 0 ? 1u : 0u);
+  }
+  components.offsets.push_back(uint32_t(components.edges.size()));
+  components.components.push_back(groups + 1025);
+  auto expected = flags;
+  std::fill(expected.begin() + groups, expected.end(), 1u);
+  expect_equal(c.reachable(components, flags), expected,
+               "mixed paired components cross dispatch tile boundary");
   std::cout << "PASS large dispatch-grid tiling at " << n
             << " elements/nodes\n";
 }
+void reuse_and_boundary_tests(lv::Compute &c, std::mt19937 &rng) {
+  for (uint32_t n : {128u, 129u, 65535u, 65536u, 65537u, 131073u}) {
+    std::vector<uint32_t> input(n);
+    for (auto &x : input)
+      x = rng() % 257;
+    input.back() = UINT32_MAX;
+    expect_equal(c.sort_keys(input), lv::cpu::sort_keys(input),
+                 "radix boundary");
+    expect_equal(c.exclusive_scan(input), lv::cpu::exclusive_scan(input),
+                 "scan hierarchy boundary");
+    if (c.last_stats().backend == "vulkan") {
+      require(c.last_stats().submissions == 1, "scan uses one submission");
+      c.exclusive_scan(input);
+      require(c.last_stats().memory_allocations == 0,
+              "warm scan reuses all allocations");
+      require(c.last_stats().buffer_reuses > 0, "warm scan reports reuse");
+    }
+  }
+  // Input contents and sizes change while the same mapped allocations are
+  // reused.
+  for (uint32_t n : {513u, 3u, 513u, 1025u, 513u}) {
+    std::vector<lv::FoldRequest> input(
+        n, {uint32_t(lv::FoldOp::Add), 32, uint32_t(rng()), uint32_t(rng())});
+    auto actual = c.fold(input), expected = lv::cpu::fold(input);
+    for (uint32_t i = 0; i < n; ++i)
+      require(actual[i].value == expected[i].value &&
+                  actual[i].valid == expected[i].valid,
+              "changing pooled fold input");
+    if (c.last_stats().backend == "vulkan")
+      require(c.last_stats().submissions == 1, "fold uses one submission");
+  }
+  // Cross the shared-memory and node-count selection boundaries with shallow
+  // graphs, so both local and multi-dispatch solvers are exercised cheaply.
+  for (uint32_t n : {352u, 353u, 512u, 513u, 1023u, 1024u, 1025u}) {
+    std::vector<std::vector<uint32_t>> adj(n);
+    for (uint32_t v = 1; v < n; ++v)
+      adj[0].push_back(v);
+    auto g = graph(adj);
+    std::vector<uint32_t> seeds(n);
+    seeds[0] = 1;
+    expect_equal(c.reachable(g, seeds), lv::cpu::reachable(g, seeds),
+                 "graph selection boundary");
+    if (n < 514)
+      expect_equal(c.dominators(g, 0), lv::cpu::dominators(g, 0),
+                   "dominator selection boundary");
+    std::vector<uint32_t> gen(size_t(n) * 8), kill(gen.size());
+    gen.back() = 0x80000001u;
+    expect_equal(c.liveness(g, 8, gen, kill),
+                 lv::cpu::liveness(g, 8, gen, kill),
+                 "liveness selection boundary");
+  }
+  if (c.last_stats().backend == "vulkan") {
+    lv::Options tight;
+    tight.device_name = c.device_info().name;
+    tight.memory_limit_bytes = 160 * 1024;
+    tight.enable_timestamps = false;
+    lv::Compute small(tight);
+    rejects([&] { small.exclusive_scan(std::vector<uint32_t>(16384, 1)); },
+            "budget failure after recording upload");
+    auto result = small.fold({{uint32_t(lv::FoldOp::Add), 32, 5, 7}});
+    require(result[0].valid && result[0].value == 12,
+            "recover from abandoned recording");
+    require(!small.last_stats().gpu_timestamps, "timestamps can be disabled");
+    std::vector<uint32_t> keys(1024);
+    for (auto &x : keys)
+      x = rng();
+    expect_equal(small.sort_keys(keys), lv::cpu::sort_keys(keys),
+                 "tight-budget sort");
+    lv::Options warm_options = tight;
+    warm_options.memory_limit_bytes = 512 * 1024;
+    lv::Compute warm(warm_options);
+    lv::Graph isolated;
+    isolated.offsets.assign(16386, 0);
+    std::vector<uint32_t> roots(16385);
+    roots[0] = 1;
+    expect_equal(warm.reachable(isolated, roots), roots,
+                 "large budgeted graph");
+    expect_equal(warm.reachable(isolated, roots), roots,
+                 "repeat budgeted graph");
+    require(warm.last_stats().memory_allocations == 0,
+            "working-set checks preserve reusable idle allocations");
+  }
+  lv::Graph batched;
+  std::vector<uint32_t> seeds;
+  for (uint32_t component = 0; component < 193; ++component) {
+    uint32_t start = uint32_t(seeds.size()), count = 1 + component % 257;
+    batched.components.push_back(start);
+    for (uint32_t v = 0; v < count; ++v) {
+      batched.offsets.push_back(uint32_t(batched.edges.size()));
+      if (v + 1 < count)
+        batched.edges.push_back(start + v + 1);
+      seeds.push_back(v == 0 && component % 3 != 0 ? 1u : 0u);
+    }
+  }
+  batched.offsets.push_back(uint32_t(batched.edges.size()));
+  batched.components.push_back(uint32_t(seeds.size()));
+  expect_equal(c.reachable(batched, seeds), lv::cpu::reachable(batched, seeds),
+               "module-batched independent components");
+  std::cout << "PASS pooled reuse, allocation budgets, recovery and shader "
+               "selection boundaries\n";
+}
+void iteration_two_tests(lv::Compute &c, bool fast_paths) {
+  for (uint32_t large_position : {0u, 2u, 5u}) {
+    for (bool root_large : {false, true}) {
+      lv::Graph g;
+      std::vector<uint32_t> seeds;
+      for (uint32_t part = 0; part < 6; ++part) {
+        uint32_t first = uint32_t(seeds.size()),
+                 count = part == large_position ? 1025 : 257;
+        g.components.push_back(first);
+        for (uint32_t v = 0; v < count; ++v) {
+          g.offsets.push_back(uint32_t(g.edges.size()));
+          if (part == large_position) {
+            if (v == 0)
+              for (uint32_t u = 1; u < count; ++u)
+                g.edges.push_back(first + u);
+          } else {
+            if (v + 1 < count)
+              g.edges.push_back(first + v + 1);
+            if (v > 5 && v % 7 == 0)
+              g.edges.push_back(first + v - 5);
+          }
+          seeds.push_back(
+              v == 0 && (part == large_position ? root_large : part % 3 != 0)
+                  ? 13u
+                  : 0u);
+        }
+      }
+      g.components.push_back(uint32_t(seeds.size()));
+      g.offsets.push_back(uint32_t(g.edges.size()));
+      expect_equal(c.reachable(g, seeds), lv::cpu::reachable(g, seeds),
+                   "mixed component closure");
+      if (fast_paths && c.last_stats().backend == "vulkan") {
+        require(c.last_stats().iterations == 8,
+                "mixed solver only iterates oversized component");
+        require(c.last_stats().submissions == 2,
+                "last-round flag avoids redundant stable batch");
+      }
+    }
+  }
+  if (c.last_stats().backend == "vulkan") {
+    lv::Options options;
+    options.device_name = c.device_info().name;
+    options.enable_fast_paths = false;
+    lv::Compute global(options);
+    for (uint32_t n : {1u, 7u, 8u, 9u, 15u, 16u, 17u, 257u}) {
+      std::vector<std::vector<uint32_t>> adj(n);
+      for (uint32_t v = 0; v + 1 < n; ++v)
+        adj[v].push_back(v + 1);
+      auto g = graph(adj);
+      std::vector<uint32_t> seeds(n);
+      seeds[0] = 1;
+      expect_equal(global.reachable(g, seeds), std::vector<uint32_t>(n, 1),
+                   "last-round convergence boundary");
+      uint32_t expected = 0, batch = 8;
+      while (expected < n) {
+        expected += std::min(batch, n + 16 - expected);
+        batch = std::min(batch * 2, 64u);
+      }
+      require(global.last_stats().iterations == expected,
+              "convergence ends at first stable adaptive batch");
+    }
+  }
+  std::cout
+      << "PASS mixed component positions and last-round convergence flags\n";
+}
 void invalid_tests(lv::Compute &c) {
-  rejects([&] { c.reachable({{1, 1}, {}}, {0}); }, "nonzero CSR start");
-  rejects([&] { c.reachable({{0, 1}, {1}}, {1}); }, "out-of-range edge");
-  rejects([&] { c.reachable({{0, 2, 1}, {0}}, {1, 0}); },
+  rejects([&] { c.reachable({{1, 1}, {}, {}}, {0}); }, "nonzero CSR start");
+  rejects([&] { c.reachable({{0, 1}, {1}, {}}, {1}); }, "out-of-range edge");
+  rejects([&] { c.reachable({{0, 2, 1}, {0}, {}}, {1, 0}); },
           "nonmonotone CSR offsets");
-  rejects([&] { c.reachable({{0, 0}, {}}, {}); }, "wrong seed count");
-  rejects([&] { c.dominators({{0, 0}, {}}, 1); }, "invalid dominator entry");
-  rejects([&] { c.liveness({{0, 0}, {}}, 2, {0}, {0}); },
+  rejects([&] { c.reachable({{0, 0}, {}, {}}, {}); }, "wrong seed count");
+  rejects([&] { c.dominators({{0, 0}, {}, {}}, 1); },
+          "invalid dominator entry");
+  rejects([&] { c.liveness({{0, 0}, {}, {}}, 2, {0}, {0}); },
           "wrong bitset dimensions");
   rejects([&] { c.hash_records({1}, {0, 5, 1}); },
           "hash offset overrun before descent");
   rejects([&] { c.hash_records({1}, {}); }, "missing hash offsets");
+  rejects([&] { c.reachable({{0, 1, 1}, {1}, {0, 1, 2}}, {1, 0}); },
+          "cross-component edge");
+  rejects([&] { c.reachable({{0, 0, 0}, {}, {0, 2, 1, 2}}, {1, 0}); },
+          "unordered graph components");
+  rejects([&] { c.reachable({{0, 0, 0}, {}, {0, 5, 2}}, {1, 0}); },
+          "component boundary outside graph");
   if (c.last_stats().backend == "vulkan") {
     lv::Graph huge;
     huge.offsets.assign(100001, 0);
@@ -306,6 +514,7 @@ void invalid_tests(lv::Compute &c) {
 int main(int argc, char **argv) {
   try {
     lv::Options options;
+    options.enable_timestamps = true;
     uint32_t cases = 48, seed = 5090;
     bool large = false;
     for (int i = 1; i < argc; ++i) {
@@ -346,7 +555,14 @@ int main(int argc, char **argv) {
         cases = uint32_t(std::stoul(value));
       else if (key == "--seed")
         seed = uint32_t(std::stoul(value));
-      else
+      else if (key == "--fast-paths" || key == "--timestamps") {
+        if (value != "0" && value != "1")
+          throw std::runtime_error(key + " must be 0 or 1");
+        if (key == "--fast-paths")
+          options.enable_fast_paths = value == "1";
+        else
+          options.enable_timestamps = value == "1";
+      } else
         throw std::runtime_error("unknown option " + key);
     }
     lv::Compute compute(options);
@@ -364,6 +580,8 @@ int main(int argc, char **argv) {
     fold64_tests(compute, rng);
     graph_tests(compute, rng, cases);
     primitive_tests(compute, rng);
+    reuse_and_boundary_tests(compute, rng);
+    iteration_two_tests(compute, options.enable_fast_paths);
     if (large)
       tiled_dispatch_tests(compute);
     invalid_tests(compute);

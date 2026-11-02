@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Input { uint keys[]; };
+layout(set = 0, binding = 1, std430) readonly buffer Offsets {
+  uint offsets[];
+};
+layout(set = 0, binding = 2, std430) writeonly buffer Output {
+  uint output_keys[];
+};
+layout(push_constant) uniform Params {
+  uint n, shift, blocks, c, d, e, base, pad;
+}
+p;
+// Four uint masks per digit encode the 128 local positions. Local ranks are
+// deterministic and stable without requiring ballot/subgroup extensions.
+shared uint positions[64];
+void main() {
+  uint t = gl_LocalInvocationID.x, i = p.base + gl_GlobalInvocationID.x;
+  if (t < 64u)
+    positions[t] = 0u;
+  barrier();
+  uint key = 0u, digit = 0u;
+  if (i < p.n) {
+    key = keys[i];
+    digit = (key >> p.shift) & 15u;
+    atomicOr(positions[digit * 4u + t / 32u], 1u << (t % 32u));
+  }
+  barrier();
+  if (i < p.n) {
+    uint word = t / 32u, lane = t % 32u, rank = 0u;
+    for (uint w = 0u; w < word; ++w)
+      rank += bitCount(positions[digit * 4u + w]);
+    uint mask = lane == 0u ? 0u : 0xffffffffu >> (32u - lane);
+    rank += bitCount(positions[digit * 4u + word] & mask);
+    uint block = p.base / 128u + gl_WorkGroupID.x;
+    output_keys[offsets[digit * p.blocks + block] + rank] = key;
+  }
+}

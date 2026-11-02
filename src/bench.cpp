@@ -58,7 +58,7 @@ static std::string measure(const std::string &name, size_t items,
                            unsigned repeat, lv::Compute &engine, F run,
                            const R &reference) {
   // The first run includes lazy shader pipeline creation; subsequent runs use
-  // the same device/pipelines but fresh upload/readback buffers, like the API.
+  // the same device/pipelines and pooled scratch/staging allocations.
   auto first = Clock::now();
   if (!equal(run(), reference))
     throw std::runtime_error(name + ": differential mismatch");
@@ -86,6 +86,13 @@ static std::string measure(const std::string &name, size_t items,
       << ",\"warm_max_ms\":" << sorted.back()
       << ",\"dispatches_per_call\":" << stats.dispatches
       << ",\"iterations_per_call\":" << stats.iterations
+      << ",\"submissions_per_call\":" << stats.submissions
+      << ",\"memory_allocations_per_call\":" << stats.memory_allocations
+      << ",\"buffer_reuses_per_call\":" << stats.buffer_reuses
+      << ",\"pooled_allocation_bytes\":" << stats.allocated_bytes
+      << ",\"gpu_timestamps\":" << (stats.gpu_timestamps ? "true" : "false")
+      << ",\"device_ms_last_call\":" << stats.device_ms
+      << ",\"fence_wait_ms_last_call\":" << stats.fence_wait_ms
       << ",\"bytes_uploaded_per_call\":" << stats.bytes_uploaded
       << ",\"bytes_downloaded_per_call\":" << stats.bytes_downloaded
       << ",\"samples_ms\":[";
@@ -108,7 +115,11 @@ static uint32_t number(const std::string &s, uint32_t maximum,
 int main(int argc, char **argv) {
   try {
     lv::Options options;
+    options.enable_timestamps = true;
     uint32_t n = 65536, repeat = 5, seed = 5090, graph_nodes = 257;
+    uint32_t component_count = 64, large_components = 1, large_nodes = 2048;
+    std::string workload = "all", graph_shape = "branched",
+                large_shape = "star";
     bool list = false;
     std::string json_path;
     for (int i = 1; i < argc; ++i) {
@@ -142,10 +153,31 @@ int main(int argc, char **argv) {
         n = number(value(), 16777216, "size (max 16777216)");
       else if (arg == "--repeat")
         repeat = number(value(), 1000, "repeat (max 1000)");
-      else if (arg == "--seed")
+      else if (arg == "--fast-paths" || arg == "--timestamps") {
+        const auto v = value();
+        if (v != "0" && v != "1")
+          throw std::invalid_argument(arg + " must be 0 or 1");
+        if (arg == "--fast-paths")
+          options.enable_fast_paths = v == "1";
+        else
+          options.enable_timestamps = v == "1";
+      } else if (arg == "--seed")
         seed = number(value(), UINT32_MAX, "seed");
       else if (arg == "--graph-nodes")
         graph_nodes = number(value(), 8192, "graph nodes (max 8192)");
+      else if (arg == "--workload")
+        workload = value();
+      else if (arg == "--graph-shape")
+        graph_shape = value();
+      else if (arg == "--large-shape")
+        large_shape = value();
+      else if (arg == "--components")
+        component_count = number(value(), 1024, "components (max 1024)");
+      else if (arg == "--large-components")
+        large_components = number(value(), 64, "large components (max 64)");
+      else if (arg == "--large-nodes")
+        large_nodes =
+            number(value(), 1048576, "large component nodes (max 1048576)");
       else if (arg == "--shader-dir")
         options.shader_dir = value();
       else if (arg == "--json")
@@ -159,6 +191,13 @@ int main(int argc, char **argv) {
             << "  [--size N] [--graph-nodes N] [--repeat N] [--seed N] [--json "
                "path]\n"
             << "  [--list-devices] [--shader-dir path]\n"
+            << "  [--fast-paths 0|1] [--timestamps 0|1]\n"
+            << "  [--workload "
+               "all|integer-fold|integer-fold64|reachability|dominators|"
+               "liveness|exclusive-scan|sort-keys|hash-records]\n"
+            << "  [--graph-shape branched|independent|mixed] [--components N]\n"
+            << "  [--large-components N] [--large-nodes N] [--large-shape "
+               "star|chain]\n"
             << "JSON timings include host orchestration, transfers and "
                "readback.\n"
             << "CPU is a scalar reference, not an optimized LLVM baseline.\n";
@@ -180,12 +219,37 @@ int main(int argc, char **argv) {
                   << ",\"driver_version_raw\":" << d.driver_version
                   << ",\"device_id\":" << d.device_id << ",\"supports_int64\":"
                   << (d.supports_int64 ? "true" : "false")
+                  << ",\"subgroup_size\":" << d.subgroup_size
+                  << ",\"supports_subgroup_arithmetic\":"
+                  << (d.supports_subgroup_arithmetic ? "true" : "false")
                   << ",\"max_storage_buffer_bytes\":"
                   << d.max_storage_buffer_bytes << "}";
       }
       std::cout << "]\n";
       return 0;
     }
+    const std::vector<std::string> names = {
+        "all",         "integer-fold", "integer-fold64", "reachability",
+        "dominators",  "liveness",     "exclusive-scan", "sort-keys",
+        "hash-records"};
+    if (std::find(names.begin(), names.end(), workload) == names.end())
+      throw std::invalid_argument("Unknown workload " + workload);
+    if (graph_shape != "branched" && graph_shape != "independent" &&
+        graph_shape != "mixed")
+      throw std::invalid_argument("Unknown graph shape " + graph_shape);
+    if (large_shape != "star" && large_shape != "chain")
+      throw std::invalid_argument("--large-shape must be star or chain");
+    if (graph_shape != "branched" && workload != "reachability")
+      throw std::invalid_argument(
+          "Component graph benchmarks require --workload reachability");
+    if (graph_shape != "branched" &&
+        uint64_t(graph_nodes) * component_count +
+                (graph_shape == "mixed"
+                     ? uint64_t(large_nodes) * large_components
+                     : 0) >
+            16777216)
+      throw std::invalid_argument(
+          "Component graph exceeds 16777216 total nodes");
     std::mt19937 rng(seed);
     std::vector<lv::FoldRequest> requests(n);
     std::vector<lv::Fold64Request> wide_requests(n);
@@ -226,44 +290,78 @@ int main(int argc, char **argv) {
       kill[2 * i + 1] = rng();
     }
     graph.offsets.push_back(static_cast<uint32_t>(graph.edges.size()));
+    if (graph_shape != "branched") {
+      graph = {};
+      seeds.clear();
+      auto append = [&](uint32_t count, bool chain, bool rooted) {
+        const uint32_t first = uint32_t(seeds.size());
+        graph.components.push_back(first);
+        for (uint32_t v = 0; v < count; ++v) {
+          graph.offsets.push_back(uint32_t(graph.edges.size()));
+          if (chain) {
+            if (v + 1 < count)
+              graph.edges.push_back(first + v + 1);
+          } else if (v == 0) {
+            for (uint32_t u = 1; u < count; ++u)
+              graph.edges.push_back(first + u);
+          }
+          seeds.push_back(v == 0 && rooted ? 1u : 0u);
+        }
+      };
+      for (uint32_t c = 0; c < component_count; ++c)
+        append(graph_nodes, true, c % 3 != 0);
+      if (graph_shape == "mixed")
+        for (uint32_t c = 0; c < large_components; ++c)
+          append(large_nodes, large_shape == "chain", true);
+      graph.components.push_back(uint32_t(seeds.size()));
+      graph.offsets.push_back(uint32_t(graph.edges.size()));
+    }
     auto init = Clock::now();
     lv::Compute engine(options);
     double init_ms = elapsed(init);
     std::vector<std::string> rows;
-    rows.push_back(measure(
-        "integer-fold", n, repeat, engine,
-        [&] { return engine.fold(requests); }, lv::cpu::fold(requests)));
-    if (engine.device_info().supports_int64)
+    if (workload == "all" || workload == "integer-fold")
+      rows.push_back(measure(
+          "integer-fold", n, repeat, engine,
+          [&] { return engine.fold(requests); }, lv::cpu::fold(requests)));
+    if ((workload == "all" || workload == "integer-fold64") &&
+        engine.device_info().supports_int64)
       rows.push_back(measure(
           "integer-fold64", n, repeat, engine,
           [&] { return engine.fold64(wide_requests); },
           lv::cpu::fold64(wide_requests)));
-    else
+    else if (workload == "all" || workload == "integer-fold64")
       rows.push_back("{\"name\":\"integer-fold64\",\"skipped\":true,\"reason\":"
                      "\"device lacks shaderInt64\"}");
-    rows.push_back(measure(
-        "reachability", graph_nodes, repeat, engine,
-        [&] { return engine.reachable(graph, seeds); },
-        lv::cpu::reachable(graph, seeds)));
-    rows.push_back(measure(
-        "dominators", graph_nodes, repeat, engine,
-        [&] { return engine.dominators(graph, 0); },
-        lv::cpu::dominators(graph, 0)));
-    rows.push_back(measure(
-        "liveness", graph_nodes, repeat, engine,
-        [&] { return engine.liveness(graph, 2, gen, kill); },
-        lv::cpu::liveness(graph, 2, gen, kill)));
-    rows.push_back(measure(
-        "exclusive-scan", n, repeat, engine,
-        [&] { return engine.exclusive_scan(keys); },
-        lv::cpu::exclusive_scan(keys)));
-    rows.push_back(measure(
-        "sort-keys", n, repeat, engine, [&] { return engine.sort_keys(keys); },
-        lv::cpu::sort_keys(keys)));
-    rows.push_back(measure(
-        "hash-records", n, repeat, engine,
-        [&] { return engine.hash_records(keys, offsets); },
-        lv::cpu::hash_records(keys, offsets)));
+    if (workload == "all" || workload == "reachability")
+      rows.push_back(measure(
+          "reachability", graph.nodes(), repeat, engine,
+          [&] { return engine.reachable(graph, seeds); },
+          lv::cpu::reachable(graph, seeds)));
+    if (workload == "all" || workload == "dominators")
+      rows.push_back(measure(
+          "dominators", graph_nodes, repeat, engine,
+          [&] { return engine.dominators(graph, 0); },
+          lv::cpu::dominators(graph, 0)));
+    if (workload == "all" || workload == "liveness")
+      rows.push_back(measure(
+          "liveness", graph_nodes, repeat, engine,
+          [&] { return engine.liveness(graph, 2, gen, kill); },
+          lv::cpu::liveness(graph, 2, gen, kill)));
+    if (workload == "all" || workload == "exclusive-scan")
+      rows.push_back(measure(
+          "exclusive-scan", n, repeat, engine,
+          [&] { return engine.exclusive_scan(keys); },
+          lv::cpu::exclusive_scan(keys)));
+    if (workload == "all" || workload == "sort-keys")
+      rows.push_back(measure(
+          "sort-keys", n, repeat, engine,
+          [&] { return engine.sort_keys(keys); }, lv::cpu::sort_keys(keys)));
+    if (workload == "all" || workload == "hash-records")
+      rows.push_back(measure(
+          "hash-records", n, repeat, engine,
+          [&] { return engine.hash_records(keys, offsets); },
+          lv::cpu::hash_records(keys, offsets)));
     std::ostringstream out;
     out << std::setprecision(10)
         << "{\n  \"schema_version\":1,\n  \"project\":\"llvm-vulkan\",\n  "
@@ -286,6 +384,11 @@ int main(int argc, char **argv) {
         << engine.device_info().api_version
         << ",\n  \"driver_version_raw\":" << engine.device_info().driver_version
         << ",\n  \"device_initialization_ms\":" << init_ms
+        << ",\n  \"workload_requested\":" << quote(workload)
+        << ",\n  \"graph_shape\":" << quote(graph_shape)
+        << ",\n  \"graph_nodes\":" << graph.nodes()
+        << ",\n  \"graph_components\":"
+        << (graph.components.empty() ? 0 : graph.components.size() - 1)
         << ",\n  \"seed\":" << seed << ",\n  \"workloads\":[\n";
     for (size_t i = 0; i < rows.size(); ++i)
       out << "    " << rows[i] << (i + 1 == rows.size() ? "\n" : ",\n");

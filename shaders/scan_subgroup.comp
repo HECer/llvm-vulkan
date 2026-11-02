@@ -1,0 +1,43 @@
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+#version 450
+#extension GL_KHR_shader_subgroup_basic : require
+#extension GL_KHR_shader_subgroup_arithmetic : require
+layout(local_size_x = 128) in;
+layout(set = 0, binding = 0, std430) readonly buffer Input {
+  uint input_values[];
+};
+layout(set = 0, binding = 1, std430) writeonly buffer Output {
+  uint output_values[];
+};
+layout(set = 0, binding = 2, std430) writeonly buffer Sums { uint sums[]; };
+layout(push_constant) uniform Params { uint n, a, b, c, d, e, base, pad; }
+p;
+shared uint counts[128];
+shared uint totals[128];
+void main() {
+  // Derive a dense logical index from active lanes rather than assuming that
+  // local invocation IDs map to subgroup lanes, or that subgroup size is 32.
+  uint lane = subgroupExclusiveAdd(1u);
+  uint count = subgroupAdd(1u);
+  if (subgroupElect())
+    counts[gl_SubgroupID] = count;
+  barrier();
+  uint offset = 0u;
+  for (uint g = 0u; g < gl_SubgroupID; ++g)
+    offset += counts[g];
+  uint block = p.base / 128u + gl_WorkGroupID.x;
+  uint i = block * 128u + offset + lane;
+  uint value = i < p.n ? input_values[i] : 0u;
+  uint prefix = subgroupExclusiveAdd(value);
+  uint total = subgroupAdd(value);
+  if (subgroupElect())
+    totals[gl_SubgroupID] = total;
+  barrier();
+  uint block_prefix = 0u;
+  for (uint g = 0u; g < gl_SubgroupID; ++g)
+    block_prefix += totals[g];
+  if (i < p.n)
+    output_values[i] = block_prefix + prefix;
+  if (gl_SubgroupID + 1u == gl_NumSubgroups && subgroupElect())
+    sums[block] = block_prefix + total;
+}
